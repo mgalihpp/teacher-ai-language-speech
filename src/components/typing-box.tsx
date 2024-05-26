@@ -92,7 +92,7 @@ const TypingBox = () => {
             type="text"
             name="ask"
             id="ask"
-            className="flex-grow rounded-full bg-slate-800/60 
+            className="flex-grow max-sm:w-full rounded-full bg-slate-800/60 
           p-2 px-4 text-white shadow-inner shadow-slate-900/60 placeholder:text-white/50 focus:outline focus:outline-white/80 max-sm:placeholder:text-xs
           "
             placeholder="Pernahkan kamu ke Indonesia?"
