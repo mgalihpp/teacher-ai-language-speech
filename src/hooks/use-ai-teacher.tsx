@@ -19,7 +19,7 @@ interface AiTeacherState {
   setIndonesia: (state: boolean) => void;
   setSpeech: (speech: Speech) => void;
   // askAi: (question: string) => void;
-  playAudioTTS: (message: Word[]) => Promise<void>;
+  playAudioTTS: (message: Word[]) => Promise<HTMLAudioElement | undefined>;
   stopAudioTTS: (message: Message) => void;
 }
 
@@ -58,36 +58,49 @@ export const useAiTeacher = create<AiTeacherState>((set, get) => ({
   setSpeech: (speech) => set({ speech }),
   // askAi: async (question) => {},
   currentMessage: null,
-  playAudioTTS: async (english) => {
-    const url = "https://api.v6.unrealspeech.com/stream";
+  playAudioTTS: (english) => {
+    return new Promise((resolve, reject) => {
+      const url = "https://api.v6.unrealspeech.com/stream";
 
-    const options = {
-      method: "POST",
-      headers: {
-        accept: "text/plain",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${env.NEXT_PUBLIC_UNREAL_SPEECH_API_KEY}`,
-      },
-      body: JSON.stringify({
-        Text: english.map((word) => word.word).join(" "),
-        VoiceId: "Liv",
-      }),
-    };
+      const options = {
+        method: "POST",
+        headers: {
+          accept: "text/plain",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${env.NEXT_PUBLIC_UNREAL_SPEECH_API_KEY}`,
+        },
+        body: JSON.stringify({
+          Text: english.map((word) => word.word).join(" "),
+          VoiceId: "Liv",
+        }),
+      };
 
-    try {
-      const res = await fetch(url, options);
+      fetch(url, options)
+        .then((res) => res.blob())
+        .then((data) => {
+          const audioUrl = URL.createObjectURL(data);
+          const audioPlayer = new Audio(audioUrl);
+          audioPlayer.currentTime = 0;
 
-      const data = await res.blob();
-      const audioUrl = URL.createObjectURL(data);
-      const audioPlayer = new Audio(audioUrl);
+          audioPlayer.play().catch((error) => reject(error));
 
-      audioPlayer.currentTime = 0;
-
-      audioPlayer.play().catch((error) => console.log(error));
-    } catch (error) {
-      console.log(error, "error");
-    }
+          audioPlayer.onended = () => {
+            set(() => ({
+              currentMessage: null,
+            }));
+          };
+          resolve(audioPlayer);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
   },
-  stopAudioTTS: (message) => {},
+  stopAudioTTS: (english) => {
+    english.audioPlayer?.pause();
+    set(() => ({
+      currentMessage: null,
+    }));
+  },
   setLoading: (state) => set({ loading: state }),
 }));

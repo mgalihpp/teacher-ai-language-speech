@@ -84,7 +84,7 @@ const CameraManager = () => {
       controls.current?.setPosition(...CAMERA_POSITION.speaking, true);
       controls.current?.zoomTo(CAMERA_ZOOMS.speaking, true);
     }
-  }, [loading]);
+  }, [currentMessage, loading]);
 
   useControls("Helper", {
     getCameraPosition: button(() => {
@@ -96,8 +96,6 @@ const CameraManager = () => {
       }
     }),
   });
-
-  console.log(controls);
 
   return (
     <CameraControls

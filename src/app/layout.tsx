@@ -4,6 +4,8 @@ import { GeistSans } from "geist/font/sans";
 
 import { TRPCReactProvider } from "@/trpc/react";
 
+import { Toaster } from "sonner";
+
 export const metadata = {
   title: "AI Sensei",
   description: "Learn Japanese with AI Sensei",
@@ -19,6 +21,7 @@ export default function RootLayout({
     <html lang="en" className={`${GeistSans.variable}`}>
       <body>
         <TRPCReactProvider>{children}</TRPCReactProvider>
+        <Toaster position="top-center" richColors />
       </body>
     </html>
   );

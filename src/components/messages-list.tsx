@@ -1,5 +1,5 @@
 import { useAiTeacher } from "@/hooks/use-ai-teacher";
-import { memo, useRef } from "react";
+import { memo, useEffect, useRef } from "react";
 
 const MessagesList = () => {
   const { currentMessage, messages, classroom, playAudioTTS, stopAudioTTS } =
@@ -7,12 +7,19 @@ const MessagesList = () => {
 
   const container = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    container.current?.scrollTo({
+      top: container.current?.scrollHeight,
+      behavior: "smooth",
+    });
+  }, [messages.length]);
+
   const renderIndonesia = (text: string) => (
     <>
       {text && (
         <p
-          className="inline-block rounded-sm bg-gradient-to-br from-blue-300/90 to-white/90 bg-clip-text 
-            px-2 text-4xl font-bold text-transparent
+          className="inline-block w-fit rounded-sm bg-gradient-to-br from-blue-300/90 to-white/90 
+            bg-clip-text px-2 text-4xl font-bold text-transparent
             "
         >
           {text}
@@ -22,7 +29,7 @@ const MessagesList = () => {
   );
 
   const renderEnglish = (english: Word[]) => (
-    <p className="mt-2 flex flex-wrap gap-2 font-mono text-4xl font-bold text-white">
+    <p className="mt-2 flex w-fit flex-wrap gap-2 font-mono text-4xl font-bold text-white">
       {english.map((word, index) => (
         <span key={index} className="flex flex-col items-center justify-end">
           {word.reading && (
@@ -103,7 +110,7 @@ const MessagesList = () => {
             ) : (
               <button
                 className="text-white/65"
-                onClick={() => playAudioTTS(message)}
+                onClick={() => playAudioTTS(message.answer.english)}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -139,7 +146,57 @@ const MessagesList = () => {
             >
               Grammar Breakdown
             </span>
-            <div className="grid grid-cols-4 items-center justify-start">
+            <div className="flex w-full flex-row">
+              {message.answer.grammarBreakdown.map((grammar, index) => (
+                <div className="mt-3 w-fit" key={index}>
+                  {message.answer.grammarBreakdown.length > 1 ? (
+                    <>
+                      <div className="flex w-fit flex-col">
+                        {renderIndonesia(grammar.indonesia)}
+                        {renderEnglish(grammar.english)}
+                      </div>
+
+                      <div className="mt-3 flex w-fit flex-row flex-wrap gap-3">
+                        {grammar.chunks.map((chunk, index) => (
+                          <div
+                            className="bg-blank/30 rounded-md p-2"
+                            key={index}
+                          >
+                            <p className="font-mono text-4xl text-white/90">
+                              {renderEnglish(chunk.english)}
+                            </p>
+                            <p className="text-2xl text-pink-300/90">
+                              {chunk.meaning}
+                            </p>
+                            <p className="text-2xl text-blue-400/90">
+                              {chunk.grammar}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </>
+                  ) : (
+                    <div className="mt-3 flex w-full flex-row flex-wrap gap-3">
+                      {grammar.chunks.map((chunk, index) => (
+                        <div className="bg-blank/30 rounded-md p-2" key={index}>
+                          <p className="font-mono text-4xl text-white/90">
+                            {renderEnglish(chunk.english)}
+                          </p>
+                          <p className="text-2xl text-pink-300/90">
+                            {chunk.meaning}
+                          </p>
+                          <p className="text-2xl text-blue-400/90">
+                            {chunk.grammar}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {/* <div className="grid grid-cols-4 items-start justify-center">
               {message.answer.grammarBreakdown.map((grammar, index) => (
                 <div className="mt-3" key={index}>
                   {message.answer.grammarBreakdown.length > 1 && (
@@ -149,7 +206,7 @@ const MessagesList = () => {
                     </>
                   )}
 
-                  <div className="mt-3 flex flex-wrap items-end gap-3">
+                  <div className="mt-3 flex flex-wrap items-end gap-3 w-full flex-row">
                     {grammar.chunks.map((chunk, index) => (
                       <div className="bg-blank/30 rounded-md p-2" key={index}>
                         <p className="font-mono text-4xl text-white/90">
@@ -166,7 +223,7 @@ const MessagesList = () => {
                   </div>
                 </div>
               ))}
-            </div>
+            </div> */}
           </div>
         </div>
       ))}

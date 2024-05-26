@@ -7,6 +7,7 @@ type Message = {
   id: number;
   speech: Speech;
   answer: Answer;
+  audioPlayer?: HTMLAudioElement;
 };
 
 type Answer = {

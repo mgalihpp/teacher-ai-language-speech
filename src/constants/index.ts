@@ -69,8 +69,8 @@ export const formalSpeechExample: SpeechExample = {
     },
     {
       word: "?",
-      reading: '?'
-    }
+      reading: "?",
+    },
   ],
   grammarBreakdown: [
     {

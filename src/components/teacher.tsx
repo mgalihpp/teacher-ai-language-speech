@@ -3,11 +3,7 @@ import { useAiTeacher } from "@/hooks/use-ai-teacher";
 import { Html, useAnimations, useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import React, { useEffect, useRef, useState } from "react";
-import {
-  MathUtils,
-  MeshStandardMaterial,
-  SkinnedMesh,
-} from "three";
+import { MathUtils, MeshStandardMaterial, SkinnedMesh } from "three";
 import { randInt } from "three/src/math/MathUtils.js";
 
 interface TeacherProps {
@@ -20,7 +16,7 @@ interface TeacherProps {
 export const Teacher: React.FC<TeacherProps> = ({ teacher, ...props }) => {
   const group = useRef(null);
   const { scene } = useGLTF(`/models/Teacher_${teacher}.glb`);
-  const { loading } = useAiTeacher();
+  const { loading, currentMessage } = useAiTeacher();
 
   useEffect(() => {
     scene.traverse((child) => {
@@ -36,7 +32,6 @@ export const Teacher: React.FC<TeacherProps> = ({ teacher, ...props }) => {
   }, [scene]);
 
   const [thinkingText, setThinkingText] = useState(".");
-  const [currentMessage, setCurrentMessage] = useState();
   const { animations } = useGLTF(`/models/animations_${teacher}.glb`);
   const { actions, mixer } = useAnimations(animations, group);
   const [animation, setAnimation] = useState("Idle");

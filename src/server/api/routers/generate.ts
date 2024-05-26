@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-base-to-string */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { formalSpeechExample } from "@/constants";
 import { groq } from "@/lib/groq";
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
@@ -24,7 +26,7 @@ export const generateRouter = createTRPCRouter({
                     the student question. Your student asks you how to say something 
                     from Bahasa Indonesia to English. You Should Response with:
                     - Bahasa Indonesia: the bahasa version ex: "Apakah kamu tinggal di Indonesia ?" 
-                    - English: the english version ex: ${JSON.stringify(speechExample)}`,
+                    - English: the english version ex: ${speechExample}`,
           },
           {
             role: "system",
