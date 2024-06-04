@@ -2,7 +2,7 @@ import { ANIMATION_FADE_TIME, TEACHERS } from "@/constants";
 import { useAiTeacher } from "@/hooks/use-ai-teacher";
 import { Html, useAnimations, useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { MathUtils, MeshStandardMaterial, SkinnedMesh } from "three";
 import { randInt } from "three/src/math/MathUtils.js";
 
@@ -17,6 +17,8 @@ export const Teacher: React.FC<TeacherProps> = ({ teacher, ...props }) => {
   const group = useRef(null);
   const { scene } = useGLTF(`/models/Teacher_${teacher}.glb`);
   const { loading, currentMessage } = useAiTeacher();
+
+  const memoModel = useMemo(() => scene, [scene]);
 
   useEffect(() => {
     scene.traverse((child) => {
@@ -140,7 +142,7 @@ export const Teacher: React.FC<TeacherProps> = ({ teacher, ...props }) => {
           </div>
         </Html>
       )}
-      <primitive object={scene} />
+      <primitive object={memoModel} />
     </group>
   );
 };

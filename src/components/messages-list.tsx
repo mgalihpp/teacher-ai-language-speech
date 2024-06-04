@@ -1,5 +1,7 @@
 import { useAiTeacher } from "@/hooks/use-ai-teacher";
 import { memo, useEffect, useRef } from "react";
+import MessageRenderIndonesia from "./message-render/message-render-indonesia";
+import MessageRenderEnglish from "./message-render/message-render-english";
 
 const MessagesList = () => {
   const { currentMessage, messages, classroom, playAudioTTS, stopAudioTTS } =
@@ -13,33 +15,6 @@ const MessagesList = () => {
       behavior: "smooth",
     });
   }, [messages.length]);
-
-  const renderIndonesia = (text: string) => (
-    <>
-      {text && (
-        <p
-          className="inline-block w-fit rounded-sm bg-gradient-to-br from-blue-300/90 to-white/90 
-            bg-clip-text px-2 text-4xl font-bold text-transparent
-            "
-        >
-          {text}
-        </p>
-      )}
-    </>
-  );
-
-  const renderEnglish = (english: Word[]) => (
-    <p className="mt-2 flex w-fit flex-wrap gap-2 font-mono text-4xl font-bold text-white">
-      {english.map((word, index) => (
-        <span key={index} className="flex flex-col items-center justify-end">
-          {word.reading && (
-            <span className="text-2xl text-white/65">{word.reading}</span>
-          )}
-          {word.word}
-        </span>
-      ))}
-    </p>
-  );
 
   return (
     <div
@@ -77,10 +52,10 @@ const MessagesList = () => {
                 >
                   {message.speech}
                 </span>
-                {renderIndonesia(message.answer.indonesia)}
+                <MessageRenderIndonesia text={message.answer.indonesia} />
               </div>
 
-              {renderEnglish(message.answer.english)}
+              <MessageRenderEnglish english={message.answer.english} />
             </div>
             {currentMessage === message ? (
               <button
@@ -152,8 +127,9 @@ const MessagesList = () => {
                   {message.answer.grammarBreakdown.length > 1 ? (
                     <>
                       <div className="flex w-fit flex-col">
-                        {renderIndonesia(grammar.indonesia)}
-                        {renderEnglish(grammar.english)}
+                        {/* {messageRenderIndonesia({ text: grammar.indonesia })} */}
+                        <MessageRenderIndonesia text={grammar.indonesia} />
+                        <MessageRenderEnglish english={grammar.english} />
                       </div>
 
                       <div className="mt-3 flex w-fit flex-row flex-wrap gap-3">
@@ -163,7 +139,7 @@ const MessagesList = () => {
                             key={index}
                           >
                             <p className="font-mono text-4xl text-white/90">
-                              {renderEnglish(chunk.english)}
+                              <MessageRenderEnglish english={chunk.english} />
                             </p>
                             <p className="text-2xl text-pink-300/90">
                               {chunk.meaning}
@@ -180,7 +156,7 @@ const MessagesList = () => {
                       {grammar.chunks.map((chunk, index) => (
                         <div className="bg-blank/30 rounded-md p-2" key={index}>
                           <p className="font-mono text-4xl text-white/90">
-                            {renderEnglish(chunk.english)}
+                            <MessageRenderEnglish english={chunk.english} />
                           </p>
                           <p className="text-2xl text-pink-300/90">
                             {chunk.meaning}
@@ -195,35 +171,6 @@ const MessagesList = () => {
                 </div>
               ))}
             </div>
-
-            {/* <div className="grid grid-cols-4 items-start justify-center">
-              {message.answer.grammarBreakdown.map((grammar, index) => (
-                <div className="mt-3" key={index}>
-                  {message.answer.grammarBreakdown.length > 1 && (
-                    <>
-                      {renderIndonesia(grammar.indonesia)}
-                      {renderEnglish(grammar.english)}
-                    </>
-                  )}
-
-                  <div className="mt-3 flex flex-wrap items-end gap-3 w-full flex-row">
-                    {grammar.chunks.map((chunk, index) => (
-                      <div className="bg-blank/30 rounded-md p-2" key={index}>
-                        <p className="font-mono text-4xl text-white/90">
-                          {renderEnglish(chunk.english)}
-                        </p>
-                        <p className="text-2xl text-pink-300/90">
-                          {chunk.meaning}
-                        </p>
-                        <p className="text-2xl text-blue-400/90">
-                          {chunk.grammar}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div> */}
           </div>
         </div>
       ))}

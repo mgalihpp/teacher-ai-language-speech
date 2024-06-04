@@ -1,4 +1,4 @@
-import { Experience } from "@/components/experience";
+import Experience from "@/components/experience";
 
 export default async function Home() {
   return (

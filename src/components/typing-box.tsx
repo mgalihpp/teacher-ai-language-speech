@@ -2,13 +2,14 @@
 
 import { useAiTeacher } from "@/hooks/use-ai-teacher";
 import { api } from "@/trpc/react";
+import Link from "next/link";
 import React, { memo, useState } from "react";
 import { toast } from "sonner";
 
 const TypingBox = () => {
   const { loading, setMessages, setLoading, playAudioTTS } = useAiTeacher();
   const [question, setQuestion] = useState<string>("");
-  const { mutate: askAi } = api.generate.chat.useMutation();
+  const { mutate: askAi, isPending } = api.generate.chat.useMutation();
 
   const ask = async () => {
     setLoading(true);
@@ -22,7 +23,8 @@ const TypingBox = () => {
       {
         onError(error) {
           // toast
-          toast.error(error.message);
+          toast.error("Something went wrong!, please try again later");
+          console.log(error.message);
           setLoading(false);
         },
         onSuccess: (data) => {
@@ -31,6 +33,7 @@ const TypingBox = () => {
             data,
           ) as AiResponse;
 
+          // play the audio based on the answer
           playAudioTTS(english)
             .then((audioPlayer) => {
               setMessages({
@@ -47,12 +50,15 @@ const TypingBox = () => {
             })
             .catch((error) => {
               console.log(error);
+            })
+            .finally(() => {
+              setLoading(false);
             });
-
-          setLoading(false);
         },
       },
     );
+
+    // reset question
     setQuestion("");
   };
 
@@ -63,9 +69,20 @@ const TypingBox = () => {
     to-slate-400/30 p-4 backdrop-blur-md"
     >
       <div>
-        <h2 className="text-xl font-bold text-white">
-          How to say in English ?
-        </h2>
+        <div className="flex items-center justify-between">
+          <h2 className="text-xl font-bold text-white">
+            How to say in English ?
+          </h2>
+
+          <Link
+            href="/buy-credits"
+            className="flex items-center gap-1 rounded-full 
+          bg-slate-900/40 p-2 text-white max-sm:p-1 max-sm:text-xs"
+          >
+            <span>0</span>
+            <span>Credits</span>
+          </Link>
+        </div>
         <p className="text-white/65 max-sm:text-xs">
           Ketik sebuah kalimat yang ingin diucapkan dalam bahasa Inggris and
           Guru ai akan mengterjemahkannya untuk kamu.
@@ -106,6 +123,7 @@ const TypingBox = () => {
           />
           <button
             onClick={ask}
+            disabled={isPending}
             className="rounded-full bg-slate-100/20 p-2 px-6 text-white max-sm:w-full"
           >
             Ask
