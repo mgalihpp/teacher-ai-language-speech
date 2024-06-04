@@ -62,6 +62,8 @@ export const useAiTeacher = create<AiTeacherState>((set, get) => ({
     return new Promise((resolve, reject) => {
       const url = "https://api.v6.unrealspeech.com/stream";
 
+      const currentTeacher = get().teacher;
+
       const options = {
         method: "POST",
         headers: {
@@ -71,7 +73,7 @@ export const useAiTeacher = create<AiTeacherState>((set, get) => ({
         },
         body: JSON.stringify({
           Text: english.map((word) => word.word).join(" "),
-          VoiceId: "Liv",
+          VoiceId: currentTeacher === "Nanami" ? "Liv" : "Dan",
         }),
       };
 
