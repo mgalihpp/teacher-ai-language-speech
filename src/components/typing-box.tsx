@@ -1,18 +1,34 @@
 "use client";
 
 import { useAiTeacher } from "@/hooks/use-ai-teacher";
+import { useModal } from "@/hooks/use-modal";
 import { api } from "@/trpc/react";
-import Link from "next/link";
-import React, { memo, useState } from "react";
+import { useSession } from "next-auth/react";
+import React, { memo, useEffect, useState } from "react";
 import { toast } from "sonner";
+import Credits from "./credits";
 
-const TypingBox = () => {
-  const { loading, setMessages, setLoading, playAudioTTS } = useAiTeacher();
+const TypingBox = ({ credits }: { credits: number | null }) => {
+  const { data: session } = useSession();
+  const {
+    loading,
+    credits: userCredits,
+    setCredits,
+    setMessages,
+    setLoading,
+    playAudioTTS,
+  } = useAiTeacher();
+  const { setOpen } = useModal();
   const [question, setQuestion] = useState<string>("");
   const { mutate: askAi, isPending } = api.generate.chat.useMutation();
 
+  useEffect(() => {
+    setCredits(credits ?? 0);
+  }, [credits]);
+
   const ask = async () => {
     setLoading(true);
+    setCredits(-1);
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     askAi(
@@ -22,29 +38,39 @@ const TypingBox = () => {
       },
       {
         onError(error) {
+          if (error.shape?.data.httpStatus === 500) {
+            setLoading(false);
+            return toast.error("Something went wrong, please try again");
+          }
+
           // toast
-          toast.error("Something went wrong!, please try again later");
+          toast.error(error.message);
           console.log(error.message);
           setLoading(false);
         },
         onSuccess: (data) => {
+          console.log(JSON.parse(data));
           // english, grammarbreakdown, indonesia
           const { indonesia, english, grammarBreakdown } = JSON.parse(
             data,
           ) as AiResponse;
 
+          const format: Message = {
+            id: data.length,
+            question: indonesia,
+            speech: "formal",
+            answer: {
+              english,
+              indonesia,
+              grammarBreakdown,
+            },
+          };
+
           // play the audio based on the answer
-          playAudioTTS(english)
+          playAudioTTS(format)
             .then((audioPlayer) => {
               setMessages({
-                question: indonesia,
-                id: data.length,
-                speech: "formal",
-                answer: {
-                  english,
-                  indonesia,
-                  grammarBreakdown,
-                },
+                ...format,
                 audioPlayer,
               });
             })
@@ -74,14 +100,7 @@ const TypingBox = () => {
             How to say in English ?
           </h2>
 
-          <Link
-            href="/buy-credits"
-            className="flex items-center gap-1 rounded-full 
-          bg-slate-900/40 p-2 text-white max-sm:p-1 max-sm:text-xs"
-          >
-            <span>0</span>
-            <span>Credits</span>
-          </Link>
+          <Credits credits={userCredits} />
         </div>
         <p className="text-white/65 max-sm:text-xs">
           Ketik sebuah kalimat yang ingin diucapkan dalam bahasa Inggris and
@@ -117,12 +136,30 @@ const TypingBox = () => {
             onChange={(e) => setQuestion(e.target.value)}
             onKeyDown={async (e) => {
               if (e.key === "Enter") {
+                if (!session?.user) {
+                  toast.error("Please login first");
+
+                  setOpen(true);
+
+                  return;
+                }
+
                 await ask();
               }
             }}
           />
           <button
-            onClick={ask}
+            onClick={async () => {
+              if (!session?.user) {
+                toast.error("Please login first");
+
+                setOpen(true);
+
+                return;
+              }
+
+              await ask();
+            }}
             disabled={isPending}
             className="rounded-full bg-slate-100/20 p-2 px-6 text-white max-sm:w-full"
           >

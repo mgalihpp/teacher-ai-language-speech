@@ -10,6 +10,7 @@ interface AiTeacherState {
   furigana: boolean;
   indonesia: boolean;
   speech: Speech;
+  credits: number;
 
   setMessages: (message: Message) => void;
   setLoading: (state: boolean) => void;
@@ -18,8 +19,9 @@ interface AiTeacherState {
   setFurigana: (state: boolean) => void;
   setIndonesia: (state: boolean) => void;
   setSpeech: (speech: Speech) => void;
+  setCredits: (credits: number) => void;
   // askAi: (question: string) => void;
-  playAudioTTS: (message: Word[]) => Promise<HTMLAudioElement | undefined>;
+  playAudioTTS: (message: Message) => Promise<HTMLAudioElement | undefined>;
   stopAudioTTS: (message: Message) => void;
 }
 
@@ -31,6 +33,8 @@ export const useAiTeacher = create<AiTeacherState>((set, get) => ({
   furigana: true,
   indonesia: true,
   speech: "formal",
+  currentMessage: null,
+  credits: 0, // for now, we only have 3 credits
 
   setTeacher: (teacher) => {
     set({
@@ -45,25 +49,29 @@ export const useAiTeacher = create<AiTeacherState>((set, get) => ({
     set(() => ({
       currentMessage: message,
     }));
-
-    // const speech = get().speech;
-
     set((state) => ({ messages: [...state.messages, message] }));
-
-    // get().playMessage(message.answer.english.map((word) => word.word))
   },
   setClassroom: (classroom) => set({ classroom }),
   setFurigana: (state) => set({ furigana: state }),
   setIndonesia: (state) => set({ indonesia: state }),
   setSpeech: (speech) => set({ speech }),
-  // askAi: async (question) => {},
-  currentMessage: null,
-  playAudioTTS: (english) => {
-    return new Promise((resolve, reject) => {
-      const url = "https://api.v6.unrealspeech.com/stream";
 
+  setCredits: (value) => {
+    const newCredits = Math.max(get().credits + value, 0);
+    set({ credits: newCredits });
+  },
+
+  playAudioTTS: (message) => {
+    set({
+      currentMessage: message,
+    });
+
+    return new Promise((resolve, reject) => {
       const currentTeacher = get().teacher;
 
+      // for details https://docs.unrealspeech.com/reference/parameter-details
+
+      const url = "https://api.v6.unrealspeech.com/stream";
       const options = {
         method: "POST",
         headers: {
@@ -72,7 +80,7 @@ export const useAiTeacher = create<AiTeacherState>((set, get) => ({
           Authorization: `Bearer ${env.NEXT_PUBLIC_UNREAL_SPEECH_API_KEY}`,
         },
         body: JSON.stringify({
-          Text: english.map((word) => word.word).join(" "),
+          Text: message.answer.english.map((word) => word.word).join(" "),
           VoiceId: currentTeacher === "Nanami" ? "Liv" : "Dan",
         }),
       };

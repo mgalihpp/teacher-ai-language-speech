@@ -57,7 +57,7 @@ const MessagesList = () => {
 
               <MessageRenderEnglish english={message.answer.english} />
             </div>
-            {currentMessage === message ? (
+            {currentMessage?.id === message.id ? (
               <button
                 className="text-white/65"
                 onClick={() => stopAudioTTS(message)}
@@ -85,7 +85,7 @@ const MessagesList = () => {
             ) : (
               <button
                 className="text-white/65"
-                onClick={() => playAudioTTS(message.answer.english)}
+                onClick={() => playAudioTTS(message)}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -127,7 +127,6 @@ const MessagesList = () => {
                   {message.answer.grammarBreakdown.length > 1 ? (
                     <>
                       <div className="flex w-fit flex-col">
-                        {/* {messageRenderIndonesia({ text: grammar.indonesia })} */}
                         <MessageRenderIndonesia text={grammar.indonesia} />
                         <MessageRenderEnglish english={grammar.english} />
                       </div>

@@ -3,8 +3,48 @@
 import { formalSpeechExample } from "@/constants";
 import { groq } from "@/lib/groq";
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
+import type { PrismaClient, User } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
+
+async function checkUserCredits({
+  db,
+  user,
+  credits,
+}: {
+  db: PrismaClient;
+  user: User | null | undefined;
+  credits: number;
+}) {
+  if (!user) {
+    if (credits <= 0) {
+      throw new TRPCError({
+        code: "FORBIDDEN",
+        message: "You don't have enough credits",
+      });
+    }
+
+    return true;
+  } else {
+    if (user.credits <= 0) {
+      throw new TRPCError({
+        code: "FORBIDDEN",
+        message: "You don't have enough credits",
+      });
+    }
+
+    await db.user.update({
+      where: {
+        id: user?.id,
+      },
+      data: {
+        credits: user.credits - 1,
+      },
+    });
+
+    return true;
+  }
+}
 
 export const generateRouter = createTRPCRouter({
   chat: publicProcedure
@@ -12,9 +52,23 @@ export const generateRouter = createTRPCRouter({
       z.object({
         speech: z.enum(["casual", "formal"]),
         question: z.string(),
+        credits: z.number().optional(),
       }),
     )
-    .mutation(async ({ input }) => {
+    .mutation(async ({ input, ctx }) => {
+      const user = await ctx.db.user.findFirst({
+        where: {
+          id: ctx.session?.user?.id,
+        },
+      });
+
+      // checking credits for users / unauthenticated
+      await checkUserCredits({
+        db: ctx.db,
+        user: user,
+        credits: input.credits ?? 0,
+      });
+
       const speechExample =
         input.speech === "formal" ? formalSpeechExample : formalSpeechExample;
 
@@ -22,47 +76,60 @@ export const generateRouter = createTRPCRouter({
         messages: [
           {
             role: "system",
-            content: `You are a English Teacher. That you must asnwer 
-                    the student question. Your student asks you how to say something 
+            content: `You are a English Teacher. That you must asnwer the student question. Your student asks you how to say something 
                     from Bahasa Indonesia to English. You Should Response with:
-                    - Bahasa Indonesia: the bahasa version ex: "Apakah kamu tinggal di Indonesia ?" 
-                    - English: the english version ex: ${speechExample}`,
+                    - Bahasa Indonesia: the bahasa version example: "Apakah kamu tinggal di Indonesia ?" 
+                    - English: the english version, example: ${speechExample}`,
           },
           {
             role: "system",
-            content: `you must replies this question ${input.question} and translate it to english with good grammar and you always reponse with JSON object : 
-            {
-                "indonesia": "",
+            content: `You must reply to this question: ${input.question}. 
+            Translate it to English with good grammar and always respond with 
+            JSON format like this:
+              {
+                "indonesia": "Bahasa Indonesia sentence",
                 "english": [{
-                  "word": "",
-                  "reading": ""
+                  "word": "English translation",
+                  "reading": "Phonetic reading"
                 }],
                 "grammarBreakdown": [{
-                  "indonesia": "",
+                  "indonesia": "Bahasa Indonesia phrase",
                   "english": [{
-                    "word": "",
-                    "reading": ""
+                    "word": "English translation",
+                    "reading": "Phonetic reading"
                   }],
                   "chunks": [{
                     "english": [{
-                      "word": "",
-                      "reading": ""
+                      "word": "English translation",
+                      "reading": "Phonetic reading"
                     }],
-                    "meaning": "",
-                    "grammar": ""
+                    "meaning": "Meaning of the phrase",
+                    "grammar": "Grammar explanation"
                   }]
                 }]
               }`,
           },
         ],
 
-        model: "llama3-8b-8192",
+        model: "mixtral-8x7b-32768",
         response_format: {
           type: "json_object",
         },
+        temperature: 0.2,
       });
 
       if (!chatCompletion.choices[0]?.message.content) {
+        if (user) {
+          await ctx.db.user.update({
+            where: {
+              id: user?.id,
+            },
+            data: {
+              credits: user?.credits + 1,
+            },
+          });
+        }
+
         throw new TRPCError({
           message: "Failed to get Ai Response, Please try again later!",
           code: "BAD_REQUEST",

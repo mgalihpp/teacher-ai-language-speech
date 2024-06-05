@@ -20,7 +20,7 @@ import MessagesList from "./messages-list";
 import BoardSettings from "./board-settings";
 import CameraManager from "./camera-manager";
 
-const Experience = () => {
+const Experience = ({ credits }: { credits: number | null }) => {
   const { teacher, classroom } = useAiTeacher();
 
   return (
@@ -30,7 +30,7 @@ const Experience = () => {
       gap-3 md:justify-center
       "
       >
-        <TypingBox />
+        <TypingBox credits={credits} />
       </div>
       <Leva hidden />
       <Loader />
@@ -38,6 +38,7 @@ const Experience = () => {
         camera={{
           position: [0, 0, 0.0001],
         }}
+        className="z-[1]"
       >
         <CameraManager />
 
