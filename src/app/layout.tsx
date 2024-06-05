@@ -5,6 +5,8 @@ import { GeistSans } from "geist/font/sans";
 import { TRPCReactProvider } from "@/trpc/react";
 
 import { Toaster } from "sonner";
+import NextAuthProvider from "@/providers/nextauth-provider";
+import ModalProvider from "@/providers/modal-providers";
 
 export const metadata = {
   title: "AI Sensei",
@@ -12,7 +14,7 @@ export const metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -20,8 +22,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
       <body>
-        <TRPCReactProvider>{children}</TRPCReactProvider>
-        <Toaster position="top-center" richColors />
+        <TRPCReactProvider>
+          <NextAuthProvider>
+            {children}
+            <ModalProvider />
+            <Toaster position="top-center" richColors />
+          </NextAuthProvider>
+        </TRPCReactProvider>
       </body>
     </html>
   );
