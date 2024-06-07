@@ -137,9 +137,9 @@ const MessagesList = () => {
                             className="bg-blank/30 rounded-md p-2"
                             key={index}
                           >
-                            <p className="font-mono text-4xl text-white/90">
+                            <span className="font-mono text-4xl text-white/90">
                               <MessageRenderEnglish english={chunk.english} />
-                            </p>
+                            </span>
                             <p className="text-2xl text-pink-300/90">
                               {chunk.meaning}
                             </p>
@@ -154,9 +154,9 @@ const MessagesList = () => {
                     <div className="mt-3 flex w-full flex-row flex-wrap gap-3">
                       {grammar.chunks.map((chunk, index) => (
                         <div className="bg-blank/30 rounded-md p-2" key={index}>
-                          <p className="font-mono text-4xl text-white/90">
+                          <span className="font-mono text-4xl text-white/90">
                             <MessageRenderEnglish english={chunk.english} />
-                          </p>
+                          </span>
                           <p className="text-2xl text-pink-300/90">
                             {chunk.meaning}
                           </p>

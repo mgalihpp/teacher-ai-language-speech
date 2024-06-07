@@ -16,7 +16,7 @@ export default async function Home() {
 
   return (
     <main className="h-screen min-h-screen">
-      <Experience credits={user?.credits ?? 0} />
+      <Experience credits={user?.credits ?? 52} />
     </main>
   );
 }

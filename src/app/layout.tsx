@@ -9,8 +9,8 @@ import NextAuthProvider from "@/providers/nextauth-provider";
 import ModalProvider from "@/providers/modal-providers";
 
 export const metadata = {
-  title: "AI Sensei",
-  description: "Learn Japanese with AI Sensei",
+  title: "Guru Ai",
+  description: "Belajar Bahasa Ingrris dengan Guru Ai",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 

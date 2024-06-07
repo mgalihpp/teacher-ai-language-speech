@@ -14,20 +14,21 @@ import TypingBox from "./typing-box";
 import { Canvas } from "@react-three/fiber";
 import { Suspense, memo } from "react";
 import { itemPlacement } from "@/constants";
-import { Teacher } from "./teacher";
+import Teacher from "./teacher";
 import { degToRad } from "three/src/math/MathUtils.js";
 import MessagesList from "./messages-list";
 import BoardSettings from "./board-settings";
 import CameraManager from "./camera-manager";
 
-const Experience = ({ credits }: { credits: number | null }) => {
+const Experience = ({ credits }: { credits: number }) => {
   const { teacher, classroom } = useAiTeacher();
 
   return (
     <>
       <div
-        className="fixed bottom-4 left-4 right-4 z-10 flex flex-wrap justify-stretch 
-      gap-3 md:justify-center
+        className="fixed bottom-4 left-[50%] z-10 w-full 
+        max-w-[600px] -translate-x-[50%] transform flex-wrap 
+        justify-center gap-3
       "
       >
         <TypingBox credits={credits} />

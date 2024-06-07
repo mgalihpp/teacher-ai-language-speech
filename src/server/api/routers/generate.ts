@@ -87,24 +87,24 @@ export const generateRouter = createTRPCRouter({
             Translate it to English with good grammar and always respond with 
             JSON format like this:
               {
-                "indonesia": "Bahasa Indonesia sentence",
+                "indonesia": "",
                 "english": [{
-                  "word": "English translation",
-                  "reading": "Phonetic reading"
+                  "word": "",
+                  "reading": ""
                 }],
                 "grammarBreakdown": [{
-                  "indonesia": "Bahasa Indonesia phrase",
+                  "indonesia": "",
                   "english": [{
-                    "word": "English translation",
-                    "reading": "Phonetic reading"
+                    "word": "",
+                    "reading": ""
                   }],
                   "chunks": [{
                     "english": [{
-                      "word": "English translation",
-                      "reading": "Phonetic reading"
+                      "word": "",
+                      "reading": ""
                     }],
-                    "meaning": "Meaning of the phrase",
-                    "grammar": "Grammar explanation"
+                    "meaning": "",
+                    "grammar": ""
                   }]
                 }]
               }`,

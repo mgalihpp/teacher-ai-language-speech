@@ -3,38 +3,75 @@
 import { useAiTeacher } from "@/hooks/use-ai-teacher";
 import { useModal } from "@/hooks/use-modal";
 import { api } from "@/trpc/react";
-import { useSession } from "next-auth/react";
 import React, { memo, useEffect, useState } from "react";
 import { toast } from "sonner";
 import Credits from "./credits";
+import { useSession } from "next-auth/react";
 
-const TypingBox = ({ credits }: { credits: number | null }) => {
+const TypingBox = ({ credits }: { credits: number }) => {
   const { data: session } = useSession();
-  const {
-    loading,
-    credits: userCredits,
-    setCredits,
-    setMessages,
-    setLoading,
-    playAudioTTS,
-  } = useAiTeacher();
+  const { loading, setMessages, setLoading, playAudioTTS } = useAiTeacher();
   const { setOpen } = useModal();
   const [question, setQuestion] = useState<string>("");
   const { mutate: askAi, isPending } = api.generate.chat.useMutation();
 
+  const [userCredits, setCredits] = useState(0);
+
+  // this for unauthenticated user credits
+  const [usedCredits, setUsedCredits] = useState(0);
+
   useEffect(() => {
-    setCredits(credits ?? 0);
+    setCredits(credits);
   }, [credits]);
+
+  const checkIsLimit = () => {
+    if (!session?.user.id) {
+      const limit = JSON.parse(localStorage.getItem("limit")!) as boolean;
+
+      if (limit === true) {
+        toast.error("Please log in to continue.");
+
+        setOpen(true);
+
+        setLoading(false);
+        return false;
+      } else if (usedCredits >= 2) {
+        try {
+          localStorage.setItem("limit", "true");
+        } catch (error) {
+          console.log("Please Enable Local Storage");
+        }
+
+        toast.error("Please log in to continue.");
+
+        setOpen(true);
+
+        setLoading(false);
+        return false;
+      }
+      setCredits((prev) => prev - 1);
+      setUsedCredits((prev) => prev + 1);
+
+      return true;
+    }
+
+    return true;
+  };
 
   const ask = async () => {
     setLoading(true);
-    setCredits(-1);
+
+    const canAsk = checkIsLimit();
+
+    if (!canAsk) return;
+
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     askAi(
       {
         question,
         speech: "formal",
+        credits: credits,
       },
       {
         onError(error) {
@@ -90,19 +127,19 @@ const TypingBox = ({ credits }: { credits: number | null }) => {
 
   return (
     <div
-      className="z-10 flex w-full max-w-[600px] flex-col space-y-6 rounded-xl 
+      className="z-10 flex w-full flex-col space-y-6 rounded-xl 
     border border-slate-100/30 bg-gradient-to-tr from-slate-300/30 via-gray-400/30 
     to-slate-400/30 p-4 backdrop-blur-md"
     >
       <div>
         <div className="flex items-center justify-between">
-          <h2 className="text-xl font-bold text-white">
+          <h2 className="text-xl font-bold text-white max-sm:text-lg">
             How to say in English ?
           </h2>
 
           <Credits credits={userCredits} />
         </div>
-        <p className="text-white/65 max-sm:text-xs">
+        <p className="text-white/70 max-sm:text-xs">
           Ketik sebuah kalimat yang ingin diucapkan dalam bahasa Inggris and
           Guru ai akan mengterjemahkannya untuk kamu.
         </p>
@@ -136,28 +173,12 @@ const TypingBox = ({ credits }: { credits: number | null }) => {
             onChange={(e) => setQuestion(e.target.value)}
             onKeyDown={async (e) => {
               if (e.key === "Enter") {
-                if (!session?.user) {
-                  toast.error("Please login first");
-
-                  setOpen(true);
-
-                  return;
-                }
-
                 await ask();
               }
             }}
           />
           <button
             onClick={async () => {
-              if (!session?.user) {
-                toast.error("Please login first");
-
-                setOpen(true);
-
-                return;
-              }
-
               await ask();
             }}
             disabled={isPending}

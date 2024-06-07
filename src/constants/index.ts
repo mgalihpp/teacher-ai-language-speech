@@ -143,3 +143,26 @@ export const formalSpeechExample: SpeechExample = {
     },
   ],
 };
+
+export const plans = [
+  {
+    title: "+50 Credits",
+    price: 15000,
+
+    credits: 50,
+    description:
+      "Get +50 credits for chatting with our AI assistant. Perfect for casual conversations, learning, and testing your skills.",
+
+    actionLabel: "Buy Now",
+  },
+  {
+    title: "+500 Credits",
+    price: 75000,
+    credits: 500,
+    description:
+      "Get +500 credits for chatting with our AI assistant. Perfect for casual conversations, learning, and testing your skills.",
+
+    actionLabel: "Buy Now",
+    popular: true,
+  },
+];
