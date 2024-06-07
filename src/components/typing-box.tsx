@@ -55,6 +55,7 @@ const TypingBox = ({ credits }: { credits: number }) => {
       return true;
     }
 
+    setCredits((prev) => prev - 1);
     return true;
   };
 
