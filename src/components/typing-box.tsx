@@ -49,10 +49,23 @@ const TypingBox = ({ credits }: { credits: number }) => {
         setLoading(false);
         return false;
       }
+
+      if (credits <= 0) {
+        toast.error("You don't have enough credits");
+        setLoading(false);
+        return false;
+      }
+
       setCredits((prev) => prev - 1);
       setUsedCredits((prev) => prev + 1);
 
       return true;
+    }
+
+    if (credits <= 0) {
+      toast.error("You don't have enough credits");
+      setLoading(false);
+      return false;
     }
 
     setCredits((prev) => prev - 1);
