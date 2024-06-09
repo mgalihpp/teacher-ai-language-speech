@@ -27,7 +27,7 @@ export default async function BuyCreditsPage() {
           the thousands of learners who already trust Ai Language Teacher.
         </p>
 
-        <Pricing credits={user?.credits ?? 0} />
+        <Pricing credits={user?.credits ?? 0} session={session} />
       </div>
     </div>
   );

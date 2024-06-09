@@ -16,8 +16,8 @@ import Script from "next/script";
 import { plans } from "@/constants";
 import { useCursorWait } from "@/hooks/use-cursor-await";
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
 import { useModal } from "@/hooks/use-modal";
+import { type Session } from "next-auth";
 
 type PricingCardProps = {
   title: string;
@@ -26,6 +26,7 @@ type PricingCardProps = {
   description: string;
   actionLabel: string;
   popular?: boolean;
+  session: Session | null;
 };
 
 // Declare the snap object
@@ -63,8 +64,8 @@ const PricingCard = ({
   credits,
   actionLabel,
   popular,
+  session,
 }: PricingCardProps) => {
-  const { data: session } = useSession();
   const { setOpen } = useModal();
 
   const { mutate: createSnap, isPending: isCreating } =
@@ -160,7 +161,13 @@ const PricingCard = ({
   );
 };
 
-export default function Pricing({ credits }: { credits: number }) {
+export default function Pricing({
+  credits,
+  session,
+}: {
+  credits: number;
+  session: Session | null;
+}) {
   return (
     <div className="py-8">
       <PricingHeader
@@ -169,7 +176,7 @@ export default function Pricing({ credits }: { credits: number }) {
       />
       <section className="mt-8 flex flex-col justify-center gap-8 sm:flex-row sm:flex-wrap">
         {plans.map((plan) => {
-          return <PricingCard key={plan.title} {...plan} />;
+          return <PricingCard key={plan.title} {...plan} session={session} />;
         })}
       </section>
     </div>
