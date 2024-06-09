@@ -16,6 +16,8 @@ import Script from "next/script";
 import { plans } from "@/constants";
 import { useCursorWait } from "@/hooks/use-cursor-await";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { useModal } from "@/hooks/use-modal";
 
 type PricingCardProps = {
   title: string;
@@ -62,6 +64,9 @@ const PricingCard = ({
   actionLabel,
   popular,
 }: PricingCardProps) => {
+  const { data: session } = useSession();
+  const { setOpen } = useModal();
+
   const { mutate: createSnap, isPending: isCreating } =
     api.midtrans.snap.useMutation();
 
@@ -92,6 +97,14 @@ const PricingCard = ({
         <Button
           disabled={isCreating}
           onClick={() => {
+            if (!session?.user.id) {
+              toast.error("Please login first");
+
+              setOpen(true);
+
+              return;
+            }
+
             createSnap(
               {
                 name: title,
