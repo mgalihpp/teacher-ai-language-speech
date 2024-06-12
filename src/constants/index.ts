@@ -1,3 +1,4 @@
+import Icons from "@/components/marketing/flag/icons";
 import { degToRad } from "three/src/math/MathUtils.js";
 
 export const TEACHERS: Teacher[] = ["Nanami", "Naoki"];
@@ -147,22 +148,81 @@ export const formalSpeechExample: SpeechExample = {
 export const plans = [
   {
     title: "+50 Credits",
-    price: 15000,
-
+    price: 0,
     credits: 50,
+    description: "Get +50 credits for free. No credit card required.",
+    actionLabel: "Getting Started",
+  },
+  {
+    title: "+100 Credits",
+    price: 500,
+    credits: 100,
     description:
-      "Get +50 credits for chatting with our AI assistant. Perfect for casual conversations, learning, and testing your skills.",
-
+      "Experience the convenience of getting +100 credits. Our AI assistant is perfect for casual conversations, language learning, and skill testing. Start your journey today!",
     actionLabel: "Buy Now",
   },
   {
     title: "+500 Credits",
-    price: 75000,
+    price: 50000,
     credits: 500,
     description:
       "Get +500 credits for chatting with our AI assistant. Perfect for casual conversations, learning, and testing your skills.",
 
     actionLabel: "Buy Now",
     popular: true,
+  },
+];
+
+export const languagesSupport = [
+  {
+    language: "Indonesia",
+    icon: Icons.indonesia,
+    description:
+      "Learn Indonesian with our AI assistant. Perfect for casual conversations, learning, and testing your skills.",
+  },
+  {
+    language: "English",
+    icon: Icons.english,
+    description:
+      "Learn English with our AI assistant. Perfect for casual conversations, learning, and testing your skills.",
+  },
+];
+
+export const upcommingLanguages = [
+  {
+    language: "Russia",
+    icon: Icons.russia,
+    description:
+      "Learn Russian with our AI assistant. Perfect for casual conversations, learning, and testing your skills.",
+  },
+  {
+    language: "Japan",
+    icon: Icons.japan,
+    description:
+      "Learn Japanese with our AI assistant. Perfect for casual conversations, learning, and testing your skills.",
+  },
+  {
+    language: "Germany",
+    icon: Icons.germany,
+    description:
+      "Learn German with our AI assistant. Perfect for casual conversations, learning, and testing your skills.",
+  },
+  {
+    language: "France",
+    icon: Icons.france,
+    description:
+      "Learn French with our AI assistant. Perfect for casual conversations, learning, and testing your skills.",
+  },
+  {
+    language: "Italy",
+    icon: Icons.italy,
+    description:
+      "Learn Italian with our AI assistant. Perfect for casual conversations, learning, and testing your skills.",
+  },
+  {
+    language: "Spain",
+    icon: Icons.spain,
+    description:
+      "Learn Spanish with our AI assistant. Perfect for casual conversations, learning, and testing your skills.",
   },
 ];

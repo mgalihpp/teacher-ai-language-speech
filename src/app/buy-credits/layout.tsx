@@ -1,5 +1,6 @@
 import { type Metadata } from "next";
-import Navbar from "./_components/navbar";
+import Navbar from "@/components/marketing/navbar";
+import Footer from "@/components/marketing/footer";
 
 export const metadata: Metadata = {
   title: "Buy Credits",
@@ -15,6 +16,7 @@ export default async function RootLayout({
     <>
       <Navbar />
       {children}
+      <Footer />
     </>
   );
 }

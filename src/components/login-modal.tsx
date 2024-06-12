@@ -17,7 +17,7 @@ import { toast } from "sonner";
 
 const LoginDialog = () => {
   const [loading, setLoading] = useState<boolean>(false);
-  const { open, setOpen, set } = useModal();
+  const { open, setOpen } = useModal();
 
   // useEffect(() => {
   // if (isNotAuthorized) {
@@ -39,7 +39,7 @@ const LoginDialog = () => {
           <DialogTitle>
             <span>Sign in</span>
           </DialogTitle>
-          <p className="text-base font-normal text-zinc-400">
+          <p className="text-base font-normal text-stone-400 dark:text-stone-300">
             to continue to platform
           </p>
         </DialogHeader>
@@ -101,7 +101,7 @@ const LoginDialog = () => {
           </Button> */}
         </div>
         <DialogFooter>
-          <span className="text-xs text-zinc-700">
+          <span className="text-xs text-stone-700 dark:text-stone-200">
             By creating an account, you agree to our{" "}
             <Link href="#" className="underline">
               Terms of Service

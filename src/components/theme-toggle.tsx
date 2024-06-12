@@ -1,0 +1,39 @@
+"use client";
+
+import { useMounted } from "@/hooks/use-mounted";
+import { useTheme } from "next-themes";
+import { Button } from "@/components/ui/button";
+import { Moon, Sun } from "lucide-react";
+
+export default function ThemeToggle() {
+  const mounted = useMounted();
+  const { theme, setTheme } = useTheme();
+
+  if (!mounted) {
+    return null;
+  }
+
+  return (
+    <Button
+      variant="transparent"
+      onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+      className={`transition-all duration-500 ease-in-out ${
+        theme === "dark" ? "scale-100" : "scale-95"
+      }`}
+      aria-label="Toggle theme"
+      name="Toggle theme"
+    >
+      <div
+        className={`transform transition-transform duration-500 ease-in-out ${
+          theme === "dark" ? "rotate-180" : ""
+        }`}
+      >
+        {theme === "light" ? (
+          <Moon className="size-5" />
+        ) : (
+          <Sun className="size-5" />
+        )}
+      </div>
+    </Button>
+  );
+}

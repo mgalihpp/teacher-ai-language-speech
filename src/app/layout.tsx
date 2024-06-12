@@ -8,6 +8,7 @@ import { Toaster } from "sonner";
 import NextAuthProvider from "@/providers/nextauth-provider";
 import ModalProvider from "@/providers/modal-providers";
 import { type Metadata } from "next";
+import { ThemeProvider } from "@/providers/theme-providers";
 
 export const metadata: Metadata = {
   title: "Guru Ai",
@@ -75,13 +76,15 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${GeistSans.variable}`}>
-      <body>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${GeistSans.variable}`}>
         <TRPCReactProvider>
           <NextAuthProvider>
-            {children}
-            <ModalProvider />
-            <Toaster position="top-center" richColors />
+            <ThemeProvider attribute="class" defaultTheme="dark">
+              {children}
+              <ModalProvider />
+              <Toaster position="top-center" richColors />
+            </ThemeProvider>
           </NextAuthProvider>
         </TRPCReactProvider>
       </body>
