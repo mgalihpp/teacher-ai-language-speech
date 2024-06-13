@@ -18,7 +18,10 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({ children }) => {
   return (
     <Dialog>
       <DialogTrigger>{children}</DialogTrigger>
-      <DialogContent className="h-auto max-w-3xl border-none bg-transparent">
+      <DialogContent
+        className="h-auto max-w-3xl border-none bg-transparent"
+        disableClose
+      >
         <div>
           <ReactPlayer
             url="https://www.youtube.com/watch?v=l4iyOYKc0vE"

@@ -8,7 +8,7 @@ const Logo = () => {
       width={30}
       height={30}
       loading="lazy"
-      className="object-cover"
+      className="overflow-hidden rounded-md object-cover"
     />
   );
 };

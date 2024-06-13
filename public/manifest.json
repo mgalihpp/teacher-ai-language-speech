@@ -19,8 +19,8 @@
   "display": "browser",
   "dir": "auto",
   "lang": "en-US",
-  "name": "ai language teacher",
-  "short_name": "ai language",
-  "start_url": "htpps://",
-  "description": "Belajar Bahasa Ingrris dengan Guru Ai"
+  "name": "Guru AI",
+  "short_name": "Guru AI",
+  "start_url": "htpps://guruai.my.id",
+  "description": "Belajar Bahasa Ingrris dengan Guru AI"
 }

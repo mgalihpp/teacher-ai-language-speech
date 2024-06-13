@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-base-to-string */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { formalSpeechExample } from "@/constants";
 import { groq } from "@/lib/groq";
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
@@ -77,15 +75,17 @@ export const generateRouter = createTRPCRouter({
           {
             role: "system",
             content: `You are a English Teacher. That you must asnwer the student question. Your student asks you how to say something 
-                    from Bahasa Indonesia to English. You Should Response with:
-                    - Bahasa Indonesia: the bahasa version example: "Apakah kamu tinggal di Indonesia ?" 
-                    - English: the english version, example: ${speechExample}`,
+                    from Indonesia to English. 
+                    You Should Response with:
+                    - Indonesia: the indonesia version example: "Apakah kamu tinggal di Indonesia ?" 
+                    - English: the english translation in split into words example: ${JSON.stringify(speechExample.english)}
+                    - grammarBreakdown: an explanation of the grammar structure per sentence ex: ${JSON.stringify(
+                      speechExample.grammarBreakdown,
+                    )}`,
           },
           {
             role: "system",
-            content: `You must reply to this question: ${input.question}. 
-            Translate it to English with good grammar and always respond with 
-            JSON format like this:
+            content: `You always respond with JSON format like this:
               {
                 "indonesia": "",
                 "english": [{
@@ -109,9 +109,14 @@ export const generateRouter = createTRPCRouter({
                 }]
               }`,
           },
+          {
+            role: "user",
+            content: `How to say ${input.question || "Apakah kamu tinggal di Indonesia ?"} 
+            In English in ${input.speech} speech ?`,
+          },
         ],
 
-        model: "mixtral-8x7b-32768",
+        model: "llama3-8b-8192",
         response_format: {
           type: "json_object",
         },

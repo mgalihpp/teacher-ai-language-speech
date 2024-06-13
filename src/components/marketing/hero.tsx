@@ -12,13 +12,14 @@ const Hero = () => {
         <div className="max-w-2xl text-center text-white">
           {/* <Fade direction="up" delay={50} cascade damping={1e-1} triggerOnce> */}
           <h1 className="text-3xl font-bold sm:text-6xl">
-            Learn English with Ai Language Teacher
+            Learn English with
+            <br />
+            Guru AI
           </h1>
           {/* </Fade> */}
           {/* <Fade direction="up" delay={100} cascade damping={1e-1} triggerOnce> */}
           <p className="mx-auto mt-4 max-w-lg text-stone-300 sm:text-sm/relaxed">
-            AI Language Teacher for English. Learn English privately with an AI
-            teacher.
+            Guru AI for English. Learn English privately with an AI teacher.
           </p>
           {/* </Fade> */}
 

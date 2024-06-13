@@ -79,9 +79,7 @@ const Navbar = () => {
           className="col-start-1 flex w-full items-center gap-2"
         >
           <Logo />
-          <h1 className="text-xl font-bold max-sm:hidden">
-            Ai Language Teacher
-          </h1>
+          <h1 className="text-xl font-bold max-sm:hidden">Guru AI</h1>
         </Link>
 
         <div className="flex justify-end sm:hidden">

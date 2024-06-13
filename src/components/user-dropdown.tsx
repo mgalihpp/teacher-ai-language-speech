@@ -44,14 +44,14 @@ const UserDropDown: React.FC<UserDropDownProps> = ({ ...props }) => {
           <DropdownMenuTrigger>
             <UserAvatar className="size-8" />
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="bg-white" align="end" {...props}>
+          <DropdownMenuContent align="end" {...props}>
             <div className="flex items-center justify-start gap-2 p-2">
               <div className="flex flex-col space-y-1 leading-none">
                 {session?.user.name && (
                   <p className="font-medium">{session.user.name}</p>
                 )}
                 {session?.user.email && (
-                  <p className="w-[200px] truncate text-sm text-muted-foreground">
+                  <p className="w-[200px] truncate text-sm text-muted-foreground ">
                     {session.user.email}
                   </p>
                 )}

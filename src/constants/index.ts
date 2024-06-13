@@ -107,8 +107,8 @@ export const formalSpeechExample: SpeechExample = {
             },
           ],
           meaning:
-            "To form questions or negative sentences in present simple tense.",
-          grammar: "Auxiliary verb",
+            "Untuk membentuk pertanyaan atau kalimat negatif dalam present simple tense.",
+          grammar: "Kata kerja bantu",
         },
         {
           english: [
@@ -117,28 +117,28 @@ export const formalSpeechExample: SpeechExample = {
               reading: "you",
             },
           ],
-          meaning: "Pronoun referring to the person being addressed.",
-          grammar: "Pronoun",
+          meaning: "Kata ganti merujuk pada orang yang disapa.",
+          grammar: "Kata ganti",
         },
         {
           english: [{ word: "Live", reading: "live" }],
-          meaning: "To be alive.",
-          grammar: "Verb",
+          meaning: "Untuk Lokasi.",
+          grammar: "Kata kerja",
         },
         {
           english: [{ word: "In", reading: "in" }],
-          meaning: "Preposition.",
-          grammar: "Preposition",
+          meaning: "Preposisi.",
+          grammar: "Preposisi",
         },
         {
           english: [{ word: "Indonesia", reading: "indonesia" }],
           meaning: "Indonesia.",
-          grammar: "Noun",
+          grammar: "Kata benda",
         },
         {
           english: [{ word: "?", reading: "?" }],
-          meaning: "Question mark.",
-          grammar: "Punctuation",
+          meaning: "Tanda tanya.",
+          grammar: "tanda baca",
         },
       ],
     },
@@ -226,3 +226,211 @@ export const upcommingLanguages = [
       "Learn Spanish with our AI assistant. Perfect for casual conversations, learning, and testing your skills.",
   },
 ];
+
+interface CardProps {
+  name: string;
+  position: string;
+  text: string;
+  photoLink: string;
+  tweetLink: string;
+}
+
+const testimonials1: CardProps[] = [
+  {
+    name: "Eko Kurniawan Khannedy",
+    position: "Software Engineer",
+    text: "I've been using Guru AI for a while now, and I'm really impressed with the quality of the conversations and the accuracy of the responses. I've been using it for personal projects and it's been a game changer. Highly recommended!",
+    photoLink: "https://avatars.githubusercontent.com/u/17200675?v=4",
+    tweetLink: "https://twitter.com/ekokurnia/status/1829780238884207616",
+  },
+  {
+    name: "Reza Maulana",
+    position: "Software Developer",
+    text: "Guru AI is amazing! I've been using it for language learning and it's been a great help. The conversations are so natural and the responses are so accurate. I can't recommend it enough!",
+    photoLink: "https://avatars.githubusercontent.com/u/4098021?v=4",
+    tweetLink: "https://twitter.com/reza_maulana/status/1829780238884207616",
+  },
+  {
+    name: "Kelvin S. Kurniawan",
+    position: "Software Engineer",
+    text: "I've been using Guru AI for a while now and I'm really impressed with the accuracy and fluency of the conversations. It's been a great help for my language learning journey. Highly recommended!",
+    photoLink: "https://avatars.githubusercontent.com/u/1608007?v=4",
+    tweetLink: "https://twitter.com/kelkurnia/status/1829780238884207616",
+  },
+  {
+    name: "Muhammad Rizqi Haikal",
+    position: "Software Engineer",
+    text: "Guru AI is an amazing language teacher! I've been using it for my English skills and it's been a great help. The conversations are so natural and the responses are so accurate. I can't recommend it enough!",
+    photoLink: "https://avatars.githubusercontent.com/u/340040?v=4",
+    tweetLink: "https://twitter.com/rizqihaikal/status/1829780238884207616",
+  },
+  {
+    name: "Rizki Hariyanto",
+    position: "Pelajar",
+    text: "Guru AI sangat menarik! Saya sudah menggunakan untuk belajar bahasa dan sangat membantu. Pesan-pesan yang saya dapatkan sangat alami dan jawaban yang diberikan sangat akurat. Saya sangat merekomendasikannya!",
+    photoLink: "https://avatars.githubusercontent.com/u/2742000?v=4",
+    tweetLink: "https://twitter.com/rizkix/status/1829780238884207616",
+  },
+  {
+    name: "Ahmad Fakhri",
+    position: "Web Developer",
+    text: "Saya sudah menggunakan Guru AI untuk belajar bahasa dan sangat menyukai. Pesan-pesan yang saya dapatkan sangat alami dan jawaban yang diberikan sangat akurat. Saya sangat merekomendasikannya!",
+    photoLink: "https://avatars.githubusercontent.com/u/1600974?v=4",
+    tweetLink: "https://twitter.com/ahmadfakhri/status/1829780238884207616",
+  },
+  {
+    name: "Rizki Pratama",
+    position: "Pelajar",
+    text: "Saya sudah menggunakan Guru AI untuk belajar bahasa dan sangat menyukai. Pesan-pesan yang saya dapatkan sangat alami dan jawaban yang diberikan sangat akurat. Saya sangat merekomendasikannya!",
+    photoLink: "https://avatars.githubusercontent.com/u/3?v=4",
+    tweetLink: "https://twitter.com/rizkipratamaa/status/1829780238884207616",
+  },
+];
+
+const testimonials2: CardProps[] = [
+  {
+    name: "Ahmad Firdaus",
+    position: "Pelajar",
+    text: "Saya sangat menyukai Guru AI. Saya telah menggunakan produk ini untuk belajar bahasa Inggris dan Indonesia. Saya sangat menyukai bahwa AI dapat menjelaskan bahasa Inggris dengan cara yang jelas dan mudah dipahami. Produk ini sangat membantu saya dalam memperkuat pemahaman bahasa Inggris saya. Saya sangat merekomendasikannya!",
+    photoLink: "https://avatars.githubusercontent.com/u/1600974?v=4",
+    tweetLink: "https://twitter.com/ahmadfakhri/status/1829780238884207616",
+  },
+  {
+    name: "Lisa Suryani",
+    position: "Mahasiswi",
+    text: "Produk Guru AI sangat membantu saya belajar bahasa Inggris. Penjelasannya mudah dipahami dan sangat jelas. Saya merasa pemahaman bahasa Inggris saya semakin kuat setiap harinya. Sangat direkomendasikan!",
+    photoLink: "https://avatars.githubusercontent.com/u/53365353?v=4",
+    tweetLink: "https://twitter.com/lisasuryani/status/1829780238884207617",
+  },
+  {
+    name: "Siti Nurhaliza",
+    position: "Pelajar",
+    text: "Saya sangat terbantu dengan produk Guru AI ini. Bahasa Inggris jadi lebih mudah dipahami dan dijelaskan dengan cara yang sangat baik. Ini benar-benar meningkatkan kemampuan bahasa saya.",
+    photoLink: "https://avatars.githubusercontent.com/u/138379828?v=4",
+    tweetLink: "https://twitter.com/sitinurhaliza/status/1829780238884207619",
+  },
+  {
+    name: "David Smith",
+    position: "University Student",
+    text: "Using the Guru AI for learning Indonesian has been a game-changer. The content is clear, concise, and very effective. Highly recommend this product to anyone!",
+    photoLink: "https://avatars.githubusercontent.com/u/4?v=4",
+    tweetLink: "https://twitter.com/davidsmith/status/1829780238884207620",
+  },
+  {
+    name: "Ayu Lestari",
+    position: "Mahasiswi",
+    text: "Belajar bahasa Inggris menjadi lebih menyenangkan dengan Guru AI. Penjelasannya sangat jelas dan mudah dipahami. Sangat membantu dalam memperkuat kemampuan bahasa saya.",
+    photoLink: "https://avatars.githubusercontent.com/u/5?v=4",
+    tweetLink: "https://twitter.com/ayulestari/status/1829780238884207621",
+  },
+  {
+    name: "Mark Johnson",
+    position: "Student",
+    text: "Guru AI is an excellent tool for learning English. The explanations are straightforward and easy to understand. It's been a great help in improving my language skills.",
+    photoLink: "https://avatars.githubusercontent.com/u/6?v=4",
+    tweetLink: "https://twitter.com/markjohnson/status/1829780238884207622",
+  },
+  {
+    name: "Rina Andriani",
+    position: "Pelajar",
+    text: "Saya sangat puas dengan Guru AI. Produk ini benar-benar membantu saya belajar bahasa Inggris dengan lebih efektif. Penjelasannya sangat jelas dan mudah dipahami.",
+    photoLink: "https://avatars.githubusercontent.com/u/35027979?v=4",
+    tweetLink: "https://twitter.com/rinaandriani/status/1829780238884207623",
+  },
+  {
+    name: "Emily Brown",
+    position: "College Student",
+    text: "Learning Indonesian with Guru AI has been fantastic. The lessons are clear and make the language easy to grasp. It's an invaluable resource for language learners.",
+    photoLink: "https://avatars.githubusercontent.com/u/8?v=4",
+    tweetLink: "https://twitter.com/emilybrown/status/1829780238884207624",
+  },
+  {
+    name: "Budi Santoso",
+    position: "Pelajar",
+    text: "Guru AI sangat membantu saya dalam belajar bahasa Inggris. Materi yang disampaikan sangat jelas dan mudah dipahami. Saya sangat merekomendasikan produk ini untuk belajar bahasa.",
+    photoLink: "https://avatars.githubusercontent.com/u/7?v=4",
+    tweetLink: "https://twitter.com/budisantoso/status/1829780238884207625",
+  },
+  {
+    name: "Jessica Lee",
+    position: "University Student",
+    text: "The Guru AI product has been incredible for learning Indonesian. The clarity and simplicity of the lessons have made learning a new language so much easier. Highly recommended!",
+    photoLink: "https://avatars.githubusercontent.com/u/10?v=4",
+    tweetLink: "https://twitter.com/jessicalee/status/1829780238884207626",
+  },
+];
+
+const testimonials3: CardProps[] = [
+  {
+    name: "Nina Kartini",
+    position: "Pelajar",
+    text: "Guru AI sangat membantu saya memahami bahasa Inggris dengan lebih baik. Penjelasannya sangat mudah dipahami dan sangat informatif. Saya sangat merekomendasikan produk ini!",
+    photoLink: "https://avatars.githubusercontent.com/u/11?v=4",
+    tweetLink: "https://twitter.com/ninakartini/status/1829780238884207627",
+  },
+  {
+    name: "Alex Johnson",
+    position: "Student",
+    text: "Using Guru AI has improved my English significantly. The clear and easy-to-understand explanations are fantastic. This product is a must-have for language learners!",
+    photoLink: "https://avatars.githubusercontent.com/u/12?v=4",
+    tweetLink: "https://twitter.com/alexjohnson/status/1829780238884207628",
+  },
+  {
+    name: "Wahyu Setiawan",
+    position: "Mahasiswa",
+    text: "Belajar bahasa Inggris menjadi lebih mudah dengan Guru AI. Penjelasannya jelas dan mudah dipahami. Produk ini sangat membantu saya dalam meningkatkan kemampuan bahasa saya.",
+    photoLink: "https://avatars.githubusercontent.com/u/13?v=4",
+    tweetLink: "https://twitter.com/wahyusetiawan/status/1829780238884207629",
+  },
+  {
+    name: "Sarah Williams",
+    position: "University Student",
+    text: "The Guru AI product is excellent for learning Indonesian. The explanations are straightforward and easy to follow. It's a fantastic tool for language learners!",
+    photoLink: "https://avatars.githubusercontent.com/u/138429906?v=4",
+    tweetLink: "https://twitter.com/sarahwilliams/status/1829780238884207630",
+  },
+  {
+    name: "Hendra Wijaya",
+    position: "Pelajar",
+    text: "Guru AI membantu saya dalam belajar bahasa Inggris dengan cara yang efektif. Materinya sangat jelas dan mudah dipahami. Saya sangat puas dengan produk ini.",
+    photoLink: "https://avatars.githubusercontent.com/u/15?v=4",
+    tweetLink: "https://twitter.com/hendrawijaya/status/1829780238884207631",
+  },
+  {
+    name: "Emma Taylor",
+    position: "Student",
+    text: "Guru AI has been a great help in learning Indonesian. The lessons are clear and very effective. Highly recommend this product for anyone looking to learn a new language!",
+    photoLink: "https://avatars.githubusercontent.com/u/45036724?v=4",
+    tweetLink: "https://twitter.com/emmataylor/status/1829780238884207632",
+  },
+  {
+    name: "Rizky Putra",
+    position: "Mahasiswa",
+    text: "Produk Guru AI sangat berguna untuk belajar bahasa Inggris. Penjelasannya mudah dipahami dan sangat membantu saya dalam meningkatkan pemahaman bahasa Inggris saya.",
+    photoLink: "https://avatars.githubusercontent.com/u/17?v=4",
+    tweetLink: "https://twitter.com/rizkyputra/status/1829780238884207633",
+  },
+  {
+    name: "James Brown",
+    position: "College Student",
+    text: "Learning Indonesian with Guru AI has been a fantastic experience. The explanations are clear and concise, making the learning process much easier.",
+    photoLink: "https://avatars.githubusercontent.com/u/18?v=4",
+    tweetLink: "https://twitter.com/jamesbrown/status/1829780238884207634",
+  },
+  {
+    name: "Dewi Anggraini",
+    position: "Pelajar",
+    text: "Guru AI sangat membantu saya dalam belajar bahasa Inggris. Penjelasannya sangat mudah dipahami dan sangat bermanfaat. Saya sangat merekomendasikan produk ini untuk belajar bahasa.",
+    photoLink: "https://avatars.githubusercontent.com/u/137588265?v=4",
+    tweetLink: "https://twitter.com/dewianggraini/status/1829780238884207635",
+  },
+  {
+    name: "Michael Lee",
+    position: "University Student",
+    text: "The Guru AI is an amazing tool for learning Indonesian. The lessons are clear and easy to understand, making the learning process enjoyable and effective.",
+    photoLink: "https://avatars.githubusercontent.com/u/20?v=4",
+    tweetLink: "https://twitter.com/michaellee/status/1829780238884207636",
+  },
+];
+
+export const testimonials = { testimonials1, testimonials2, testimonials3 };

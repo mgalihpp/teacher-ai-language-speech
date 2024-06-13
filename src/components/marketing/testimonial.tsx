@@ -1,5 +1,6 @@
 import React from "react";
 import Marquee from "../marquee";
+import { testimonials } from "@/constants";
 
 interface CardProps {
   name: string;
@@ -70,126 +71,47 @@ export default function Testimonial() {
         <div className="relative grid max-h-[49rem] grid-cols-1 gap-6 overflow-y-hidden sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
           <div className="space-y-8">
             <Marquee vertical duration="fast">
-              <div className="text-sm leading-6">
-                <Card
-                  name="Kanye West"
-                  position="Rapper & Entrepreneur"
-                  text="Find God."
-                  photoLink="https://pbs.twimg.com/profile_images/1276461929934942210/cqNhNk6v_400x400.jpg"
-                  tweetLink="https://twitter.com/kanyewest"
-                />
-              </div>
-              <div className="text-sm leading-6">
-                <Card
-                  name="Tim Cook"
-                  position="CEO of Apple"
-                  text="Diam quis enim lobortis scelerisque fermentum
-                      dui faucibus in ornare. Donec pretium vulputate
-                      sapien nec sagittis aliquam malesuada bibendum."
-                  photoLink="https://pbs.twimg.com/profile_images/1535420431766671360/Pwq-1eJc_400x400.jpg"
-                  tweetLink="https://twitter.com/tim_cook"
-                />
-              </div>
-              <div className="text-sm leading-6">
-                <Card
-                  name="Kanye West"
-                  position="Rapper & Entrepreneur"
-                  text="Find God."
-                  photoLink="https://pbs.twimg.com/profile_images/1276461929934942210/cqNhNk6v_400x400.jpg"
-                  tweetLink="https://twitter.com/kanyewest"
-                />
-              </div>
-              <div className="text-sm leading-6">
-                <Card
-                  name="Tim Cook"
-                  position="CEO of Apple"
-                  text="Diam quis enim lobortis scelerisque fermentum
-                      dui faucibus in ornare. Donec pretium vulputate
-                      sapien nec sagittis aliquam malesuada bibendum."
-                  photoLink="https://pbs.twimg.com/profile_images/1535420431766671360/Pwq-1eJc_400x400.jpg"
-                  tweetLink="https://twitter.com/tim_cook"
-                />
-              </div>
+              {testimonials.testimonials1.map((item, index) => (
+                <div className="text-sm leading-6" key={index}>
+                  <Card
+                    name={item.name}
+                    position={item.position}
+                    text={item.text}
+                    photoLink={item.photoLink}
+                    tweetLink={item.tweetLink}
+                  />
+                </div>
+              ))}
             </Marquee>
           </div>
           <div className="space-y-8">
             <Marquee vertical>
-              <div className="text-sm leading-6">
-                <Card
-                  name="Satya Nadella"
-                  position="CEO of Microsoft"
-                  text="Tortor dignissim convallis aenean et tortor at. At ultrices mi tempus imperdiet nulla malesuada. Id cursus metus aliquam eleifend mi. Quis ipsum suspendisse ultrices gravida dictum fusce ut."
-                  photoLink="https://pbs.twimg.com/profile_images/1221837516816306177/_Ld4un5A_400x400.jpg"
-                  tweetLink="https://twitter.com/satyanadella"
-                />
-              </div>
-              <div className="text-sm leading-6">
-                <Card
-                  name="Dan Schulman"
-                  position="CEO of PayPal"
-                  text="Quam pellentesque nec nam aliquam sem et tortor consequat id. Enim sit amet venenatis urna cursus."
-                  photoLink="https://pbs.twimg.com/profile_images/516916920482672641/3jCeLgFb_400x400.jpeg"
-                  tweetLink="https://twitter.com/dan_schulman"
-                />
-              </div>
-              <div className="text-sm leading-6">
-                <Card
-                  name="Satya Nadella"
-                  position="CEO of Microsoft"
-                  text="Tortor dignissim convallis aenean et tortor at. At ultrices mi tempus imperdiet nulla malesuada. Id cursus metus aliquam eleifend mi. Quis ipsum suspendisse ultrices gravida dictum fusce ut."
-                  photoLink="https://pbs.twimg.com/profile_images/1221837516816306177/_Ld4un5A_400x400.jpg"
-                  tweetLink="https://twitter.com/satyanadella"
-                />
-              </div>
-              <div className="text-sm leading-6">
-                <Card
-                  name="Dan Schulman"
-                  position="CEO of PayPal"
-                  text="Quam pellentesque nec nam aliquam sem et tortor consequat id. Enim sit amet venenatis urna cursus."
-                  photoLink="https://pbs.twimg.com/profile_images/516916920482672641/3jCeLgFb_400x400.jpeg"
-                  tweetLink="https://twitter.com/dan_schulman"
-                />
-              </div>
+              {testimonials.testimonials2.map((item, index) => (
+                <div className="text-sm leading-6" key={index}>
+                  <Card
+                    name={item.name}
+                    position={item.position}
+                    text={item.text}
+                    photoLink={item.photoLink}
+                    tweetLink={item.tweetLink}
+                  />
+                </div>
+              ))}
             </Marquee>
           </div>
           <div>
             <Marquee vertical duration="fast">
-              <div className="text-sm leading-6">
-                <Card
-                  name="Satya Nadella"
-                  position="CEO of Microsoft"
-                  text="Tortor dignissim convallis aenean et tortor at. At ultrices mi tempus imperdiet nulla malesuada. Id cursus metus aliquam eleifend mi. Quis ipsum suspendisse ultrices gravida dictum fusce ut."
-                  photoLink="https://pbs.twimg.com/profile_images/1221837516816306177/_Ld4un5A_400x400.jpg"
-                  tweetLink="https://twitter.com/satyanadella"
-                />
-              </div>
-              <div className="text-sm leading-6">
-                <Card
-                  name="Dan Schulman"
-                  position="CEO of PayPal"
-                  text="Quam pellentesque nec nam aliquam sem et tortor consequat id. Enim sit amet venenatis urna cursus."
-                  photoLink="https://pbs.twimg.com/profile_images/516916920482672641/3jCeLgFb_400x400.jpeg"
-                  tweetLink="https://twitter.com/dan_schulman"
-                />
-              </div>
-              <div className="text-sm leading-6">
-                <Card
-                  name="Satya Nadella"
-                  position="CEO of Microsoft"
-                  text="Tortor dignissim convallis aenean et tortor at. At ultrices mi tempus imperdiet nulla malesuada. Id cursus metus aliquam eleifend mi. Quis ipsum suspendisse ultrices gravida dictum fusce ut."
-                  photoLink="https://pbs.twimg.com/profile_images/1221837516816306177/_Ld4un5A_400x400.jpg"
-                  tweetLink="https://twitter.com/satyanadella"
-                />
-              </div>
-              <div className="text-sm leading-6">
-                <Card
-                  name="Dan Schulman"
-                  position="CEO of PayPal"
-                  text="Quam pellentesque nec nam aliquam sem et tortor consequat id. Enim sit amet venenatis urna cursus."
-                  photoLink="https://pbs.twimg.com/profile_images/516916920482672641/3jCeLgFb_400x400.jpeg"
-                  tweetLink="https://twitter.com/dan_schulman"
-                />
-              </div>
+              {testimonials.testimonials3.map((item, index) => (
+                <div className="text-sm leading-6" key={index}>
+                  <Card
+                    name={item.name}
+                    position={item.position}
+                    text={item.text}
+                    photoLink={item.photoLink}
+                    tweetLink={item.tweetLink}
+                  />
+                </div>
+              ))}
             </Marquee>
           </div>
           <div className="pointer-events-none absolute inset-x-0 top-0 h-32 rounded-md bg-gradient-to-b from-white dark:from-background" />

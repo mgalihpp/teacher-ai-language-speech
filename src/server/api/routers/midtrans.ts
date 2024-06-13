@@ -45,7 +45,7 @@ export const midtransRouter = createTRPCRouter({
               name: input.name,
               brand: "None",
               category: "Credits",
-              merchant_name: "Ai Language Teacher",
+              merchant_name: "Guru AI",
               url: "http://localhost:3000/buy-credits",
             },
           ],

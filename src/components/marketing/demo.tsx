@@ -18,11 +18,11 @@ const Demo = () => {
               Action
             </div>
             <h1 className="text-3xl font-semibold text-stone-800 dark:text-stone-200 md:text-5xl">
-              Here&apos;s a demo of Ai Language Teacher
+              Here&apos;s a demo of Guru AI
             </h1>
             <p className="mx-auto text-xl text-stone-600 dark:text-stone-300 md:w-2/3 md:text-2xl">
-              Take a tour of Ai Language Teacher and see how it can help you
-              improve your English skills.
+              Take a tour of Guru AI and see how it can help you improve your
+              English skills.
             </p>
           </div>
         </div>
@@ -38,15 +38,15 @@ const Demo = () => {
 
             <div
               className="absolute inset-0 z-10 m-auto
-              hidden h-full w-full items-center justify-center group-hover:flex"
+              hidden h-full w-full items-center justify-center transition-all group-hover:flex"
             >
               <div className="rounded-full bg-stone-100 p-2">
                 <Play className="size-8 text-stone-900" />
               </div>
             </div>
             <div
-              className="absolute inset-0 rounded-xl transition-opacity
-                  duration-300 group-hover:pointer-events-none group-hover:bg-black/30"
+              className="absolute inset-0 rounded-xl bg-black/30
+                  transition-opacity duration-300 group-hover:pointer-events-none group-hover:bg-black/60"
             />
           </div>
         </VideoPlayer>

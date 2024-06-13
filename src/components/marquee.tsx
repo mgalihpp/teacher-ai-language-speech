@@ -30,7 +30,7 @@ export default function Marquee({
           "flex-row": !vertical,
           "flex-col": vertical,
           "[--duration:40s]": duration === "normal",
-          "[--duration:10s]": duration === "fast",
+          "[--duration:20s]": duration === "fast",
           "[--duration:50s]": duration === "slow",
         },
         className,

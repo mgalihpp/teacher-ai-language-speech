@@ -20,7 +20,7 @@ const BoardSettings = () => {
         {TEACHERS.map((teach, index) => (
           <div
             className={`p-3 transition-colors duration-500 ${
-              teacher === teach ? "bg-white/80" : "bg-white/40"
+              teacher === teach ? "bg-white/80 text-stone-900" : "bg-white/40"
             }`}
             key={index}
           >

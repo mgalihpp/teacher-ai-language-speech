@@ -53,6 +53,7 @@ const TypingBox = ({ credits }: { credits: number }) => {
       if (credits <= 0) {
         toast.error("You don't have enough credits");
         setLoading(false);
+        setCredits(0);
         return false;
       }
 
@@ -154,7 +155,7 @@ const TypingBox = ({ credits }: { credits: number }) => {
           <Credits credits={userCredits} />
         </div>
         <p className="text-white/70 max-sm:text-xs">
-          Ketik sebuah kalimat yang ingin diucapkan dalam bahasa Inggris and
+          Ketik sebuah kalimat yang ingin diucapkan dalam bahasa Indonesia dan
           Guru ai akan mengterjemahkannya untuk kamu.
         </p>
       </div>

@@ -8,7 +8,7 @@ const FooterCTA = () => (
       <div className="relative z-10 mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-semibold text-stone-800 dark:text-stone-200 sm:text-4xl">
-            Get started with Ai Language Teacher Today!
+            Get started with Guru AI Today!
           </h2>
           <p className="mt-3 text-stone-600 dark:text-stone-300">
             Free +50 Credits. No credit card required.

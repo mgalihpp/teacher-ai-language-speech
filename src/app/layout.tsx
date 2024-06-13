@@ -11,39 +11,44 @@ import { type Metadata } from "next";
 import { ThemeProvider } from "@/providers/theme-providers";
 
 export const metadata: Metadata = {
-  title: "Guru Ai",
-  description: "Belajar Bahasa Ingrris dengan Guru Ai",
+  title: "Guru AI",
+  description: "Belajar Bahasa Inggris dengan Guru AI",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
   manifest: "/manifest.json",
   openGraph: {
-    title: "Guru Ai",
-    description: "Belajar Bahasa Ingrris dengan Guru Ai",
-    url: "https://teacher-ai-speech.vercel.app",
-    siteName: "Guru Ai",
+    title: "Guru AI",
+    description: "Belajar Bahasa Inggris dengan Guru AI",
+    url: "https://guruai.my.id",
+    siteName: "Guru AI",
     images: [
       {
-        url: "https://teacher-ai-speech.vercel.app/icon512_rounded.png",
+        url: "https://guruai.my.id/icon512_rounded.png",
         width: 512,
         height: 512,
-        alt: "Guru Ai",
+        alt: "Guru AI",
       },
     ],
     locale: "en-US",
     type: "website",
     countryName: "Indonesia",
-    emails: ["guruai@pm.me"],
+    emails: ["muhammadgalih451@gmail.com"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Guru Ai",
-    description: "Belajar Bahasa Ingrris dengan Guru Ai",
+    title: "Guru AI",
+    description: "Belajar Bahasa Inggris dengan Guru AI",
     creator: "@guruai",
-    images: ["https://teacher-ai-speech.vercel.app/icon512_rounded.png"],
+    images: ["https://guruai.my.id/icon512_rounded.png"],
   },
-  applicationName: "Guru Ai",
+  applicationName: "Guru AI",
   creator: "mgalihpp",
   keywords: [
     "guruai",
+    "guruai.my.id",
+    "guru ai",
+    "guru ai my id",
+    "guru ai website",
+    "guru ai website my id",
     "guruai.vercel.app",
     "ai",
     "language",
@@ -54,11 +59,19 @@ export const metadata: Metadata = {
     "grammar",
     "vocabulary",
     "pronunciation",
+    "grammar checker",
+    "grammar checker app",
+    "grammar checker app for kids",
+    "grammar checker app for children",
+    "grammar checker app for kids and children",
+    "learn english",
+    "belajar bahasa inggris dengan guru ai",
+    "belajar bahasa inggris dengan ai",
   ],
   robots:
     "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
   appleWebApp: {
-    title: "Guru Ai",
+    title: "Guru AI",
   },
   referrer: "origin-when-cross-origin",
   verification: {
@@ -67,6 +80,9 @@ export const metadata: Metadata = {
   authors: {
     name: "mgalihpp",
     url: "https://github.com/mgalihpp",
+  },
+  other: {
+    "dicoding:email": "muhammadgalih451@gmail.com",
   },
 };
 
