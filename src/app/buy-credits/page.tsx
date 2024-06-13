@@ -1,19 +1,9 @@
-import { getServerAuthSession } from "@/server/auth";
-import { db } from "@/server/db";
+import { api } from "@/trpc/server";
 import Pricing from "../../components/marketing/pricing";
 import Testimonial from "@/components/marketing/testimonial";
 
 export default async function BuyCreditsPage() {
-  const session = await getServerAuthSession();
-
-  const user = await db.user.findFirst({
-    where: {
-      id: session?.user.id,
-    },
-    select: {
-      credits: true,
-    },
-  });
+  const { session, user } = await api.user.getUser();
 
   return (
     <>

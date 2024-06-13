@@ -1,6 +1,7 @@
 import { generateRouter } from "@/server/api/routers/generate";
 import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
 import { midtransRouter } from "@/server/api/routers/midtrans";
+import { userRouter } from "@/server/api/routers/user";
 
 /**
  * This is the primary router for your server.
@@ -9,6 +10,7 @@ import { midtransRouter } from "@/server/api/routers/midtrans";
  */
 export const appRouter = createTRPCRouter({
   generate: generateRouter,
+  user: userRouter,
   midtrans: midtransRouter,
 });
 

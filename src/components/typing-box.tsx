@@ -101,7 +101,6 @@ const TypingBox = ({ credits }: { credits: number }) => {
           setLoading(false);
         },
         onSuccess: (data) => {
-          console.log(JSON.parse(data));
           // english, grammarbreakdown, indonesia
           const { indonesia, english, grammarBreakdown } = JSON.parse(
             data,

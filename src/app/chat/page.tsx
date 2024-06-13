@@ -1,18 +1,9 @@
 import Experience from "@/components/experience";
-import { getServerAuthSession } from "@/server/auth";
-import { db } from "@/server/db";
+import { api } from "@/trpc/server";
+export const dynamic = "force-dynamic";
 
 export default async function ChatPage() {
-  const session = await getServerAuthSession();
-
-  const user = await db.user.findFirst({
-    where: {
-      id: session?.user.id,
-    },
-    select: {
-      credits: true,
-    },
-  });
+  const { user } = await api.user.getUser();
 
   return (
     <main className="h-screen min-h-screen">
