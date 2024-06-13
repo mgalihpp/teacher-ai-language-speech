@@ -310,7 +310,7 @@ const testimonials1: CardProps[] = [
     name: "Budi Santoso",
     position: "Freelancer",
     text: "Guru AI membantu saya menyelesaikan proyek-proyek programming dengan lebih efisien. Sangat berguna bagi saya yang sering bekerja sendiri!",
-    photoLink: "https://example.com/photo4.jpg",
+    photoLink: "https://avatars.githubusercontent.com/u/93862969?v=4",
     tweetLink: "https://twitter.com/budisantoso/status/4567890123456789012",
   },
   {
