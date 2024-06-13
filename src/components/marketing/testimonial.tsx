@@ -19,7 +19,7 @@ const Card: React.FC<CardProps> = ({
 }) => {
   return (
     <div className="group relative">
-      <a href={"#"} className="cursor-pointer">
+      <div className="cursor-pointer">
         <div className="highlight relative space-y-6 rounded-lg bg-stone-100 p-6 leading-none ring-1 ring-gray-900/5 dark:bg-neutral-900">
           <div className="flex items-center space-x-4">
             <img
@@ -40,7 +40,7 @@ const Card: React.FC<CardProps> = ({
             {text}
           </p>
         </div>
-      </a>
+      </div>
     </div>
   );
 };

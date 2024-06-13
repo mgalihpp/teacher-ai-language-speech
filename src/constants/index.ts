@@ -285,6 +285,48 @@ const testimonials1: CardProps[] = [
     photoLink: "https://avatars.githubusercontent.com/u/3?v=4",
     tweetLink: "https://twitter.com/rizkipratamaa/status/1829780238884207616",
   },
+  {
+    name: "Siti Nurhasanah",
+    position: "Mahasiswa",
+    text: "Guru AI membantu saya dalam memahami konsep-konsep sulit dalam pemrograman. Saya sangat terkesan dengan responsivitas dan kecerdasannya!",
+    photoLink: "https://avatars.githubusercontent.com/u/31957516?v=4",
+    tweetLink: "https://twitter.com/sitinurhasanah/status/1234567890123456789",
+  },
+  {
+    name: "Ahmad Hidayat",
+    position: "Pengusaha",
+    text: "Saya menggunakan Guru AI untuk meningkatkan strategi pemasaran digital saya. Hasilnya luar biasa! Guru AI benar-benar membantu saya mendapatkan wawasan yang mendalam.",
+    photoLink: "https://avatars.githubusercontent.com/u/103434966?v=4",
+    tweetLink: "https://twitter.com/ahmadhidayat/status/2345678901234567890",
+  },
+  {
+    name: "Dewi Lestari",
+    position: "Penulis",
+    text: "Pengalaman menggunakan Guru AI sangat memuaskan. Saya bisa mendiskusikan ide-ide cerita baru dan mendapatkan umpan balik yang berguna untuk karya saya.",
+    photoLink: "https://avatars.githubusercontent.com/u/127705274?v=4",
+    tweetLink: "https://twitter.com/dewilestari/status/3456789012345678901",
+  },
+  {
+    name: "Budi Santoso",
+    position: "Freelancer",
+    text: "Guru AI membantu saya menyelesaikan proyek-proyek programming dengan lebih efisien. Sangat berguna bagi saya yang sering bekerja sendiri!",
+    photoLink: "https://example.com/photo4.jpg",
+    tweetLink: "https://twitter.com/budisantoso/status/4567890123456789012",
+  },
+  {
+    name: "Anisa Rahman",
+    position: "Pengajar",
+    text: "Sebagai seorang pengajar, saya menggunakan Guru AI untuk mempersiapkan materi pelajaran dengan lebih baik. Responsif dan informatif!",
+    photoLink: "https://avatars.githubusercontent.com/u/68645946?v=4",
+    tweetLink: "https://twitter.com/anisarahman/status/5678901234567890123",
+  },
+  {
+    name: "Andika Pradana",
+    position: "Desainer Grafis",
+    text: "Saya sangat terkesan dengan kemampuan Guru AI dalam memberikan saran dan inspirasi untuk desain grafis. Hasilnya selalu memuaskan!",
+    photoLink: "https://avatars.githubusercontent.com/u/122613756?v=4",
+    tweetLink: "https://twitter.com/andikapradana/status/6789012345678901234",
+  },
 ];
 
 const testimonials2: CardProps[] = [
