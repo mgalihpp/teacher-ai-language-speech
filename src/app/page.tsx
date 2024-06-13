@@ -21,8 +21,8 @@ export default async function Home() {
         <Pricing session={session} />
         <Testimonial />
         <FooterCTA />
-        <Footer />
       </main>
+      <Footer />
     </>
   );
 }

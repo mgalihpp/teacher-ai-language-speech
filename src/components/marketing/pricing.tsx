@@ -177,7 +177,7 @@ export default function Pricing({
 }) {
   return (
     <>
-      <div className="pb-36 pt-8">
+      <section id="pricing" className="pb-36 pt-8">
         <PricingHeader
           title="Pricing Plans"
           subtitle={`${
@@ -191,7 +191,7 @@ export default function Pricing({
             return <PricingCard key={plan.title} {...plan} session={session} />;
           })}
         </section>
-      </div>
+      </section>
       <Script
         src="https://app.sandbox.midtrans.com/snap/snap.js"
         data-client-key="SB-Mid-client-61XuGAwQ8Bj8LxSS"
