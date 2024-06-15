@@ -12,17 +12,19 @@ import { ThemeProvider } from "@/providers/theme-providers";
 
 export const metadata: Metadata = {
   title: "Guru AI",
-  description: "Belajar Bahasa Inggris dengan Guru AI",
+  description:
+    "Guru AI adalah solusi terbaik untuk belajar Bahasa Inggris yang dapat mengubah hidup Anda. Dengan layanan Guru AI, Anda dapat belajar Bahasa Inggris dengan cara yang unik dan efektif. Dengan Guru AI, Anda dapat belajar dengan guru yang berpengalaman, mendengarkan kata-kata mereka, dan mendapatkan pemahaman yang lebih dalam tentang Bahasa Inggris. Guru AI dengan cakap akan membimbing Anda selama setiap kelas dan memberikan pemahaman yang lebih jauh tentang konteks Bahasa Inggris. Dengan Guru AI, Anda dapat mencapai tujuan belajar Bahasa Inggris Anda dengan lebih cepat dan efektif. Belajar Bahasa Inggris dengan Guru AI, solusi terbaik untuk Anda.",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
   manifest: "/manifest.json",
   openGraph: {
     title: "Guru AI",
-    description: "Belajar Bahasa Inggris dengan Guru AI",
+    description:
+      "Guru AI adalah solusi terbaik untuk belajar Bahasa Inggris yang dapat mengubah hidup Anda. Dengan layanan Guru AI, Anda dapat belajar Bahasa Inggris dengan cara yang unik dan efektif. Dengan Guru AI, Anda dapat belajar dengan guru yang berpengalaman, mendengarkan kata-kata mereka, dan mendapatkan pemahaman yang lebih dalam tentang Bahasa Inggris. Guru AI dengan cakap akan membimbing Anda selama setiap kelas dan memberikan pemahaman yang lebih jauh tentang konteks Bahasa Inggris. Dengan Guru AI, Anda dapat mencapai tujuan belajar Bahasa Inggris Anda dengan lebih cepat dan efektif. Belajar Bahasa Inggris dengan Guru AI, solusi terbaik untuk Anda.",
     url: "https://guruai.my.id",
     siteName: "Guru AI",
     images: [
       {
-        url: "https://guruai.my.id/icon512_rounded.png",
+        url: "https://guruai.my.id/images/prev1.webp",
         width: 512,
         height: 512,
         alt: "Guru AI",
@@ -36,9 +38,10 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Guru AI",
-    description: "Belajar Bahasa Inggris dengan Guru AI",
-    creator: "@guruai",
-    images: ["https://guruai.my.id/icon512_rounded.png"],
+    description:
+      "Guru AI adalah solusi terbaik untuk belajar Bahasa Inggris yang dapat mengubah hidup Anda. Dengan layanan Guru AI, Anda dapat belajar Bahasa Inggris dengan cara yang unik dan efektif. Dengan Guru AI, Anda dapat belajar dengan guru yang berpengalaman, mendengarkan kata-kata mereka, dan mendapatkan pemahaman yang lebih dalam tentang Bahasa Inggris. Guru AI dengan cakap akan membimbing Anda selama setiap kelas dan memberikan pemahaman yang lebih jauh tentang konteks Bahasa Inggris. Dengan Guru AI, Anda dapat mencapai tujuan belajar Bahasa Inggris Anda dengan lebih cepat dan efektif. Belajar Bahasa Inggris dengan Guru AI, solusi terbaik untuk Anda.",
+    creator: "@mgalihpp",
+    images: ["https://guruai.my.id/images/prev1.webp"],
   },
   applicationName: "Guru AI",
   creator: "mgalihpp",
