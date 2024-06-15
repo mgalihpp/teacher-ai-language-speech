@@ -9,6 +9,7 @@ import NextAuthProvider from "@/providers/nextauth-provider";
 import ModalProvider from "@/providers/modal-providers";
 import { type Metadata } from "next";
 import { ThemeProvider } from "@/providers/theme-providers";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
   title: "Guru AI",
@@ -103,6 +104,7 @@ export default async function RootLayout({
               {children}
               <ModalProvider />
               <Toaster position="top-center" richColors />
+              <Analytics />
             </ThemeProvider>
           </NextAuthProvider>
         </TRPCReactProvider>
