@@ -43,3 +43,10 @@ type AiResponse = {
   english: Word[];
   grammarBreakdown: grammarWord[];
 };
+
+type LanguageOptions = "english" | "indonesia";
+
+type SpeechOptions = {
+  unreal?: boolean;
+  elevenLabs?: boolean;
+};

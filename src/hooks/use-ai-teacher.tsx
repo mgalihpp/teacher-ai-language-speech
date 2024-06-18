@@ -1,8 +1,9 @@
-import { env } from "@/env";
+import SpeechApi from "@/lib/speech";
+import { sendAudio } from "@/lib/utils";
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
-interface AiTeacherState {
+export interface AiTeacherState {
   messages: Message[];
   currentMessage: Message | null;
   teacher: Teacher;
@@ -11,7 +12,6 @@ interface AiTeacherState {
   furigana: boolean;
   indonesia: boolean;
   speech: Speech;
-  // credits: number;
 
   setMessages: (message: Message) => void;
   setLoading: (state: boolean) => void;
@@ -20,8 +20,6 @@ interface AiTeacherState {
   setFurigana: (state: boolean) => void;
   setIndonesia: (state: boolean) => void;
   setSpeech: (speech: Speech) => void;
-  // setCredits: (credits: number) => void;
-  // askAi: (question: string) => void;
   playAudioTTS: (message: Message) => Promise<HTMLAudioElement | undefined>;
   stopAudioTTS: (message: Message) => void;
   set: (state: Partial<AiTeacherState>) => void;
@@ -38,7 +36,6 @@ export const useAiTeacher = create<AiTeacherState>()(
       indonesia: true,
       speech: "formal",
       currentMessage: null,
-      // credits: 0, // for now, we only have 3 credits
 
       setTeacher: (teacher) => {
         set({
@@ -59,58 +56,65 @@ export const useAiTeacher = create<AiTeacherState>()(
       setFurigana: (state) => set({ furigana: state }),
       setIndonesia: (state) => set({ indonesia: state }),
       setSpeech: (speech) => set({ speech }),
-
-      // setCredits: (value) => {
-      //   const newCredits = Math.max(get().credits + value, 0);
-      //   set({ credits: newCredits });
-      // },
-
       playAudioTTS: (message) => {
         return new Promise((resolve, reject) => {
           const currentTeacher = get().teacher;
+          const language = get().indonesia ? "indonesia" : "english";
 
           // for details https://docs.unrealspeech.com/reference/parameter-details
 
-          const url = "https://api.v6.unrealspeech.com/stream";
-          const options = {
-            method: "POST",
-            headers: {
-              accept: "text/plain",
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${env.NEXT_PUBLIC_UNREAL_SPEECH_API_KEY}`,
+          const englishTTS = new SpeechApi({
+            language: "english",
+            speech: {
+              unreal: true,
             },
-            body: JSON.stringify({
-              Text: message.answer.english.map((word) => word.word).join(" "),
-              VoiceId: currentTeacher === "Nanami" ? "Liv" : "Dan",
-            }),
-          };
+          });
 
-          fetch(url, options)
-            .then((res) => res.blob())
-            .then((data) => {
-              const audioUrl = URL.createObjectURL(data);
-              const audioPlayer = new Audio(audioUrl);
-              audioPlayer.currentTime = 0;
+          const indonesiaTTS = new SpeechApi({
+            language: "indonesia",
+            speech: {
+              unreal: false,
+            },
+          });
 
-              audioPlayer
-                .play()
-                .then(() => {
-                  set({
-                    currentMessage: message,
-                  });
+          // language is ref from user input language question
+          switch (language) {
+            case "indonesia": {
+              englishTTS
+                .getAudio({
+                  Text: message.answer.english
+                    .map((word) => word.word)
+                    .join(" "),
+                  VoiceId: currentTeacher === "Nanami" ? "Liv" : "Dan",
                 })
-                .catch((error) => reject(error));
-
-              audioPlayer.onended = () => {
-                set(() => ({
-                  currentMessage: null,
-                }));
-              };
-              resolve(audioPlayer);
-            })
-            .catch((error) => {
-              reject(error);
-            });
+                .then((data) => {
+                  sendAudio(resolve, reject, data, message, set);
+                })
+                .catch((error) => {
+                  reject(error);
+                });
+              break;
+            }
+            case "english": {
+              indonesiaTTS
+                .getAudio({
+                  Text: message.question,
+                  VoiceId:
+                    currentTeacher === "Nanami"
+                      ? "EXAVITQu4vr4xnSDxMaL"
+                      : "ErXwobaYiN019PkySvjV",
+                })
+                .then((data) => {
+                  sendAudio(resolve, reject, data, message, set);
+                })
+                .catch((error) => {
+                  reject(error);
+                });
+              break;
+            }
+            default:
+              break;
+          }
         });
       },
       stopAudioTTS: (english) => {
