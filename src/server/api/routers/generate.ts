@@ -82,9 +82,11 @@ export const generateRouter = createTRPCRouter({
           {
             role: "user",
             content: `How to say ${
-              input.question || input.language === "indonesia"
-                ? "Apakah kamu tinggal di Indonesia ?"
-                : "Do you live in Indonesia ?"
+              input.question === ""
+                ? input.language === "indonesia"
+                  ? "Apakah kamu tinggal di Indonesia ?"
+                  : "Do you live in Indonesia ?"
+                : input.question
             } 
             In ${toLanguage} in ${input.speech} speech ?`,
           },

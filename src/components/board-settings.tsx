@@ -146,10 +146,10 @@ const SetLanguageButton: React.FC<{
         <SelectValue placeholder="Change Language" />
       </SelectTrigger>
       <SelectContent className="border-0 bg-slate-800/20">
-        <SelectItem value="english" className="bg-slate-800/20">
+        <SelectItem value="english" className="bg-slate-800/20 text-xs">
           English -&gt; Indonesia
         </SelectItem>
-        <SelectItem value="indonesia" className="bg-slate-800/20">
+        <SelectItem value="indonesia" className="bg-slate-800/20 text-xs">
           Indonesia -&gt; English
         </SelectItem>
       </SelectContent>
