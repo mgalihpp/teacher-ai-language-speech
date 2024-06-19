@@ -11,24 +11,26 @@ type Message = {
 };
 
 type Answer = {
-  indonesia: string;
-  english: Word[];
+  indonesia?: string | Word[];
+  english?: string | Word[];
   grammarBreakdown: grammarWord[];
 };
 
 type SpeechExample = {
-  english: Word[];
+  english?: Word[];
+  indonesia?: Word[];
   grammarBreakdown: grammarWord[];
 };
 
 type grammarWord = {
-  indonesia: string;
-  english: Word[];
+  indonesia?: string | Word[];
+  english?: string | Word[];
   chunks: ChunksWord[];
 };
 
 type ChunksWord = {
-  english: Word[];
+  indonesia?: Word[];
+  english?: Word[];
   meaning: string;
   grammar: string;
 };

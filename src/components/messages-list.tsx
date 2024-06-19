@@ -1,7 +1,14 @@
 import { useAiTeacher } from "@/hooks/use-ai-teacher";
 import { memo, useEffect, useRef } from "react";
-import MessageRenderIndonesia from "./message-render/message-render-indonesia";
-import MessageRenderEnglish from "./message-render/message-render-english";
+import MessageRenderFromLanguage from "./message-render/message-render-from";
+import MessageRenderToLanguage from "./message-render/message-render-to";
+import {
+  checkChunk,
+  checkIsAnswerString,
+  checkIsAnswerWord,
+  checkIsGrammarString,
+  checkIsGrammarWord,
+} from "@/helpers/check-message";
 
 const MessagesList = () => {
   const { currentMessage, messages, classroom, playAudioTTS, stopAudioTTS } =
@@ -52,10 +59,12 @@ const MessagesList = () => {
                 >
                   {message.speech}
                 </span>
-                <MessageRenderIndonesia text={message.answer.indonesia} />
+                <MessageRenderFromLanguage
+                  text={checkIsAnswerString(message)}
+                />
               </div>
 
-              <MessageRenderEnglish english={message.answer.english} />
+              <MessageRenderToLanguage answer={checkIsAnswerWord(message)} />
             </div>
             {currentMessage?.id === message.id ? (
               <button
@@ -127,8 +136,12 @@ const MessagesList = () => {
                   {message.answer.grammarBreakdown.length > 1 ? (
                     <>
                       <div className="flex w-fit flex-col">
-                        <MessageRenderIndonesia text={grammar.indonesia} />
-                        <MessageRenderEnglish english={grammar.english} />
+                        <MessageRenderFromLanguage
+                          text={checkIsGrammarString(grammar)}
+                        />
+                        <MessageRenderToLanguage
+                          answer={checkIsGrammarWord(grammar)}
+                        />
                       </div>
 
                       <div className="mt-3 flex w-fit flex-row flex-wrap gap-3">
@@ -138,7 +151,9 @@ const MessagesList = () => {
                             key={index}
                           >
                             <span className="font-mono text-4xl text-white/90">
-                              <MessageRenderEnglish english={chunk.english} />
+                              <MessageRenderToLanguage
+                                answer={checkChunk(chunk)}
+                              />
                             </span>
                             <p className="text-2xl text-pink-300/90">
                               {chunk.meaning}
@@ -155,7 +170,9 @@ const MessagesList = () => {
                       {grammar.chunks.map((chunk, index) => (
                         <div className="bg-blank/30 rounded-md p-2" key={index}>
                           <span className="font-mono text-4xl text-white/90">
-                            <MessageRenderEnglish english={chunk.english} />
+                            <MessageRenderToLanguage
+                              answer={checkChunk(chunk)}
+                            />
                           </span>
                           <p className="text-2xl text-pink-300/90">
                             {chunk.meaning}

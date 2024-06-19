@@ -10,9 +10,10 @@ import { useSession } from "next-auth/react";
 
 const TypingBox = ({ credits }: { credits: number }) => {
   const { data: session } = useSession();
-  const { loading, setMessages, setLoading, playAudioTTS } = useAiTeacher();
+  const { language, setMessages, playAudioTTS } = useAiTeacher();
   const { setOpen } = useModal();
   const [question, setQuestion] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const { mutate: askAi, isPending } = api.generate.chat.useMutation();
 
   const [userCredits, setCredits] = useState(0);
@@ -86,7 +87,8 @@ const TypingBox = ({ credits }: { credits: number }) => {
       {
         question,
         speech: "formal",
-        credits: credits,
+        language,
+        credits,
       },
       {
         onError(error) {

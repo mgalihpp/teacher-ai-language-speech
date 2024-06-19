@@ -1,14 +1,12 @@
 import React, { memo } from "react";
 
-interface MessageRenderEnglishProps {
-  english: Word[];
+interface MessageRenderToProps {
+  answer: Word[];
 }
 
-const MessageRenderEnglish: React.FC<MessageRenderEnglishProps> = ({
-  english,
-}) => (
+const MessageRenderTo: React.FC<MessageRenderToProps> = ({ answer }) => (
   <p className="mt-2 flex w-fit flex-wrap gap-2 font-mono text-4xl font-bold text-white">
-    {english.map((word, index) => (
+    {answer.map((word, index) => (
       <span key={index} className="flex flex-col items-center justify-end">
         {word.reading && (
           <span className="text-2xl text-white/65">{word.reading}</span>
@@ -19,4 +17,4 @@ const MessageRenderEnglish: React.FC<MessageRenderEnglishProps> = ({
   </p>
 );
 
-export default memo(MessageRenderEnglish);
+export default memo(MessageRenderTo);

@@ -1,9 +1,28 @@
+import {
+  englishFormalSpeechExample,
+  indonesiaFormalSpeechExample,
+} from "@/constants/speech-example";
 import { type AiTeacherState } from "@/hooks/use-ai-teacher";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
+}
+
+export function getSpeechLanguagePreference(
+  currentLanguage: LanguageOptions,
+): SpeechExample {
+  let speechExample: SpeechExample;
+
+  switch (currentLanguage) {
+    case "indonesia":
+      speechExample = englishFormalSpeechExample;
+    case "english":
+      speechExample = indonesiaFormalSpeechExample;
+  }
+
+  return speechExample;
 }
 
 export function sendAudio(

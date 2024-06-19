@@ -1,5 +1,5 @@
-import { formalSpeechExample } from "@/constants";
 import { groq } from "@/lib/groq";
+import { getSpeechLanguagePreference } from "@/lib/utils";
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import type { PrismaClient, User } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
@@ -49,6 +49,7 @@ export const generateRouter = createTRPCRouter({
     .input(
       z.object({
         speech: z.enum(["casual", "formal"]),
+        language: z.enum(["indonesia", "english"]),
         question: z.string(),
         credits: z.number().optional(),
       }),
@@ -67,18 +68,30 @@ export const generateRouter = createTRPCRouter({
         credits: input.credits ?? 0,
       });
 
-      const speechExample =
-        input.speech === "formal" ? formalSpeechExample : formalSpeechExample;
+      // const speechExample =
+      //   input.speech === "formal" ? formalSpeechExample : formalSpeechExample;
+
+      const speechExample = getSpeechLanguagePreference(input.language);
+
+      const fromLanguage =
+        input.language === "indonesia" ? "Indonesia" : "English";
+      const toLanguage =
+        input.language === "indonesia" ? "English" : "Indonesia";
+
+      const versionExample =
+        input.language === "indonesia"
+          ? (speechExample.grammarBreakdown[0]?.english as string)
+          : (speechExample.grammarBreakdown[0]?.indonesia as string);
 
       const chatCompletion = await groq.chat.completions.create({
         messages: [
           {
             role: "system",
             content: `You are a English Teacher. That you must asnwer the student question. Your student asks you how to say something 
-                    from Indonesia to English. 
+                    from ${fromLanguage} to ${toLanguage}. 
                     You Should Response with:
-                    - Indonesia: the indonesia version example: "Apakah kamu tinggal di Indonesia ?" 
-                    - English: the english translation in split into words example: ${JSON.stringify(speechExample.english)}
+                    - ${fromLanguage}: the ${fromLanguage.toLocaleLowerCase()} version example: "${versionExample}" 
+                    - ${toLanguage}: the ${toLanguage.toLocaleLowerCase()} translation in split into words example: ${JSON.stringify(speechExample.english)}
                     - grammarBreakdown: an explanation of the grammar structure per sentence ex: ${JSON.stringify(
                       speechExample.grammarBreakdown,
                     )}`,
@@ -87,19 +100,19 @@ export const generateRouter = createTRPCRouter({
             role: "system",
             content: `You always respond with JSON format like this:
               {
-                "indonesia": "",
-                "english": [{
+                "${fromLanguage.toLocaleLowerCase()}": "",
+                "${toLanguage.toLocaleLowerCase()}": [{
                   "word": "",
                   "reading": ""
                 }],
                 "grammarBreakdown": [{
-                  "indonesia": "",
-                  "english": [{
+                  "${fromLanguage.toLocaleLowerCase()}": "",
+                  "${toLanguage.toLocaleLowerCase()}": [{
                     "word": "",
                     "reading": ""
                   }],
                   "chunks": [{
-                    "english": [{
+                    "${toLanguage.toLocaleLowerCase()}": [{
                       "word": "",
                       "reading": ""
                     }],

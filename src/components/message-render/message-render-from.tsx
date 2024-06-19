@@ -1,12 +1,10 @@
 import React, { memo } from "react";
 
-interface MessageRenderIndonesiaProps {
+interface MessageRenderFromProps {
   text: string;
 }
 
-const MessageRenderIndonesia: React.FC<MessageRenderIndonesiaProps> = ({
-  text,
-}) => (
+const MessageRenderFrom: React.FC<MessageRenderFromProps> = ({ text }) => (
   <>
     {text && (
       <p
@@ -20,4 +18,4 @@ const MessageRenderIndonesia: React.FC<MessageRenderIndonesiaProps> = ({
   </>
 );
 
-export default memo(MessageRenderIndonesia);
+export default memo(MessageRenderFrom);

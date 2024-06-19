@@ -3,21 +3,23 @@ import { useAiTeacher } from "@/hooks/use-ai-teacher";
 import Image from "next/image";
 import { memo } from "react";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
 
 const BoardSettings = () => {
   const {
     teacher,
     speech,
     classroom,
+    language,
     setTeacher,
     setSpeech,
     setClassroom,
-    setIndonesia,
+    setLanguage,
     set,
   } = useAiTeacher();
 
@@ -52,8 +54,8 @@ const BoardSettings = () => {
         <SetSpeechButton speech={speech} setSpeech={setSpeech} type="formal" />
         <SetSpeechButton speech={speech} setSpeech={setSpeech} type="casual" />
       </div>
-      <div className="absolute right-0 top-full mt-20 flex flex-row gap-2">
-        <SetLanguageButton text="Ganti Bahasa" setIndonesia={setIndonesia} />
+      <div className="absolute right-0 top-full mt-20 flex w-full flex-row justify-end gap-2">
+        <SetLanguageButton language={language} setLanguage={setLanguage} />
         <button
           className="rounded-full bg-slate-900/20 px-10 
           py-4 text-4xl capitalize text-white/45 backdrop-blur-md transition-colors duration-500 hover:bg-slate-900/40 hover:text-white"
@@ -126,35 +128,32 @@ const SetSpeechButton: React.FC<{
 });
 
 const SetLanguageButton: React.FC<{
-  text: string;
-  setIndonesia: (value: boolean) => void;
-}> = memo(({ text, setIndonesia }) => {
+  language: string;
+  setLanguage: (language: LanguageOptions) => void;
+}> = memo(({ language, setLanguage }) => {
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <button className="rounded-full bg-slate-900/40 px-10 py-4 text-4xl capitalize text-white backdrop-blur-md transition-colors duration-500">
-          {text}
-        </button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="border-0 bg-slate-800/20">
-        <DropdownMenuItem
-          className="bg-transparent"
-          onClick={() => {
-            setIndonesia(false);
-          }}
-        >
-          English
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          className="bg-transparent"
-          onClick={() => {
-            setIndonesia(true);
-          }}
-        >
-          Indonesia
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <Select
+      defaultValue={language}
+      onValueChange={(value) => {
+        if (value === "english") {
+          setLanguage("english");
+        } else if (value === "indonesia") {
+          setLanguage("indonesia");
+        }
+      }}
+    >
+      <SelectTrigger className="h-20 min-h-20 w-[350px] rounded-full bg-slate-900/40 py-4 text-3xl capitalize text-white backdrop-blur-md transition-colors duration-500">
+        <SelectValue placeholder="Change Language" />
+      </SelectTrigger>
+      <SelectContent className="border-0 bg-slate-800/20">
+        <SelectItem value="english" className="bg-slate-800/20">
+          English -&gt; Indonesia
+        </SelectItem>
+        <SelectItem value="indonesia" className="bg-slate-800/20">
+          Indonesia -&gt; English
+        </SelectItem>
+      </SelectContent>
+    </Select>
   );
 });
 
