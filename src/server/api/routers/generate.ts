@@ -1,48 +1,8 @@
 import { groq } from "@/lib/groq";
-import { getSpeechLanguagePreference } from "@/lib/utils";
+import { checkUserCredits, getSpeechLanguagePreference } from "@/lib/utils";
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
-import type { PrismaClient, User } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
-
-async function checkUserCredits({
-  db,
-  user,
-  credits,
-}: {
-  db: PrismaClient;
-  user: User | null | undefined;
-  credits: number;
-}) {
-  if (!user) {
-    if (credits <= 0) {
-      throw new TRPCError({
-        code: "FORBIDDEN",
-        message: "You don't have enough credits",
-      });
-    }
-
-    return true;
-  } else {
-    if (user.credits <= 0) {
-      throw new TRPCError({
-        code: "FORBIDDEN",
-        message: "You don't have enough credits",
-      });
-    }
-
-    await db.user.update({
-      where: {
-        id: user?.id,
-      },
-      data: {
-        credits: user.credits - 1,
-      },
-    });
-
-    return true;
-  }
-}
 
 export const generateRouter = createTRPCRouter({
   chat: publicProcedure
@@ -67,9 +27,6 @@ export const generateRouter = createTRPCRouter({
         user: user,
         credits: input.credits ?? 0,
       });
-
-      // const speechExample =
-      //   input.speech === "formal" ? formalSpeechExample : formalSpeechExample;
 
       const speechExample = getSpeechLanguagePreference(input.language);
 
@@ -124,8 +81,12 @@ export const generateRouter = createTRPCRouter({
           },
           {
             role: "user",
-            content: `How to say ${input.question || "Apakah kamu tinggal di Indonesia ?"} 
-            In English in ${input.speech} speech ?`,
+            content: `How to say ${
+              input.question || input.language === "indonesia"
+                ? "Apakah kamu tinggal di Indonesia ?"
+                : "Do you live in Indonesia ?"
+            } 
+            In ${toLanguage} in ${input.speech} speech ?`,
           },
         ],
 

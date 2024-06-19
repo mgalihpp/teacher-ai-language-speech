@@ -3,6 +3,8 @@ import {
   indonesiaFormalSpeechExample,
 } from "@/constants/speech-example";
 import { type AiTeacherState } from "@/hooks/use-ai-teacher";
+import { type PrismaClient, type User } from "@prisma/client";
+import { TRPCError } from "@trpc/server";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -52,4 +54,43 @@ export function sendAudio(
     });
   };
   resolve(audioPlayer);
+}
+
+export async function checkUserCredits({
+  db,
+  user,
+  credits,
+}: {
+  db: PrismaClient;
+  user: User | null | undefined;
+  credits: number;
+}) {
+  if (!user) {
+    if (credits <= 0) {
+      throw new TRPCError({
+        code: "FORBIDDEN",
+        message: "You don't have enough credits",
+      });
+    }
+
+    return true;
+  } else {
+    if (user.credits <= 0) {
+      throw new TRPCError({
+        code: "FORBIDDEN",
+        message: "You don't have enough credits",
+      });
+    }
+
+    await db.user.update({
+      where: {
+        id: user?.id,
+      },
+      data: {
+        credits: user.credits - 1,
+      },
+    });
+
+    return true;
+  }
 }
