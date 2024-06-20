@@ -20,8 +20,10 @@ export function getSpeechLanguagePreference(
   switch (currentLanguage) {
     case "indonesia":
       speechExample = englishFormalSpeechExample;
+      break;
     case "english":
       speechExample = indonesiaFormalSpeechExample;
+      break;
   }
 
   return speechExample;

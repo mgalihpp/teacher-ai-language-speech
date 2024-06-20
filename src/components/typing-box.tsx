@@ -10,7 +10,12 @@ import { useSession } from "next-auth/react";
 
 const TypingBox = ({ credits }: { credits: number }) => {
   const { data: session } = useSession();
-  const { language, setMessages, playAudioTTS } = useAiTeacher();
+  const {
+    language,
+    setMessages,
+    setLoading: setTeacherLoading,
+    playAudioTTS,
+  } = useAiTeacher();
   const { setOpen } = useModal();
   const [question, setQuestion] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
@@ -24,6 +29,14 @@ const TypingBox = ({ credits }: { credits: number }) => {
   useEffect(() => {
     setCredits(credits);
   }, [credits]);
+
+  useEffect(() => {
+    setTeacherLoading(loading);
+
+    return () => {
+      setTeacherLoading(false);
+    };
+  }, [loading, setTeacherLoading]);
 
   const checkIsLimit = () => {
     if (!session?.user.id) {

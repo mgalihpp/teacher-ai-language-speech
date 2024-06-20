@@ -40,6 +40,11 @@ export const generateRouter = createTRPCRouter({
           ? (speechExample.grammarBreakdown[0]?.english as string)
           : (speechExample.grammarBreakdown[0]?.indonesia as string);
 
+      const wordExample =
+        input.language === "indonesia"
+          ? speechExample.english
+          : speechExample.indonesia;
+
       const chatCompletion = await groq.chat.completions.create({
         messages: [
           {
@@ -48,7 +53,7 @@ export const generateRouter = createTRPCRouter({
                     from ${fromLanguage} to ${toLanguage}. 
                     You Should Response with:
                     - ${fromLanguage}: the ${fromLanguage.toLocaleLowerCase()} version example: "${versionExample}" 
-                    - ${toLanguage}: the ${toLanguage.toLocaleLowerCase()} translation in split into words example: ${JSON.stringify(speechExample.english)}
+                    - ${toLanguage}: the ${toLanguage.toLocaleLowerCase()} translation in split into words example: ${JSON.stringify(wordExample)}
                     - grammarBreakdown: an explanation of the grammar structure per sentence ex: ${JSON.stringify(
                       speechExample.grammarBreakdown,
                     )}`,
