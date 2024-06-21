@@ -59,29 +59,30 @@ export const generateRouter = createTRPCRouter({
             content: `You are a ${toLanguage} Teacher. That you must asnwer the student question. Your student asks you how to say something 
                     from ${fromLanguage} to ${toLanguage}. 
                     You Should Response with:
-                    - ${fromLanguage}: the ${fromLanguage.toLocaleLowerCase()} version example: "${versionExample}" 
-                    - ${toLanguage}: the ${toLanguage.toLocaleLowerCase()} translation in split into words example: ${JSON.stringify(wordExample)}
+                    - ${fromLanguage}: the ${fromLanguage.toLowerCase()} version example: "${versionExample}" 
+                    - ${toLanguage}: the ${toLanguage.toLowerCase()} translation in split into words example: ${JSON.stringify(wordExample)}
                     - grammarBreakdown: an explanation of the grammar structure per sentence ex: ${JSON.stringify(
                       speechExample.grammarBreakdown,
                     )}`,
           },
           {
             role: "system",
-            content: `You always respond with valid JSON format like this:
+            content: `You always respond with valid clean JSON schema like this:
+            '''json
               {
-                "${fromLanguage.toLocaleLowerCase()}": "",
-                "${toLanguage.toLocaleLowerCase()}": [{
+                "${fromLanguage.toLowerCase()}": "",
+                "${toLanguage.toLowerCase()}": [{
                   "word": "",
                   "reading": ""
                 }],
                 "grammarBreakdown": [{
-                  "${fromLanguage.toLocaleLowerCase()}": "",
-                  "${toLanguage.toLocaleLowerCase()}": [{
+                  "${fromLanguage.toLowerCase()}": "",
+                  "${toLanguage.toLowerCase()}": [{
                     "word": "",
                     "reading": ""
                   }],
                   "chunks": [{
-                    "${toLanguage.toLocaleLowerCase()}": [{
+                    "${toLanguage.toLowerCase()}": [{
                       "word": "",
                       "reading": ""
                     }],
@@ -89,7 +90,7 @@ export const generateRouter = createTRPCRouter({
                     "grammar": ""
                   }]
                 }]
-              }`,
+              }'''`,
           },
           {
             role: "user",
@@ -108,7 +109,7 @@ export const generateRouter = createTRPCRouter({
         response_format: {
           type: "json_object",
         },
-        temperature: 0.2,
+        temperature: 0,
       });
 
       if (!chatCompletion.choices[0]?.message.content) {

@@ -45,35 +45,6 @@ const Navbar = () => {
         className="relative mx-auto flex max-w-screen-2xl 
       gap-4 px-6 py-3.5 sm:grid sm:px-8 lg:px-16"
       >
-        <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
-          <SheetTrigger asChild>
-            <button
-              name="mobile-nav"
-              className="col-end-1 hidden max-sm:block"
-              onClick={() => setMenuOpen(true)}
-            >
-              <Menu className="size-6" />
-            </button>
-          </SheetTrigger>
-          <SheetContent side="left">
-            <ul className="mt-4 flex h-auto flex-col items-start justify-center space-y-3">
-              {navLinks.map((link, index) => (
-                <Link
-                  key={index}
-                  aria-current="page"
-                  aria-label={link.label}
-                  href={`${link.path}`}
-                  onClick={() => setMenuOpen(false)}
-                  className="relative mx-2 inline-block 
-                  cursor-pointer px-4 py-2 text-xl font-medium capitalize text-primary"
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </ul>
-          </SheetContent>
-        </Sheet>
-
         <Link
           href="/#hero"
           prefetch={false}
@@ -83,10 +54,39 @@ const Navbar = () => {
           <h1 className="text-xl font-bold max-sm:hidden">Guru AI</h1>
         </Link>
 
-        <div className="flex justify-end sm:hidden">
+        <div className="flex items-center justify-end gap-x-4 sm:hidden">
           <Suspense fallback={<Skeleton className="size-8 rounded-full" />}>
             <UserDropDown />
           </Suspense>
+
+          <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
+            <SheetTrigger asChild>
+              <button
+                name="mobile-nav"
+                className="col-end-1 hidden max-sm:block"
+                onClick={() => setMenuOpen(true)}
+              >
+                <Menu className="size-6" />
+              </button>
+            </SheetTrigger>
+            <SheetContent>
+              <ul className="mt-4 flex h-auto flex-col items-start justify-center space-y-3">
+                {navLinks.map((link, index) => (
+                  <Link
+                    key={index}
+                    aria-current="page"
+                    aria-label={link.label}
+                    href={`${link.path}`}
+                    onClick={() => setMenuOpen(false)}
+                    className="relative mx-2 inline-block 
+                  cursor-pointer px-4 py-2 text-xl font-medium capitalize text-primary"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </ul>
+            </SheetContent>
+          </Sheet>
         </div>
 
         <ul className="col-start-11 col-end-11 hidden items-center sm:flex">
