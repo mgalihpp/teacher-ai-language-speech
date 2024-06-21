@@ -70,7 +70,7 @@ export default function Testimonial() {
         </div>
         <div className="relative grid max-h-[49rem] grid-cols-1 gap-6 overflow-y-hidden sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
           <div className="space-y-8">
-            <Marquee vertical duration="fast">
+            <Marquee vertical duration="fast" pauseOnHover>
               {testimonials.testimonials1.map((item, index) => (
                 <div className="text-sm leading-6" key={index}>
                   <Card
@@ -85,7 +85,7 @@ export default function Testimonial() {
             </Marquee>
           </div>
           <div className="space-y-8">
-            <Marquee vertical>
+            <Marquee vertical pauseOnHover>
               {testimonials.testimonials2.map((item, index) => (
                 <div className="text-sm leading-6" key={index}>
                   <Card
@@ -100,7 +100,7 @@ export default function Testimonial() {
             </Marquee>
           </div>
           <div>
-            <Marquee vertical duration="fast">
+            <Marquee vertical duration="fast" pauseOnHover>
               {testimonials.testimonials3.map((item, index) => (
                 <div className="text-sm leading-6" key={index}>
                   <Card

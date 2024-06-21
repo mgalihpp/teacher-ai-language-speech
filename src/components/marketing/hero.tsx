@@ -4,7 +4,7 @@ const Hero = () => {
   return (
     <section
       id="hero"
-      className="mt-18 relative bg-[url(/images/prev1.webp)] bg-cover bg-center bg-no-repeat"
+      className="relative bg-[url(/images/prev1.webp)] bg-cover bg-center bg-no-repeat"
     >
       <div className="absolute inset-0 bg-black/55 backdrop-blur-sm"></div>
 

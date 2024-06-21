@@ -67,7 +67,7 @@ export const generateRouter = createTRPCRouter({
           },
           {
             role: "system",
-            content: `You always respond with JSON format like this:
+            content: `You always respond with valid JSON format like this:
               {
                 "${fromLanguage.toLocaleLowerCase()}": "",
                 "${toLanguage.toLocaleLowerCase()}": [{

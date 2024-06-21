@@ -2,6 +2,7 @@ import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
 import MidTrans from "@/lib/midtrans/midtrans";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
+import { env } from "@/env";
 
 export const midtransRouter = createTRPCRouter({
   snap: protectedProcedure
@@ -13,14 +14,18 @@ export const midtransRouter = createTRPCRouter({
     )
     .mutation(async ({ input, ctx }) => {
       try {
-        const SERVER_KEY = "SB-Mid-server-GwUP_WGbJPXsDzsNEBRs8IYA";
-        const CLIENT_KEY = "SB-Mid-client-61XuGAwQ8Bj8LxSS";
         const user = ctx.session.user;
 
         const snap = new MidTrans.Snap({
-          isProduction: false,
-          serverKey: SERVER_KEY,
-          clientKey: CLIENT_KEY,
+          isProduction: env.NODE_ENV === "development" ? false : true,
+          serverKey:
+            env.NODE_ENV === "development"
+              ? env.MIDTRANS_SANDBOX_SERVER_KEY
+              : env.MIDTRANS_PRODUCTION_SERVER_KEY,
+          clientKey:
+            env.NODE_ENV === "development"
+              ? env.MIDTRANS_SANDBOX_CLIENT_KEY
+              : env.MIDTRANS_PRODUCTION_CLIENT_KEY,
         });
 
         const parameter = {
@@ -46,7 +51,7 @@ export const midtransRouter = createTRPCRouter({
               brand: "None",
               category: "Credits",
               merchant_name: "Guru AI",
-              url: "http://localhost:3000/buy-credits",
+              url: `${env.NEXTAUTH_URL}/buy-credits`,
             },
           ],
         };
@@ -80,7 +85,6 @@ export const midtransRouter = createTRPCRouter({
         },
         data: {
           credits: {
-            // increment the current credits value by the input value
             increment: input.credits,
           },
         },

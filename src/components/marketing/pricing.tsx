@@ -3,7 +3,6 @@
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -44,6 +43,7 @@ declare global {
     };
   }
 }
+
 const PricingHeader = ({
   title,
   subtitle,
@@ -67,7 +67,7 @@ const PricingCard = ({
   popular,
   session,
 }: PricingCardProps) => {
-  const { setOpen } = useModal();
+  const { setModalOpen } = useModal();
 
   const { mutate: createSnap, isPending: isCreating } =
     api.midtrans.snap.useMutation();
@@ -90,7 +90,14 @@ const PricingCard = ({
             {title}
           </CardTitle>
           <div className="flex gap-0.5">
-            <span className="text-3xl font-bold">Rp. {price}</span>
+            <span className="text-3xl font-bold">
+              {price.toLocaleString("id-ID", {
+                style: "currency",
+                currency: "IDR",
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+              })}
+            </span>
           </div>
         </CardHeader>
         <CardContent className="pt-1.5 dark:text-stone-300">
@@ -104,7 +111,7 @@ const PricingCard = ({
             if (!session?.user.id) {
               toast.error("Please login first");
 
-              setOpen(true);
+              setModalOpen(true);
 
               return;
             }
@@ -144,7 +151,11 @@ const PricingCard = ({
                     },
                     onError: (error) => {
                       console.log(error);
-                      toast.error(JSON.stringify(error));
+                      toast.error(
+                        JSON.stringify(
+                          (error as { status_message: string }).status_message,
+                        ),
+                      );
                     },
                   });
                 },
@@ -171,9 +182,11 @@ const PricingCard = ({
 export default function Pricing({
   credits,
   session,
+  clientKey,
 }: {
   credits?: number;
   session?: Session | null;
+  clientKey: string;
 }) {
   return (
     <>
@@ -194,7 +207,7 @@ export default function Pricing({
       </section>
       <Script
         src="https://app.sandbox.midtrans.com/snap/snap.js"
-        data-client-key="SB-Mid-client-61XuGAwQ8Bj8LxSS"
+        data-client-key={clientKey}
         type="text/javascript"
       />
     </>

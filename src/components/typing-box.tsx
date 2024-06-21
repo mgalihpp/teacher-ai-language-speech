@@ -16,10 +16,12 @@ const TypingBox = ({ credits }: { credits: number }) => {
     setLoading: setTeacherLoading,
     playAudioTTS,
   } = useAiTeacher();
-  const { setOpen } = useModal();
+  const { setModalOpen } = useModal();
   const [question, setQuestion] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const { mutate: askAi, isPending } = api.generate.chat.useMutation();
+  const { mutate: updateUserCredits } =
+    api.midtrans.updateUserCredits.useMutation();
 
   const [userCredits, setCredits] = useState(0);
 
@@ -45,7 +47,7 @@ const TypingBox = ({ credits }: { credits: number }) => {
       if (limit === true) {
         toast.error("Please log in to continue.");
 
-        setOpen(true);
+        setModalOpen(true);
 
         setLoading(false);
         return false;
@@ -58,7 +60,7 @@ const TypingBox = ({ credits }: { credits: number }) => {
 
         toast.error("Please log in to continue.");
 
-        setOpen(true);
+        setModalOpen(true);
 
         setLoading(false);
         return false;
@@ -91,9 +93,6 @@ const TypingBox = ({ credits }: { credits: number }) => {
   const ask = async () => {
     setLoading(true);
 
-    console.log(credits);
-    console.log(userCredits);
-
     const canAsk = checkIsLimit();
 
     if (!canAsk) return;
@@ -110,6 +109,16 @@ const TypingBox = ({ credits }: { credits: number }) => {
       {
         onError(error) {
           if (error.shape?.data.httpStatus === 500) {
+            updateUserCredits(
+              {
+                credits: 1,
+              },
+              {
+                onSuccess: () => {
+                  setCredits((prev) => prev + 1);
+                },
+              },
+            );
             setLoading(false);
             return toast.error("Something went wrong, please try again");
           }

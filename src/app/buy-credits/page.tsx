@@ -1,9 +1,11 @@
 import { api } from "@/trpc/server";
-import Pricing from "../../components/marketing/pricing";
+import Pricing from "@/components/marketing/pricing";
 import Testimonial from "@/components/marketing/testimonial";
+import { getMidtransClientKey } from "@/helpers/midtrans";
 
 export default async function BuyCreditsPage() {
   const { session, user } = await api.user.getUser();
+  const MIDTRANS_CLIENT_KEY = getMidtransClientKey();
 
   return (
     <>
@@ -19,7 +21,11 @@ export default async function BuyCreditsPage() {
             thousands of learners who already trust AI Language Teacher.
           </p>
 
-          <Pricing credits={user?.credits ?? 0} session={session} />
+          <Pricing
+            credits={user?.credits ?? 0}
+            session={session}
+            clientKey={MIDTRANS_CLIENT_KEY}
+          />
         </div>
       </section>
 

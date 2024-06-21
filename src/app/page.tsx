@@ -7,9 +7,11 @@ import Support from "@/components/marketing/support";
 import Testimonial from "@/components/marketing/testimonial";
 import Pricing from "@/components/marketing/pricing";
 import { getServerAuthSession } from "@/server/auth";
+import { getMidtransClientKey } from "@/helpers/midtrans";
 
 export default async function Home() {
   const session = await getServerAuthSession();
+  const MIDTRANS_CLIENT_KEY = getMidtransClientKey();
 
   return (
     <>
@@ -18,7 +20,7 @@ export default async function Home() {
         <Hero />
         <Demo />
         <Support />
-        <Pricing session={session} />
+        <Pricing session={session} clientKey={MIDTRANS_CLIENT_KEY} />
         <Testimonial />
         <FooterCTA />
       </main>

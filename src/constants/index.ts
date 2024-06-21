@@ -56,10 +56,10 @@ export const plans = [
   },
   {
     title: "+100 Credits",
-    price: 500,
+    price: 100,
     credits: 100,
     description:
-      "Experience the convenience of getting +100 credits. Our AI assistant is perfect for casual conversations, language learning, and skill testing. Start your journey today!",
+      "Enjoy casual conversations, language learning, and skill testing with our AI assistant. Purchase now and Start your journey with 100 credits!",
     actionLabel: "Buy Now",
   },
   {
@@ -67,7 +67,7 @@ export const plans = [
     price: 50000,
     credits: 500,
     description:
-      "Get +500 credits for chatting with our AI assistant. Perfect for casual conversations, learning, and testing your skills.",
+      "Chat with our AI assistant for casual conversations, learning, and skill testing. Purchase now and start your adventure with 500 credits!",
 
     actionLabel: "Buy Now",
     popular: true,

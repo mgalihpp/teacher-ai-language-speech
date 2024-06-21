@@ -12,7 +12,10 @@ import { ThemeProvider } from "@/providers/theme-providers";
 import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
-  title: "Guru AI",
+  title: {
+    default: "Guru AI",
+    template: "%s - Guru AI",
+  },
   description:
     "Guru AI adalah solusi terbaik untuk belajar Bahasa Inggris yang dapat mengubah hidup Anda. Dengan layanan Guru AI, Anda dapat belajar Bahasa Inggris dengan cara yang unik dan efektif. Dengan Guru AI, Anda dapat belajar dengan guru yang berpengalaman, mendengarkan kata-kata mereka, dan mendapatkan pemahaman yang lebih dalam tentang Bahasa Inggris. Guru AI dengan cakap akan membimbing Anda selama setiap kelas dan memberikan pemahaman yang lebih jauh tentang konteks Bahasa Inggris. Dengan Guru AI, Anda dapat mencapai tujuan belajar Bahasa Inggris Anda dengan lebih cepat dan efektif. Belajar Bahasa Inggris dengan Guru AI, solusi terbaik untuk Anda.",
   icons: [{ rel: "icon", url: "/favicon.ico" }],

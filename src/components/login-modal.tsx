@@ -17,7 +17,7 @@ import { toast } from "sonner";
 
 const LoginDialog = () => {
   const [loading, setLoading] = useState<boolean>(false);
-  const { open, setOpen } = useModal();
+  const { modalOpen, setModalOpen } = useModal();
 
   // useEffect(() => {
   // if (isNotAuthorized) {
@@ -33,7 +33,7 @@ const LoginDialog = () => {
   // };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={modalOpen} onOpenChange={setModalOpen}>
       <DialogContent className="max-w-md space-y-2">
         <DialogHeader>
           <DialogTitle>
@@ -103,11 +103,23 @@ const LoginDialog = () => {
         <DialogFooter>
           <span className="text-xs text-stone-700 dark:text-stone-200">
             By creating an account, you agree to our{" "}
-            <Link href="#" className="underline">
+            <Link
+              href="/terms-of-service"
+              className="underline"
+              onClick={() => {
+                setModalOpen(false);
+              }}
+            >
               Terms of Service
             </Link>{" "}
             and{" "}
-            <Link href="#" className="underline">
+            <Link
+              href="/privacy-policy"
+              className="underline"
+              onClick={() => {
+                setModalOpen(false);
+              }}
+            >
               Privacy Policy
             </Link>{" "}
             .

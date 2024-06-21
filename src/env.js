@@ -25,6 +25,10 @@ export const env = createEnv({
     GOOGLE_CLIENT_ID: z.string(),
     GOOGLE_CLIENT_SECRET: z.string(),
     GROQ_API_KEY: z.string(),
+    MIDTRANS_SANDBOX_SERVER_KEY: z.string(),
+    MIDTRANS_SANDBOX_CLIENT_KEY: z.string(),
+    MIDTRANS_PRODUCTION_SERVER_KEY: z.string(),
+    MIDTRANS_PRODUCTION_CLIENT_KEY: z.string(),
     // UNREAL_SPEECH_API_KEY: z.string(),
   },
 
@@ -55,6 +59,10 @@ export const env = createEnv({
       process.env.NEXT_PUBLIC_UNREAL_SPEECH_API_KEY,
     NEXT_PUBLIC_ELEVENLABS_SPEECH_API_KEY:
       process.env.NEXT_PUBLIC_ELEVENLABS_SPEECH_API_KEY,
+    MIDTRANS_SANDBOX_SERVER_KEY: process.env.MIDTRANS_SANDBOX_SERVER_KEY,
+    MIDTRANS_SANDBOX_CLIENT_KEY: process.env.MIDTRANS_SANDBOX_CLIENT_KEY,
+    MIDTRANS_PRODUCTION_SERVER_KEY: process.env.MIDTRANS_PRODUCTION_SERVER_KEY,
+    MIDTRANS_PRODUCTION_CLIENT_KEY: process.env.MIDTRANS_PRODUCTION_CLIENT_KEY,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

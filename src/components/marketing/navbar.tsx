@@ -29,7 +29,8 @@ const Navbar = () => {
 
   const pathname = usePathname();
 
-  const isCreditsPage = pathname === "/buy-credits";
+  const pathnames = ["/buy-credits", "terms-of-service", "privacy-policy"];
+  const excludePage = pathnames.some((route) => pathname.includes(route));
 
   return (
     <header
@@ -37,7 +38,7 @@ const Navbar = () => {
         "fixed top-0 z-30 w-full transition-all duration-500 ease-in-out " +
         (scrollActive
           ? "bg-background pt-0 shadow-md"
-          : `pt-0 ${isCreditsPage ? "text-primary" : "text-white"}`)
+          : `pt-0 ${excludePage ? "text-primary" : "text-white"}`)
       }
     >
       <nav
@@ -99,7 +100,7 @@ const Navbar = () => {
                   "relative mx-2 inline-block cursor-pointer rounded-md px-4 py-2 font-medium capitalize transition-colors hover:bg-black/10  " +
                   (scrollActive
                     ? "text-primary hover:dark:bg-stone-950"
-                    : `${isCreditsPage ? "text-primary" : "text-white"}`)
+                    : `${excludePage ? "text-primary" : "text-white"}`)
                 }
               >
                 {link.label}
