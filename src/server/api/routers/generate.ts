@@ -1,6 +1,7 @@
 import { groq } from "@/lib/groq";
 import { checkUserCredits, getSpeechLanguagePreference } from "@/lib/utils";
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
+import { type User } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
@@ -15,11 +16,17 @@ export const generateRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ input, ctx }) => {
-      const user = await ctx.db.user.findFirst({
-        where: {
-          id: ctx.session?.user?.id,
-        },
-      });
+      let user: User | null;
+
+      if (!ctx.session?.user.id) {
+        user = null;
+      } else {
+        user = await ctx.db.user.findFirst({
+          where: {
+            id: ctx.session.user.id,
+          },
+        });
+      }
 
       // checking credits for users / unauthenticated
       await checkUserCredits({
@@ -49,7 +56,7 @@ export const generateRouter = createTRPCRouter({
         messages: [
           {
             role: "system",
-            content: `You are a English Teacher. That you must asnwer the student question. Your student asks you how to say something 
+            content: `You are a ${toLanguage} Teacher. That you must asnwer the student question. Your student asks you how to say something 
                     from ${fromLanguage} to ${toLanguage}. 
                     You Should Response with:
                     - ${fromLanguage}: the ${fromLanguage.toLocaleLowerCase()} version example: "${versionExample}" 

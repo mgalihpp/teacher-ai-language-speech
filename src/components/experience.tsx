@@ -75,6 +75,5 @@ const Experience = ({ credits }: { credits: number }) => {
 };
 
 useGLTF.preload("/models/classroom_default.glb");
-useGLTF.preload("/models/classroom_alternative.glb");
 
 export default memo(Experience);

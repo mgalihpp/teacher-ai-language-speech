@@ -64,7 +64,7 @@ const TypingBox = ({ credits }: { credits: number }) => {
         return false;
       }
 
-      if (credits <= 0) {
+      if (userCredits <= 0) {
         toast.error("You don't have enough credits");
         setLoading(false);
         setCredits(0);
@@ -77,9 +77,10 @@ const TypingBox = ({ credits }: { credits: number }) => {
       return true;
     }
 
-    if (credits <= 0) {
+    if (userCredits <= 0) {
       toast.error("You don't have enough credits");
       setLoading(false);
+      setCredits(0);
       return false;
     }
 
@@ -89,6 +90,9 @@ const TypingBox = ({ credits }: { credits: number }) => {
 
   const ask = async () => {
     setLoading(true);
+
+    console.log(credits);
+    console.log(userCredits);
 
     const canAsk = checkIsLimit();
 

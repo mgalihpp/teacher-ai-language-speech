@@ -16,6 +16,8 @@ const CameraManager = () => {
     } else if (currentMessage) {
       controls.current?.setPosition(...CAMERA_POSITION.speaking, true);
       controls.current?.zoomTo(CAMERA_ZOOMS.speaking, true);
+    } else {
+      controls.current?.zoomTo(CAMERA_ZOOMS.default, true);
     }
   }, [currentMessage, loading]);
 
