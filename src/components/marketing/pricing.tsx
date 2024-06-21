@@ -206,7 +206,7 @@ export default function Pricing({
         </section>
       </section>
       <Script
-        src="https://app.sandbox.midtrans.com/snap/snap.js"
+        src="https://app.midtrans.com/snap/snap.js"
         data-client-key={clientKey}
         type="text/javascript"
       />
