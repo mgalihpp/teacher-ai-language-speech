@@ -68,7 +68,6 @@ export const generateRouter = createTRPCRouter({
           {
             role: "system",
             content: `You always respond with valid clean JSON schema like this:
-            '''json
               {
                 "${fromLanguage.toLowerCase()}": "",
                 "${toLanguage.toLowerCase()}": [{
@@ -90,7 +89,7 @@ export const generateRouter = createTRPCRouter({
                     "grammar": ""
                   }]
                 }]
-              }'''`,
+              }`,
           },
           {
             role: "user",
@@ -104,12 +103,11 @@ export const generateRouter = createTRPCRouter({
             In ${toLanguage} in ${input.speech} speech ?`,
           },
         ],
-
-        model: "llama3-8b-8192",
+        model: "llama3-70b-8192",
         response_format: {
           type: "json_object",
         },
-        temperature: 0,
+        temperature: 0.8,
       });
 
       if (!chatCompletion.choices[0]?.message.content) {

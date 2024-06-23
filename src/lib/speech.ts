@@ -20,6 +20,8 @@ class SpeechApi {
   language: LanguageOptions;
   speech: SpeechOptions;
 
+  // for details https://docs.unrealspeech.com/reference/parameter-details
+
   static UNREAL_SPEECH_API_URL = "https://api.v7.unrealspeech.com/stream";
   static ELEVENLABS_SPEECH_API_URL =
     "https://api.elevenlabs.io/v1/text-to-speech";

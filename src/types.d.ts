@@ -41,8 +41,8 @@ type Word = {
 };
 
 type AiResponse = {
-  indonesia: string;
-  english: Word[];
+  indonesia: string | Word[];
+  english: string | Word[];
   grammarBreakdown: grammarWord[];
 };
 

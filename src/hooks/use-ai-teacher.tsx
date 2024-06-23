@@ -1,4 +1,4 @@
-import { checkIsAnswerWord } from "@/helpers/check-message";
+import { checkIsAnswerWord, isString } from "@/helpers/check-message";
 import SpeechApi from "@/lib/speech";
 import { sendAudio } from "@/lib/utils";
 import { create } from "zustand";
@@ -65,9 +65,9 @@ export const useAiTeacher = create<AiTeacherState>()(
         return new Promise((resolve, reject) => {
           const currentTeacher = get().teacher;
 
-          const currentLanguage = get().language;
-
-          // for details https://docs.unrealspeech.com/reference/parameter-details
+          const currentLanguage = isString(message.answer.indonesia)
+            ? "indonesia"
+            : "english";
 
           const englishTTS = new SpeechApi({
             language: "english",
