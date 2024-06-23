@@ -1,5 +1,4 @@
 import React from "react";
-import Marquee from "../marquee";
 import { testimonials } from "@/constants";
 
 interface CardProps {
@@ -20,7 +19,7 @@ const Card: React.FC<CardProps> = ({
   return (
     <div className="group relative">
       <div className="cursor-pointer">
-        <div className="highlight relative min-h-56 max-w-xs space-y-6 rounded-lg bg-stone-100 p-6 leading-none ring-1 ring-gray-900/5 dark:bg-neutral-900">
+        <div className="highlight relative space-y-6 rounded-lg bg-stone-100 p-6 leading-none ring-1 ring-gray-900/5 dark:bg-neutral-900">
           <div className="flex items-center space-x-4">
             <img
               src={photoLink}
@@ -62,24 +61,46 @@ export default function Testimonial() {
             </p>
           </div>
         </div>
-        <div className="relative flex gap-6 overflow-hidden">
+        <div className="relative grid max-h-[49rem] grid-cols-1 justify-center gap-6 overflow-y-hidden sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
           <div className="space-y-8">
-            <Marquee pauseOnHover>
-              {testimonials.testimonials2.map((item, index) => (
-                <div className="text-sm leading-6" key={index}>
-                  <Card
-                    name={item.name}
-                    position={item.position}
-                    text={item.text}
-                    photoLink={item.photoLink}
-                    tweetLink={item.tweetLink}
-                  />
-                </div>
-              ))}
-            </Marquee>
+            {testimonials.testimonials2.map((item, index) => (
+              <div className="text-sm leading-6" key={index}>
+                <Card
+                  name={item.name}
+                  position={item.position}
+                  text={item.text}
+                  photoLink={item.photoLink}
+                  tweetLink={item.tweetLink}
+                />
+              </div>
+            ))}
           </div>
-          <div className="pointer-events-none absolute left-0 h-60 w-5 rounded-md bg-gradient-to-r from-white dark:from-background" />
-          <div className="pointer-events-none absolute right-0 h-60 w-5 rounded-md bg-gradient-to-l from-white dark:from-background" />
+          <div className="space-y-8">
+            {testimonials.testimonials4.map((item, index) => (
+              <div className="text-sm leading-6" key={index}>
+                <Card
+                  name={item.name}
+                  position={item.position}
+                  text={item.text}
+                  photoLink={item.photoLink}
+                  tweetLink={item.tweetLink}
+                />
+              </div>
+            ))}
+          </div>
+          <div className="space-y-8">
+            {testimonials.testimonials3.map((item, index) => (
+              <div className="text-sm leading-6" key={index}>
+                <Card
+                  name={item.name}
+                  position={item.position}
+                  text={item.text}
+                  photoLink={item.photoLink}
+                  tweetLink={item.tweetLink}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
