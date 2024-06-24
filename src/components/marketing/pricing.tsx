@@ -73,7 +73,7 @@ const PricingCard = ({
     api.midtrans.snap.useMutation();
 
   const { mutate: updateUserCredits, isPending: isUpdating } =
-    api.midtrans.updateUserCredits.useMutation();
+    api.user.updateUserCredits.useMutation();
 
   const router = useRouter();
 
@@ -206,7 +206,11 @@ export default function Pricing({
         </section>
       </section>
       <Script
-        src="https://app.midtrans.com/snap/snap.js"
+        src={
+          process.env.NODE_ENV === "development"
+            ? "https://app.sandbox.midtrans.com/snap/snap.js"
+            : "https://app.midtrans.com/snap/snap.js"
+        }
         data-client-key={clientKey}
         type="text/javascript"
       />

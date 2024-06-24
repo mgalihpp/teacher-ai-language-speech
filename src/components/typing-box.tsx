@@ -22,7 +22,7 @@ const TypingBox = ({ credits }: { credits: number }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const { mutate: askAi, isPending } = api.generate.chat.useMutation();
   const { mutate: updateUserCredits } =
-    api.midtrans.updateUserCredits.useMutation();
+    api.user.updateUserCredits.useMutation();
 
   const [userCredits, setCredits] = useState(0);
 

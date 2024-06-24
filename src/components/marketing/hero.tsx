@@ -32,7 +32,7 @@ const Hero = () => {
           triggerOnce
           > */}
             <a
-              href="/chat"
+              href="#demo"
               aria-current="page"
               aria-label="Learn Now"
               className="group relative inline-flex h-12 items-center 

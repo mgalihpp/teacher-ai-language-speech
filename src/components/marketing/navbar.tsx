@@ -29,7 +29,12 @@ const Navbar = () => {
 
   const pathname = usePathname();
 
-  const pathnames = ["/buy-credits", "terms-of-service", "privacy-policy"];
+  const pathnames = [
+    "buy-credits",
+    "terms-of-service",
+    "privacy-policy",
+    "payment",
+  ];
   const excludePage = pathnames.some((route) => pathname.includes(route));
 
   return (

@@ -4,11 +4,24 @@ import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { env } from "@/env";
 
+const snap = new MidTrans.Snap({
+  isProduction: env.NODE_ENV === "development" ? false : true,
+  serverKey:
+    env.NODE_ENV === "development"
+      ? env.MIDTRANS_SANDBOX_SERVER_KEY
+      : env.MIDTRANS_PRODUCTION_SERVER_KEY,
+  clientKey:
+    env.NODE_ENV === "development"
+      ? env.MIDTRANS_SANDBOX_CLIENT_KEY
+      : env.MIDTRANS_PRODUCTION_CLIENT_KEY,
+});
+
 export const midtransRouter = createTRPCRouter({
   snap: protectedProcedure
     .input(
       z.object({
         name: z.string(),
+        order_id: z.string().optional(),
         gross_amount: z.number(),
       }),
     )
@@ -16,21 +29,9 @@ export const midtransRouter = createTRPCRouter({
       try {
         const user = ctx.session.user;
 
-        const snap = new MidTrans.Snap({
-          isProduction: env.NODE_ENV === "development" ? false : true,
-          serverKey:
-            env.NODE_ENV === "development"
-              ? env.MIDTRANS_SANDBOX_SERVER_KEY
-              : env.MIDTRANS_PRODUCTION_SERVER_KEY,
-          clientKey:
-            env.NODE_ENV === "development"
-              ? env.MIDTRANS_SANDBOX_CLIENT_KEY
-              : env.MIDTRANS_PRODUCTION_CLIENT_KEY,
-        });
-
         const parameter = {
           transaction_details: {
-            order_id: Math.round(new Date().getTime() / 1000),
+            order_id: input.order_id ?? Math.round(new Date().getTime() / 1000),
             gross_amount: input.gross_amount,
           },
           credit_card: {
@@ -71,24 +72,23 @@ export const midtransRouter = createTRPCRouter({
         });
       }
     }),
-  updateUserCredits: protectedProcedure
+  getTransactionStatus: protectedProcedure
     .input(
       z.object({
-        credits: z.number(),
+        orderId: z.string(),
       }),
     )
-    .mutation(async ({ input, ctx }) => {
-      await ctx.db.user.update({
-        where: {
-          id: ctx.session.user.id,
-        },
-        data: {
-          credits: {
-            increment: input.credits,
-          },
-        },
-      });
+    .query(async ({ input }) => {
+      try {
+        const transaction = await snap.transaction.status(input.orderId);
 
-      return { success: true };
+        return transaction;
+      } catch (error) {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: String(error),
+          cause: error,
+        });
+      }
     }),
 });

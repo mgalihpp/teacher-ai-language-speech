@@ -6,6 +6,40 @@ interface NotificationObject {
   [key: string]: unknown;
 }
 
+interface TransactionSuccessReponse {
+  status_code: string;
+  status_message: string;
+  transaction_id: string;
+  masked_card: string;
+  order_id: string;
+  payment_type: string;
+  transaction_time: string;
+  transaction_status:
+    | "settlement"
+    | "pending"
+    | "expire"
+    | "capture"
+    | "deny"
+    | "authorize"
+    | "cancel";
+  fraud_status: string;
+  approval_code: string;
+  signature_key: string;
+  bank: string;
+  gross_amount: string;
+  channel_response_code: string;
+  channel_response_message: string;
+  card_type: string;
+  payment_option_type: string;
+  shopeepay_reference_number: string;
+  reference_id: string;
+}
+
+// interface TransactionErrorReponse {
+//   status_code: string;
+//   status_message: string;
+// }
+
 type err = {
   message: string;
 };
@@ -22,7 +56,7 @@ class Transaction {
     this.parent = parentObj;
   }
 
-  status(transactionId = ""): Promise<unknown> {
+  status(transactionId = ""): Promise<TransactionSuccessReponse> {
     const apiUrl = `${this.parent.apiConfig.getCoreApiBaseUrl()}/v2/${transactionId}/status`;
     return this.parent.httpClient.request(
       "get",
