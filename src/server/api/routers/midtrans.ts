@@ -30,8 +30,7 @@ export const midtransRouter = createTRPCRouter({
 
         const parameter = {
           transaction_details: {
-            order_id:
-              "order-id-node-" + Math.round(new Date().getTime() / 1000),
+            order_id: Math.round(new Date().getTime() / 1000),
             gross_amount: input.gross_amount,
           },
           credit_card: {
