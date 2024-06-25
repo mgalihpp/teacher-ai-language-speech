@@ -25,8 +25,10 @@ export default function PaymentPending({
   const calculateCredits = () => {
     const amount = Number(gross_amount);
 
-    if (amount > 40000) {
+    if (amount >= 50000) {
       return 500;
+    } else if (amount >= 20000 && amount < 50000) {
+      return 250;
     } else {
       return 100;
     }

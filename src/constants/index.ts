@@ -56,11 +56,21 @@ export const plans = [
   },
   {
     title: "+100 Credits",
-    price: 100,
+    price: 15000,
     credits: 100,
     description:
       "Enjoy casual conversations, language learning, and skill testing with our AI assistant. Purchase now and Start your journey with 100 credits!",
     actionLabel: "Buy Now",
+  },
+  {
+    title: "+250 Credits",
+    price: 20000,
+    credits: 250,
+    description:
+      "Chat with our AI assistant for casual conversations, learning, and skill testing. Purchase now and start your adventure with 250 credits!",
+
+    actionLabel: "Buy Now",
+    popular: true,
   },
   {
     title: "+500 Credits",
@@ -68,9 +78,8 @@ export const plans = [
     credits: 500,
     description:
       "Chat with our AI assistant for casual conversations, learning, and skill testing. Purchase now and start your adventure with 500 credits!",
-
+    exclusive: true,
     actionLabel: "Buy Now",
-    popular: true,
   },
 ];
 
@@ -231,13 +240,13 @@ const testimonials1: CardProps[] = [
 ];
 
 const testimonials2: CardProps[] = [
-  {
-    name: "Ahmad Firdaus",
-    position: "Pelajar",
-    text: "Sangat merekomendasikan Guru AI! Fitur text-to-speech dan terjemahan membuat belajar menjadi lebih interaktif dan efektif. Penjelasannya jelas dan mudah dimengerti.",
-    photoLink: "https://avatars.githubusercontent.com/u/1600974?v=4",
-    tweetLink: "https://twitter.com/ahmadfakhri/status/1829780238884207616",
-  },
+  // {
+  //   name: "Ahmad Firdaus",
+  //   position: "Pelajar",
+  //   text: "Sangat merekomendasikan Guru AI! Fitur text-to-speech dan terjemahan membuat belajar menjadi lebih interaktif dan efektif. Penjelasannya jelas dan mudah dimengerti.",
+  //   photoLink: "https://avatars.githubusercontent.com/u/1600974?v=4",
+  //   tweetLink: "https://twitter.com/ahmadfakhri/status/1829780238884207616",
+  // },
   {
     name: "Lisa Suryani",
     position: "Mahasiswi",
@@ -269,13 +278,13 @@ const testimonials4: CardProps[] = [
     photoLink: "https://avatars.githubusercontent.com/u/35027979?v=4",
     tweetLink: "https://twitter.com/rinaandriani/status/1829780238884207623",
   },
-  {
-    name: "Budi Santoso",
-    position: "Pelajar",
-    text: "Guru AI sangat bagus! Fitur text-to-speech membantu saya mendengar pengucapan yang benar. Penjelasan tatabahasanya sangat rinci dan mudah dimengerti. Sangat direkomendasikan!",
-    photoLink: "https://avatars.githubusercontent.com/u/7?v=4",
-    tweetLink: "https://twitter.com/budisantoso/status/1829780238884207625",
-  },
+  // {
+  //   name: "Budi Santoso",
+  //   position: "Pelajar",
+  //   text: "Guru AI sangat bagus! Fitur text-to-speech membantu saya mendengar pengucapan yang benar. Penjelasan tatabahasanya sangat rinci dan mudah dimengerti. Sangat direkomendasikan!",
+  //   photoLink: "https://avatars.githubusercontent.com/u/7?v=4",
+  //   tweetLink: "https://twitter.com/budisantoso/status/1829780238884207625",
+  // },
 ];
 
 const testimonials3: CardProps[] = [
@@ -293,13 +302,13 @@ const testimonials3: CardProps[] = [
     photoLink: "https://avatars.githubusercontent.com/u/161776956?v=4",
     tweetLink: "https://twitter.com/wahyusetiawan/status/1829780238884207629",
   },
-  {
-    name: "Dewi Anggraini",
-    position: "Pelajar",
-    text: "Guru AI sangat membantu saya dalam belajar bahasa Inggris. Penjelasannya sangat mudah dipahami dan sangat bermanfaat. Saya sangat merekomendasikan produk ini untuk belajar bahasa.",
-    photoLink: "https://avatars.githubusercontent.com/u/137588265?v=4",
-    tweetLink: "https://twitter.com/dewianggraini/status/1829780238884207635",
-  },
+  // {
+  //   name: "Dewi Anggraini",
+  //   position: "Pelajar",
+  //   text: "Guru AI sangat membantu saya dalam belajar bahasa Inggris. Penjelasannya sangat mudah dipahami dan sangat bermanfaat. Saya sangat merekomendasikan produk ini untuk belajar bahasa.",
+  //   photoLink: "https://avatars.githubusercontent.com/u/137588265?v=4",
+  //   tweetLink: "https://twitter.com/dewianggraini/status/1829780238884207635",
+  // },
 ];
 
 export const testimonials = {

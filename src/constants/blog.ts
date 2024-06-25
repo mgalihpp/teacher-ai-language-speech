@@ -104,4 +104,52 @@ const PRIVACY_POLICY = [
   },
 ];
 
-export { TERMS_OF_SERVICES, PRIVACY_POLICY };
+interface Faq {
+  question: string;
+  answer: string;
+}
+
+const FAQ: Faq[] = [
+  {
+    question: "What is Guru AI ?",
+    answer:
+      "Guru AI Teacher Language Speech provides AI-based language and speech recognition services to help users improve their language skills.",
+  },
+  {
+    question: "Can I choose my AI teacher ?",
+    answer:
+      "Yes, you can select from a variety of AI teachers, each specializing in different voice.",
+  },
+  {
+    question: "What languages are available ?",
+    answer:
+      "Guru AI currently supports 2 language options: Indonesian and English. We will be adding more languages in the future.",
+  },
+  {
+    question: "How does Guru AI help with language learning ?",
+    answer:
+      "Guru AI provides interactive conversations in the language of your choice, helping you practice grammar, listening and comprehension skills.",
+  },
+  {
+    question: "Does Guru AI support text-to-speech ?",
+    answer:
+      "Yes, Guru AI includes text-to-speech functionality, allowing you to hear the correct pronunciation of words and sentences in the language you are learning.",
+  },
+  {
+    question: "How does the credits system work ?",
+    answer:
+      " You purchase credits which can be used to access various features of Guru AI, such as initiating conversations with the AI assistant.",
+  },
+  {
+    question: "How many credits do I need to start a conversation ?",
+    answer:
+      "The number of credits required one to start a conversation depends on the number of messages you send.",
+  },
+  {
+    question: "What is Midtrans ?",
+    answer:
+      "Midtrans is a secure payment gateway that allows you to make safe and easy transactions when purchasing credits or other services within Guru AI.",
+  },
+];
+
+export { TERMS_OF_SERVICES, PRIVACY_POLICY, FAQ };

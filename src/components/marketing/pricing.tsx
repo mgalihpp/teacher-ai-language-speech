@@ -25,6 +25,7 @@ type PricingCardProps = {
   description: string;
   actionLabel: string;
   popular?: boolean;
+  exclusive?: boolean;
   session?: Session | null;
 };
 
@@ -48,6 +49,7 @@ const PricingCard = ({
   description,
   actionLabel,
   popular,
+  exclusive,
   session,
 }: PricingCardProps) => {
   const { setModalOpen } = useModal();
@@ -62,6 +64,10 @@ const PricingCard = ({
     <Card
       className={cn(
         `flex w-72 flex-col justify-between py-1 ${popular ? "border-blue-500" : "border-stone-700"} mx-auto sm:mx-0`,
+        {
+          "animate-background-shine border-yellow-500 bg-white bg-[length:200%_100%] transition-colors dark:border-stone-700 dark:bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)]":
+            exclusive,
+        },
       )}
     >
       <div>

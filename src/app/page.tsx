@@ -7,6 +7,7 @@ import Support from "@/components/marketing/support";
 import Testimonial from "@/components/marketing/testimonial";
 import Pricing from "@/components/marketing/pricing";
 import { getServerAuthSession } from "@/server/auth";
+import Faq from "@/components/marketing/faq";
 
 export default async function Home() {
   const session = await getServerAuthSession();
@@ -21,6 +22,7 @@ export default async function Home() {
         <Pricing session={session} />
         <Testimonial />
         <FooterCTA />
+        <Faq />
       </main>
       <Footer />
     </>

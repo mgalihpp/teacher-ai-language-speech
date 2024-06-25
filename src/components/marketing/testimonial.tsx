@@ -61,7 +61,7 @@ export default function Testimonial() {
             </p>
           </div>
         </div>
-        <div className="relative grid min-h-[49rem] grid-cols-1 justify-center gap-6 overflow-y-hidden sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+        <div className="relative grid h-auto grid-cols-1 justify-center gap-6 overflow-y-hidden sm:flex sm:flex-wrap lg:grid lg:grid-cols-3 lg:gap-8">
           <div className="space-y-8">
             {testimonials.testimonials2.map((item, index) => (
               <div className="text-sm leading-6" key={index}>
