@@ -1,4 +1,8 @@
-import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "@/server/api/trpc";
 import MidTrans from "@/lib/midtrans/midtrans";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
@@ -73,7 +77,7 @@ export const midtransRouter = createTRPCRouter({
         });
       }
     }),
-  getTransactionStatus: protectedProcedure
+  getTransactionStatus: publicProcedure
     .input(
       z.object({
         orderId: z.string(),

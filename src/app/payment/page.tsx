@@ -6,11 +6,6 @@ import { Loader2 } from "lucide-react";
 import PaymentPending from "./_components/pending-card";
 import PaymentFailed from "./_components/failed-card";
 import PaymentNotFound from "./_components/notfound-card";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { useModal } from "@/hooks/use-modal";
-import { toast } from "sonner";
-import { useEffect } from "react";
 
 export default function PaymentPage({
   searchParams,
@@ -21,18 +16,6 @@ export default function PaymentPage({
     transaction_status: string;
   };
 }) {
-  const { data: session } = useSession();
-  const { setModalOpen } = useModal();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!session) {
-      setModalOpen(true);
-      toast.warning("Please login to continue.");
-      return router.push("/");
-    }
-  }, [session, router]);
-
   const { data, isLoading } = api.midtrans.getTransactionStatus.useQuery(
     {
       orderId: searchParams?.order_id ?? "",
