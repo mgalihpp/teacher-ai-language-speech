@@ -1,6 +1,10 @@
+import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { useCursorWait } from "@/hooks/use-cursor-await";
+import { api } from "@/trpc/react";
 import { type LucideProps } from "lucide-react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function PaymentPending({
   order_id,
@@ -13,6 +17,23 @@ export default function PaymentPending({
   payment_type: string;
   transaction_time: string;
 }) {
+  const { mutate: createSnap, isPending: isCreating } =
+    api.midtrans.snap.useMutation();
+
+  const router = useRouter();
+
+  const calculateCredits = () => {
+    const amount = Number(gross_amount);
+
+    if (amount > 40000) {
+      return 500;
+    } else {
+      return 100;
+    }
+  };
+
+  useCursorWait(isCreating);
+
   return (
     <div className="flex min-h-[100dvh] flex-col items-center justify-center gap-8 px-4 md:px-6">
       <div className="w-full max-w-lg rounded-lg bg-background p-8 shadow-lg">
@@ -52,14 +73,27 @@ export default function PaymentPending({
         </div>
         <Separator className="my-6" />
         <div className="flex justify-center">
-          <Link
-            href="/#hero"
-            aria-current="page"
-            className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-            prefetch={false}
+          <Button
+            onClick={() => {
+              createSnap(
+                {
+                  name: `+${calculateCredits()} Credits`,
+                  gross_amount: Number(gross_amount),
+                },
+                {
+                  onSuccess: (data) => {
+                    router.push(data.redirect_url);
+                  },
+                  onError: (error) => {
+                    console.log(error.message);
+                    toast.error(error.message);
+                  },
+                },
+              );
+            }}
           >
-            Back to Homepage
-          </Link>
+            Pay Now
+          </Button>
         </div>
       </div>
     </div>

@@ -12,7 +12,6 @@ import React from "react";
 import { cn } from "@/lib/utils";
 import { api } from "@/trpc/react";
 import { toast } from "sonner";
-import Script from "next/script";
 import { plans } from "@/constants";
 import { useCursorWait } from "@/hooks/use-cursor-await";
 import { useRouter } from "next/navigation";
@@ -28,21 +27,6 @@ type PricingCardProps = {
   popular?: boolean;
   session?: Session | null;
 };
-
-// Declare the snap object
-declare global {
-  interface Window {
-    snap: {
-      pay: (
-        token: string,
-        options: {
-          onSuccess: (result: unknown) => void;
-          onError: (e: unknown) => void;
-        },
-      ) => void;
-    };
-  }
-}
 
 const PricingHeader = ({
   title,
@@ -62,7 +46,6 @@ const PricingCard = ({
   title,
   price,
   description,
-  credits,
   actionLabel,
   popular,
   session,
@@ -72,12 +55,9 @@ const PricingCard = ({
   const { mutate: createSnap, isPending: isCreating } =
     api.midtrans.snap.useMutation();
 
-  const { mutate: updateUserCredits, isPending: isUpdating } =
-    api.user.updateUserCredits.useMutation();
-
   const router = useRouter();
 
-  useCursorWait(isCreating || isUpdating);
+  useCursorWait(isCreating);
   return (
     <Card
       className={cn(
@@ -109,7 +89,7 @@ const PricingCard = ({
           disabled={isCreating}
           onClick={() => {
             if (!session?.user.id) {
-              toast.error("Please login first");
+              toast.warning("Please login to continue.");
 
               setModalOpen(true);
 
@@ -129,35 +109,7 @@ const PricingCard = ({
               },
               {
                 onSuccess: (data) => {
-                  window.snap.pay(data.token, {
-                    onSuccess: (result) => {
-                      console.log(result);
-
-                      updateUserCredits(
-                        {
-                          credits,
-                        },
-                        {
-                          onSuccess: () => {
-                            toast.success("Credits updated!");
-                            router.refresh();
-                          },
-                          onError: (error) => {
-                            console.log(error);
-                            toast.error(error.message);
-                          },
-                        },
-                      );
-                    },
-                    onError: (error) => {
-                      console.log(error);
-                      toast.error(
-                        JSON.stringify(
-                          (error as { status_message: string }).status_message,
-                        ),
-                      );
-                    },
-                  });
+                  router.push(data.redirect_url);
                 },
                 onError: (error) => {
                   console.log(error.message);
@@ -182,11 +134,9 @@ const PricingCard = ({
 export default function Pricing({
   credits,
   session,
-  clientKey,
 }: {
   credits?: number;
   session?: Session | null;
-  clientKey: string;
 }) {
   return (
     <>
@@ -205,15 +155,6 @@ export default function Pricing({
           })}
         </section>
       </section>
-      <Script
-        src={
-          process.env.NODE_ENV === "development"
-            ? "https://app.sandbox.midtrans.com/snap/snap.js"
-            : "https://app.midtrans.com/snap/snap.js"
-        }
-        data-client-key={clientKey}
-        type="text/javascript"
-      />
     </>
   );
 }

@@ -21,7 +21,6 @@ export const midtransRouter = createTRPCRouter({
     .input(
       z.object({
         name: z.string(),
-        order_id: z.string().optional(),
         gross_amount: z.number(),
       }),
     )
@@ -31,7 +30,7 @@ export const midtransRouter = createTRPCRouter({
 
         const parameter = {
           transaction_details: {
-            order_id: input.order_id ?? Math.round(new Date().getTime() / 1000),
+            order_id: Math.round(new Date().getTime() / 1000),
             gross_amount: input.gross_amount,
           },
           credit_card: {
@@ -51,17 +50,19 @@ export const midtransRouter = createTRPCRouter({
               brand: "None",
               category: "Credits",
               merchant_name: "Guru AI",
-              url: `${env.NEXTAUTH_URL}/buy-credits`,
+              url: `${env.NEXTAUTH_URL}`,
             },
           ],
         };
 
         const transaction = await snap.createTransaction(parameter);
         const token = transaction.token;
+        const redirect_url = transaction.redirect_url;
         const clientKey = snap.apiConfig.get().clientKey;
 
         return {
           token,
+          redirect_url,
           clientKey,
         };
       } catch (error) {
@@ -90,5 +91,45 @@ export const midtransRouter = createTRPCRouter({
           cause: error,
         });
       }
+    }),
+  verificationOrder: protectedProcedure
+    .input(
+      z.object({
+        order_id: z.string(),
+        credits: z.number(),
+      }),
+    )
+    .query(async ({ input, ctx }) => {
+      const isOrderExist = await ctx.db.order.findFirst({
+        where: {
+          id: input.order_id,
+        },
+      });
+
+      if (isOrderExist) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Order already claimed",
+        });
+      }
+
+      await ctx.db.order.create({
+        data: {
+          id: input.order_id,
+          claimed: true,
+          email: ctx.session.user.email,
+        },
+      });
+
+      await ctx.db.user.update({
+        where: {
+          id: ctx.session.user.id,
+        },
+        data: {
+          credits: {
+            increment: input.credits,
+          },
+        },
+      });
     }),
 });

@@ -1,9 +1,16 @@
 "use client";
+
 import { api } from "@/trpc/react";
 import PaymentSuccess from "./_components/success-card";
 import { Loader2 } from "lucide-react";
 import PaymentPending from "./_components/pending-card";
 import PaymentFailed from "./_components/failed-card";
+import PaymentNotFound from "./_components/notfound-card";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useModal } from "@/hooks/use-modal";
+import { toast } from "sonner";
+import { useEffect } from "react";
 
 export default function PaymentPage({
   searchParams,
@@ -14,20 +21,33 @@ export default function PaymentPage({
     transaction_status: string;
   };
 }) {
-  const { data } = api.midtrans.getTransactionStatus.useQuery(
+  const { data: session } = useSession();
+  const { setModalOpen } = useModal();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!session) {
+      setModalOpen(true);
+      toast.warning("Please login to continue.");
+      return router.push("/");
+    }
+  }, [session, router]);
+
+  const { data, isLoading } = api.midtrans.getTransactionStatus.useQuery(
     {
       orderId: searchParams?.order_id ?? "",
     },
     {
-      refetchOnWindowFocus: true,
+      refetchOnWindowFocus: false,
       retry: false,
     },
   );
-  return !data ? (
+
+  return isLoading ? (
     <div className="mx-auto flex h-dvh w-full max-w-lg items-center justify-center">
       <Loader2 className="size-8 animate-spin" />
     </div>
-  ) : (
+  ) : data ? (
     <>
       {(data.transaction_status === "settlement" ||
         data.transaction_status === "capture") && (
@@ -59,5 +79,7 @@ export default function PaymentPage({
         />
       )}
     </>
+  ) : (
+    <PaymentNotFound />
   );
 }

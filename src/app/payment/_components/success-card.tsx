@@ -1,6 +1,8 @@
 import { Separator } from "@/components/ui/separator";
+import { api } from "@/trpc/react";
 import { type LucideProps } from "lucide-react";
 import Link from "next/link";
+import { toast } from "sonner";
 
 export default function PaymentSuccess({
   order_id,
@@ -13,6 +15,29 @@ export default function PaymentSuccess({
   payment_type: string;
   transaction_time: string;
 }) {
+  const calculateCredits = () => {
+    const amount = Number(gross_amount);
+
+    if (amount > 40000) {
+      return 500;
+    } else {
+      return 100;
+    }
+  };
+
+  const { isSuccess } = api.midtrans.verificationOrder.useQuery(
+    {
+      order_id: order_id,
+      credits: calculateCredits(),
+    },
+    {
+      refetchOnWindowFocus: false,
+      retry: false,
+    },
+  );
+
+  isSuccess && toast.success("Credits added to your account");
+
   return (
     <div className="flex min-h-[100dvh] flex-col items-center justify-center gap-8 px-4 md:px-6">
       <div className="w-full max-w-lg rounded-lg bg-background p-8 shadow-lg">
