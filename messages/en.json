@@ -1,0 +1,125 @@
+{
+  "Hero": {
+    "title": "Learn English with Guru AI",
+    "description": "Guru AI for English. Learn English privately with an AI teacher.",
+    "btn_text": "Learn More"
+  },
+  "Demo": {
+    "action": "Action",
+    "header": "Here's a demo of Guru AI",
+    "description": "Take a tour of Guru AI and see how it can help you improve your English skills."
+  },
+  "Support": {
+    "header": "Languages Variantions",
+    "description": "We are constantly working on improving the language support for our AI. Help us to support new language variants by providing feedback and suggestions.",
+    "section1_header": "Currently Support",
+    "section1_description": "Our current model supports 2 languages including English and Indonesia.",
+    "section2_header": "Upcomming Languages",
+    "section2_description": "We are working on new language variations. Stay tuned!"
+  },
+  "Pricing": {
+    "header": "Pricing Plans",
+    "description": "Choose the plan that's right for you",
+    "description2": "You have {credits} Credits. Choose the plan that's right for you"
+  },
+  "PricingCard": {
+    "btn_get_started": "Getting Started",
+    "btn_buy_now": "Buy Now",
+    "card1_description": "Get +50 credits for free. No credit card required.",
+    "card2_description": "Enjoy casual conversations, language learning, and skill testing with our AI assistant. Purchase now and Start your journey with 100 credits!",
+    "card3_description": "Chat with our AI assistant for casual conversations, learning, and skill testing. Purchase now and start your adventure with 250 credits!",
+    "card4_description": "Chat with our AI assistant for casual conversations, learning, and skill testing. Purchase now and start your adventure with 500 credits!"
+  },
+  "Testimonial": {
+    "header": "Loved by our students",
+    "description": "See what our students have to say about our product.",
+    "people": {
+      "testimonials1": [
+        {
+          "name": "Lisa Suryani",
+          "position": "College Student",
+          "text": "With Guru AI, learning a new language becomes more fun. The translation is very accurate and helps me understand foreign languages.",
+          "photoLink": "https://avatars.githubusercontent.com/u/53365353?v=4"
+        },
+        {
+          "name": "Siti Nurhaliza",
+          "position": "Student",
+          "text": "Translation and grammar make learning a language easier and more fun. It really helped me in deepening my understanding of the language.",
+          "photoLink": "https://avatars.githubusercontent.com/u/138379828?v=4"
+        }
+      ],
+      "testimonials2": [
+        {
+          "name": "Ayu Lestari",
+          "position": "College Student",
+          "text": "Guru AI is awesome! I can learn by listening and get the correct translation into my chosen language. The grammar explanations are also very helpful. Highly recommended!",
+          "photoLink": "https://avatars.githubusercontent.com/u/5?v=4"
+        },
+        {
+          "name": "Rina Andriani",
+          "position": "Student",
+          "text": "With Guru AI, learning a new language becomes more fun. The translation was very accurate and the grammar explanations helped me understand the foreign language.",
+          "photoLink": "https://avatars.githubusercontent.com/u/35027979?v=4"
+        }
+      ],
+      "testimonials3": [
+        {
+          "name": "Nina Kartini",
+          "position": "Student",
+          "text": "Guru AI really helped me understand English better. The explanation is very easy to understand and very informative. I highly recommend this product!",
+          "photoLink": "https://avatars.githubusercontent.com/u/95553914?v=4"
+        },
+        {
+          "name": "Wahyu Setiawan",
+          "position": "College Student",
+          "text": "Learning English becomes easier with Guru AI. The explanation is clear and easy to understand. This product really helped me in improving my language skills.",
+          "photoLink": "https://avatars.githubusercontent.com/u/161776956?v=4"
+        }
+      ]
+    }
+  },
+  "FooterCTA": {
+    "header": "Get started with Guru AI Today!",
+    "description": "Free +50 Credits. No credit card required.",
+    "btn_text": "Start Chatting"
+  },
+  "FAQ": {
+    "header": "Any Questions? Look Here",
+    "description": "Looking to learn more about Guru AI? Here are some of the most common questions we get asked. If you have additional questions, please feel free to",
+    "contact": "Contact Us",
+    "faqList": [
+      {
+        "question": "What is Guru AI ?",
+        "answer": "Guru AI Teacher Language Speech provides AI-based language and speech recognition services to help users improve their language skills."
+      },
+      {
+        "question": "Can I choose my AI teacher ?",
+        "answer": "Yes, you can select from a variety of AI teachers, each specializing in different voice."
+      },
+      {
+        "question": "What languages are available ?",
+        "answer": "Guru AI currently supports 2 language options: Indonesian and English. We will be adding more languages in the future."
+      },
+      {
+        "question": "How does Guru AI help with language learning ?",
+        "answer": "Guru AI provides interactive conversations in the language of your choice, helping you practice grammar, listening and comprehension skills."
+      },
+      {
+        "question": "Does Guru AI support text-to-speech ?",
+        "answer": "Yes, Guru AI includes text-to-speech functionality, allowing you to hear the correct pronunciation of words and sentences in the language you are learning."
+      },
+      {
+        "question": "How does the credits system work ?",
+        "answer": " You purchase credits which can be used to access various features of Guru AI, such as initiating conversations with the AI assistant."
+      },
+      {
+        "question": "How many credits do I need to start a conversation ?",
+        "answer": "The number of credits required one to start a conversation depends on the number of messages you send."
+      },
+      {
+        "question": "What is Midtrans ?",
+        "answer": "Midtrans is a secure payment gateway that allows you to make safe and easy transactions when purchasing credits or other services within Guru AI."
+      }
+    ]
+  }
+}

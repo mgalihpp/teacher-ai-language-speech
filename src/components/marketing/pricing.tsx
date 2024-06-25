@@ -17,6 +17,7 @@ import { useCursorWait } from "@/hooks/use-cursor-await";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-modal";
 import { type Session } from "next-auth";
+import { useTranslations } from "next-intl";
 
 type PricingCardProps = {
   title: string;
@@ -54,6 +55,8 @@ const PricingCard = ({
 }: PricingCardProps) => {
   const { setModalOpen } = useModal();
 
+  const t = useTranslations("PricingCard");
+
   const { mutate: createSnap, isPending: isCreating } =
     api.midtrans.snap.useMutation();
 
@@ -87,7 +90,12 @@ const PricingCard = ({
           </div>
         </CardHeader>
         <CardContent className="pt-1.5 dark:text-stone-300">
-          {description}
+          {description === "btn_get_started" && t("btn_get_started")}
+          {description === "btn_buy_now" && t("btn_buy_now")}
+          {description === "card1_description" && t("card1_description")}
+          {description === "card2_description" && t("card2_description")}
+          {description === "card3_description" && t("card3_description")}
+          {description === "card4_description" && t("card4_description")}
         </CardContent>
       </div>
       <CardFooter className="mt-3">
@@ -130,7 +138,8 @@ const PricingCard = ({
           hover:dark:bg-stone-300"
         >
           <div className="absolute -inset-0.5 -z-10 rounded-lg bg-gradient-to-b from-[#c7d2fe] to-[#8678f9] opacity-75 blur" />
-          {actionLabel}
+          {actionLabel === "btn_get_started" && t("btn_get_started")}
+          {actionLabel === "btn_buy_now" && t("btn_buy_now")}
         </Button>
       </CardFooter>
     </Card>
@@ -144,15 +153,15 @@ export default function Pricing({
   credits?: number;
   session?: Session | null;
 }) {
+  const t = useTranslations("Pricing");
+
   return (
     <>
       <section id="pricing" className="pb-36 pt-8">
         <PricingHeader
-          title="Pricing Plans"
+          title={t("header")}
           subtitle={`${
-            credits
-              ? `You have ${credits} Credits. Choose the plan that's right for you`
-              : "Choose the plan that's right for you"
+            credits ? t("description2", { credits }) : t("description")
           }`}
         />
         <section className="mt-8 flex flex-col justify-center gap-8 sm:flex-row sm:flex-wrap">

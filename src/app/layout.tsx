@@ -10,6 +10,8 @@ import ModalProvider from "@/providers/modal-providers";
 import { type Metadata } from "next";
 import { ThemeProvider } from "@/providers/theme-providers";
 import { Analytics } from "@vercel/analytics/react";
+import { type AbstractIntlMessages, NextIntlClientProvider } from "next-intl";
+import { getLocale, getMessages } from "next-intl/server";
 
 export const metadata: Metadata = {
   title: {
@@ -98,13 +100,28 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const locale = await getLocale();
+
+  const messages = await getMessages({
+    locale,
+  });
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <body className={`${GeistSans.variable}`}>
         <TRPCReactProvider>
           <NextAuthProvider>
             <ThemeProvider attribute="class" defaultTheme="dark">
-              {children}
+              <NextIntlClientProvider
+                locale={locale}
+                messages={
+                  JSON.parse(
+                    JSON.stringify(messages),
+                  ) as unknown as AbstractIntlMessages
+                }
+              >
+                {children}
+              </NextIntlClientProvider>
               <ModalProvider />
               <Toaster position="top-center" richColors />
               <Analytics />

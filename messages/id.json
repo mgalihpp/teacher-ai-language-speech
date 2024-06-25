@@ -1,0 +1,125 @@
+{
+  "Hero": {
+    "title": "Belajar bahasa Inggris dengan Guru AI",
+    "description": "Guru AI untuk bahasa Inggris. Belajar bahasa Inggris secara privat dengan guru AI.",
+    "btn_text": "Pelajari Lebih Banyak"
+  },
+  "Demo": {
+    "action": "Aksi",
+    "header": "Berikut demo Guru AI",
+    "description": "Ikuti tutorial Guru AI dan lihat bagaimana hal ini dapat membantu Anda meningkatkan kemampuan bahasa Inggris Anda."
+  },
+  "Support": {
+    "header": "Variasi Bahasa",
+    "description": "Kami terus berupaya meningkatkan dukungan bahasa untuk AI kami, Bantu kami untuk mendukung varian bahasa baru dengan memberikan masukan dan saran.",
+    "section1_header": "Saat ini mendukung",
+    "section1_description": "2 bahasa termasuk Inggris dan Indonesia.",
+    "section2_header": "Bahasa yang Akan Datang",
+    "section2_description": "Kami sedang mengerjakan variasi bahasa baru. Pantau terus!"
+  },
+  "Pricing": {
+    "header": "Paket Harga",
+    "description": "Pilih paket yang tepat untuk Anda",
+    "description2": "Anda memiliki Kredit {credits}. Pilih paket yang tepat untuk Anda"
+  },
+  "PricingCard": {
+    "btn_get_started": "Mulai Sekarang",
+    "btn_buy_now": "Beli Sekarang",
+    "card1_description": "Dapatkan +50 kredit gratis. Tidak diperlukan kartu kredit.",
+    "card2_description": "Nikmati percakapan santai, pembelajaran bahasa, dan pengujian keterampilan dengan asisten AI kami. Beli sekarang dan Mulailah perjalanan Anda dengan 100 kredit!",
+    "card3_description": "Ngobrol dengan asisten AI kami untuk percakapan santai, pembelajaran, dan pengujian keterampilan. Beli sekarang dan mulai petualangan Anda dengan 250 kredit!",
+    "card4_description": "Ngobrol dengan asisten AI kami untuk percakapan santai, pembelajaran, dan pengujian keterampilan. Beli sekarang dan mulai petualangan Anda dengan 500 kredit!"
+  },
+  "Testimonial": {
+    "header": "Disukai oleh siswa kami",
+    "description": "Lihat apa yang pelajar kami katakan tentang produk kami.",
+    "people": {
+      "testimonials1": [
+        {
+          "name": "Lisa Suryani",
+          "position": "Mahasiswi",
+          "text": "Dengan Guru AI, belajar bahasa baru menjadi lebih menyenangkan. Terjemahannya sangat akurat dan membantu saya memahami bahasa asing.",
+          "photoLink": "https://avatars.githubusercontent.com/u/53365353?v=4"
+        },
+        {
+          "name": "Siti Nurhaliza",
+          "position": "Pelajar",
+          "text": "Terjemahan dan tata bahasa membuat belajar bahasa menjadi lebih mudah dan menyenangkan. Sangat membantu saya dalam memperdalam pemahaman bahasa.",
+          "photoLink": "https://avatars.githubusercontent.com/u/138379828?v=4"
+        }
+      ],
+      "testimonials2": [
+        {
+          "name": "Ayu Lestari",
+          "position": "Mahasiswi",
+          "text": "Guru AI luar biasa! Saya bisa belajar dengan mendengar dan mendapatkan terjemahan yang tepat ke bahasa pilihan saya. Penjelasan tatabahasanya juga sangat membantu. Sangat direkomendasikan!",
+          "photoLink": "https://avatars.githubusercontent.com/u/5?v=4"
+        },
+        {
+          "name": "Rina Andriani",
+          "position": "Pelajar",
+          "text": "Dengan Guru AI, belajar bahasa baru menjadi lebih menyenangkan. Terjemahannya sangat akurat dan penjelasan tatabahasa membantu saya memahami bahasa asing.",
+          "photoLink": "https://avatars.githubusercontent.com/u/35027979?v=4"
+        }
+      ],
+      "testimonials3": [
+        {
+          "name": "Nina Kartini",
+          "position": "Pelajar",
+          "text": "Guru AI sangat membantu saya memahami bahasa Inggris dengan lebih baik. Penjelasannya sangat mudah dipahami dan sangat informatif. Saya sangat merekomendasikan produk ini!",
+          "photoLink": "https://avatars.githubusercontent.com/u/95553914?v=4"
+        },
+        {
+          "name": "Wahyu Setiawan",
+          "position": "Mahasiswa",
+          "text": "Belajar bahasa Inggris menjadi lebih mudah dengan Guru AI. Penjelasannya jelas dan mudah dipahami. Produk ini sangat membantu saya dalam meningkatkan kemampuan bahasa saya.",
+          "photoLink": "https://avatars.githubusercontent.com/u/161776956?v=4"
+        }
+      ]
+    }
+  },
+  "FooterCTA": {
+    "header": "Mulailah dengan Guru AI Hari Ini!",
+    "description": "Gratis +50 Kredit. Tidak diperlukan kartu kredit.",
+    "btn_text": "Mulai Mengobrol"
+  },
+  "FAQ": {
+    "header": "Ada pertanyaan? Lihat disini",
+    "description": "Ingin mempelajari lebih lanjut tentang Guru AI? Berikut adalah beberapa pertanyaan paling umum yang ditanyakan kepada kami. Jika Anda memiliki pertanyaan tambahan, jangan ragu untuk",
+    "contact": "Hubungi kami",
+    "faqList": [
+      {
+        "question": "Apa itu Guru AI?",
+        "answer": "Guru AI Teacher Language Speech menyediakan layanan pengenalan bahasa dan ucapan berbasis AI untuk membantu pengguna meningkatkan keterampilan bahasa mereka."
+      },
+      {
+        "question": "Bisakah saya memilih guru AI saya?",
+        "answer": "Ya, Anda dapat memilih dari berbagai guru AI, masing-masing memiliki spesialisasi dalam suara yang berbeda."
+      },
+      {
+        "question": "Bahasa apa saja yang tersedia?",
+        "answer": "Guru AI saat ini mendukung 2 pilihan bahasa: Indonesia dan Inggris. Kami akan menambahkan lebih banyak bahasa di masa mendatang."
+      },
+      {
+        "question": "Bagaimana Guru AI membantu pembelajaran bahasa?",
+        "answer": "Guru AI menyediakan percakapan interaktif dalam bahasa pilihan Anda, membantu Anda melatih keterampilan tata bahasa, mendengarkan, dan pemahaman."
+      },
+      {
+        "question": "Apakah Guru AI mendukung text-to-speech?",
+        "answer": "Ya, Guru AI menyertakan fungsi text-to-speech, memungkinkan Anda mendengar pengucapan kata dan kalimat yang benar dalam bahasa yang Anda pelajari."
+      },
+      {
+        "question": "Bagaimana cara kerja sistem kredit?",
+        "answer": " Anda membeli kredit yang dapat digunakan untuk mengakses berbagai fitur Guru AI, seperti memulai percakapan dengan asisten AI."
+      },
+      {
+        "question": "Berapa banyak kredit yang saya perlukan untuk memulai percakapan?",
+        "answer": "Jumlah kredit yang diperlukan seseorang untuk memulai percakapan bergantung pada jumlah pesan yang Anda kirim."
+      },
+      {
+        "question": "Apa itu Midtrans?",
+        "answer": "Midtrans adalah gateway pembayaran aman yang memungkinkan Anda melakukan transaksi dengan aman dan mudah saat membeli pulsa atau layanan lain dalam Guru AI."
+      }
+    ]
+  }
+}

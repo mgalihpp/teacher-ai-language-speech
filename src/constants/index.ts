@@ -51,35 +51,32 @@ export const plans = [
     title: "+50 Credits",
     price: 0,
     credits: 50,
-    description: "Get +50 credits for free. No credit card required.",
-    actionLabel: "Getting Started",
+    description: "card1_description",
+    actionLabel: "btn_get_started",
   },
   {
     title: "+100 Credits",
     price: 15000,
     credits: 100,
-    description:
-      "Enjoy casual conversations, language learning, and skill testing with our AI assistant. Purchase now and Start your journey with 100 credits!",
-    actionLabel: "Buy Now",
+    description: "card2_description",
+    actionLabel: "btn_buy_now",
   },
   {
     title: "+250 Credits",
     price: 20000,
     credits: 250,
-    description:
-      "Chat with our AI assistant for casual conversations, learning, and skill testing. Purchase now and start your adventure with 250 credits!",
+    description: "card3_description",
 
-    actionLabel: "Buy Now",
+    actionLabel: "btn_buy_now",
     popular: true,
   },
   {
     title: "+500 Credits",
     price: 50000,
     credits: 500,
-    description:
-      "Chat with our AI assistant for casual conversations, learning, and skill testing. Purchase now and start your adventure with 500 credits!",
+    description: "card4_description",
     exclusive: true,
-    actionLabel: "Buy Now",
+    actionLabel: "btn_buy_now",
   },
 ];
 

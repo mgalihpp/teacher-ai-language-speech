@@ -1,21 +1,14 @@
 import React from "react";
-import { testimonials } from "@/constants";
+import { getMessages, getTranslations } from "next-intl/server";
 
 interface CardProps {
   name: string;
   position: string;
   text: string;
   photoLink: string;
-  tweetLink: string;
 }
 
-const Card: React.FC<CardProps> = ({
-  name,
-  position,
-  text,
-  photoLink,
-  tweetLink,
-}) => {
+const Card: React.FC<CardProps> = ({ name, position, text, photoLink }) => {
   return (
     <div className="group relative">
       <div className="cursor-pointer">
@@ -44,7 +37,16 @@ const Card: React.FC<CardProps> = ({
   );
 };
 
-export default function Testimonial() {
+export default async function Testimonial() {
+  const t = await getTranslations("Testimonial");
+  const tTestimonial = await getTranslations("Testimonial.people");
+
+  const messages = (await getMessages()) as unknown as IntlMessages;
+
+  const keys = ["testimonials1", "testimonials2", "testimonials3"] as const;
+
+  const people = messages.Testimonial.people;
+
   return (
     <section id="testimonial" className="mb-28 py-20">
       <div className="mx-8 max-w-7xl md:mx-10 lg:mx-20 xl:mx-auto">
@@ -54,49 +56,46 @@ export default function Testimonial() {
         >
           <div className="mb-12 space-y-5 text-center md:mb-20">
             <h1 className="text-3xl font-semibold text-stone-800 dark:text-stone-200 md:text-5xl">
-              Loved by our students
+              {t("header")}
             </h1>
             <p className="mx-auto text-xl text-stone-600 dark:text-stone-300 md:w-2/3 md:text-2xl">
-              See what our students have to say about our product.
+              {t("description")}
             </p>
           </div>
         </div>
         <div className="relative grid h-auto grid-cols-1 justify-center gap-6 overflow-y-hidden sm:flex sm:flex-wrap lg:grid lg:grid-cols-3 lg:gap-8">
           <div className="space-y-8">
-            {testimonials.testimonials2.map((item, index) => (
+            {people.testimonials1.map((item, index) => (
               <div className="text-sm leading-6" key={index}>
                 <Card
-                  name={item.name}
-                  position={item.position}
-                  text={item.text}
-                  photoLink={item.photoLink}
-                  tweetLink={item.tweetLink}
+                  name={tTestimonial(`${keys[0]}.${index}.name`)}
+                  position={tTestimonial(`${keys[0]}.${index}.position`)}
+                  text={tTestimonial(`${keys[0]}.${index}.text`)}
+                  photoLink={tTestimonial(`${keys[0]}.${index}.photoLink`)}
                 />
               </div>
             ))}
           </div>
           <div className="space-y-8">
-            {testimonials.testimonials4.map((item, index) => (
+            {people.testimonials2.map((item, index) => (
               <div className="text-sm leading-6" key={index}>
                 <Card
-                  name={item.name}
-                  position={item.position}
-                  text={item.text}
-                  photoLink={item.photoLink}
-                  tweetLink={item.tweetLink}
+                  name={tTestimonial(`${keys[0]}.${index}.name`)}
+                  position={tTestimonial(`${keys[1]}.${index}.position`)}
+                  text={tTestimonial(`${keys[1]}.${index}.text`)}
+                  photoLink={tTestimonial(`${keys[1]}.${index}.photoLink`)}
                 />
               </div>
             ))}
           </div>
           <div className="space-y-8">
-            {testimonials.testimonials3.map((item, index) => (
+            {people.testimonials3.map((item, index) => (
               <div className="text-sm leading-6" key={index}>
                 <Card
-                  name={item.name}
-                  position={item.position}
-                  text={item.text}
-                  photoLink={item.photoLink}
-                  tweetLink={item.tweetLink}
+                  name={tTestimonial(`${keys[2]}.${index}.name`)}
+                  position={tTestimonial(`${keys[2]}.${index}.position`)}
+                  text={tTestimonial(`${keys[2]}.${index}.text`)}
+                  photoLink={tTestimonial(`${keys[2]}.${index}.photoLink`)}
                 />
               </div>
             ))}

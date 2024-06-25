@@ -9,6 +9,7 @@ import { usePathname } from "next/navigation";
 import { Skeleton } from "@/components/ui/skeleton";
 import ThemeToggle from "../theme-toggle";
 import { useScroll } from "@/hooks/use-scroll";
+import ChangeLocale from "./change-locale";
 
 const UserDropDown = React.lazy(() => import("@/components/user-dropdown"));
 
@@ -74,22 +75,27 @@ const Navbar = () => {
                 <Menu className="size-6" />
               </button>
             </SheetTrigger>
-            <SheetContent>
-              <ul className="mt-4 flex h-auto flex-col items-start justify-center space-y-3">
+            <SheetContent className="flex flex-col justify-between">
+              <ul className="mt-4 flex h-auto flex-col items-center justify-center space-y-3 text-start">
                 {navLinks.map((link, index) => (
-                  <Link
-                    key={index}
-                    aria-current="page"
-                    aria-label={link.label}
-                    href={`${link.path}`}
-                    onClick={() => setMenuOpen(false)}
-                    className="relative mx-2 inline-block 
-                  cursor-pointer px-4 py-2 text-xl font-medium capitalize text-primary"
-                  >
-                    {link.label}
-                  </Link>
+                  <li key={index} className="w-full">
+                    <Link
+                      aria-current="page"
+                      aria-label={link.label}
+                      href={`${link.path}`}
+                      onClick={() => setMenuOpen(false)}
+                      className="relative mx-2 inline-block w-full 
+                      cursor-pointer px-4 py-2 text-xl font-medium capitalize text-primary hover:bg-black/10"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
                 ))}
               </ul>
+              <div className="flex w-full items-end justify-end">
+                <ChangeLocale className="w-full" />
+                <ThemeToggle className="w-full" />
+              </div>
             </SheetContent>
           </Sheet>
         </div>
@@ -112,6 +118,10 @@ const Navbar = () => {
               </Link>
             </li>
           ))}
+
+          <li>
+            <ChangeLocale />
+          </li>
 
           <li>
             <ThemeToggle />

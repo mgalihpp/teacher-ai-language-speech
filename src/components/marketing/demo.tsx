@@ -1,8 +1,11 @@
 import React from "react";
 import { VideoPlayer } from "./video-player";
 import { Play } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 
-const Demo = () => {
+const Demo = async () => {
+  const t = await getTranslations("Demo");
+
   return (
     <section id="demo" className="bg-opacity-50 py-20">
       <div className="mx-8 max-w-7xl md:mx-10 lg:mx-20 xl:mx-auto">
@@ -15,14 +18,13 @@ const Demo = () => {
               className="inline-block rounded-lg bg-blue-100 bg-opacity-60 px-3 py-1 text-sm 
                     font-semibold text-blue-600 dark:bg-blue-900 dark:text-stone-100"
             >
-              Action
+              {t("action")}
             </div>
             <h1 className="text-3xl font-semibold text-stone-800 dark:text-stone-200 md:text-5xl">
-              Here&apos;s a demo of Guru AI
+              {t("header")}
             </h1>
             <p className="mx-auto text-xl text-stone-600 dark:text-stone-300 md:w-2/3 md:text-2xl">
-              Take a tour of Guru AI and see how it can help you improve your
-              English skills.
+              {t("description")}
             </p>
           </div>
         </div>

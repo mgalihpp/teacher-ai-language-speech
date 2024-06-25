@@ -1,10 +1,17 @@
 "use client";
 
-import { FAQ } from "@/constants/blog";
+import { useMessages, useTranslations } from "next-intl";
 import Link from "next/link";
 import React, { useState } from "react";
 
 const Faq = () => {
+  const t = useTranslations("FAQ");
+
+  const messages = useMessages() as unknown as IntlMessages;
+
+  const key = "faqList";
+  const fList = messages.FAQ.faqList;
+
   return (
     <section
       id="faq"
@@ -13,10 +20,7 @@ const Faq = () => {
       <div className="container mx-auto">
         <div className="-mx-4 flex flex-wrap">
           <div className="w-full px-4">
-            <div className="mx-auto mb-[60px] max-w-[520px] text-center lg:mb-20">
-              {/* <span className="mb-2 block text-lg font-semibold text-primary">
-                FAQ
-              </span> */}
+            <div className="mx-auto mb-[60px] max-w-xl text-center lg:mb-20">
               <div
                 className="inline-block rounded-lg bg-blue-100 bg-opacity-60 px-3 py-1 text-sm 
                     font-semibold text-blue-600 dark:bg-blue-900 dark:text-stone-100"
@@ -24,19 +28,16 @@ const Faq = () => {
                 FAQ
               </div>
               <h2 className="mb-4 text-3xl font-bold dark:text-stone-200 sm:text-[40px]/[48px]">
-                Any Questions? Look Here
+                {t("header")}
               </h2>
               <p className="text-body-color text-base dark:text-stone-300">
-                Looking to learn more about Guru AI? Here are some of the most
-                common questions we get asked. If you have additional questions,
-                please feel free to{" "}
+                {t("description")}{" "}
                 <Link
                   href={"mailto:muhammadgalih451@gmail.com"}
                   className="text-primary underline underline-offset-4"
                 >
-                  Contact Us
+                  {t("contact")}!
                 </Link>
-                !
               </p>
             </div>
           </div>
@@ -44,22 +45,26 @@ const Faq = () => {
 
         <div className="-mx-4 flex flex-wrap">
           <div className="w-full px-4 lg:w-1/2">
-            {FAQ.slice(0, 4).map((item, index) => (
+            {fList.slice(0, 4).map((_, index) => (
               <AccordionItem
                 key={index}
-                header={item.question}
-                text={item.answer}
+                header={t(`${key}.${index}.question`)}
+                text={t(`${key}.${index}.answer`)}
               />
             ))}
           </div>
           <div className="w-full px-4 lg:w-1/2">
-            {FAQ.slice(4, 8).map((item, index) => (
-              <AccordionItem
-                key={index}
-                header={item.question}
-                text={item.answer}
-              />
-            ))}
+            {fList.slice(0, 4).map((_, index) => {
+              const i = index + 4;
+
+              return (
+                <AccordionItem
+                  key={index}
+                  header={t(`${key}.${i}.question`)}
+                  text={t(`${key}.${i}.answer`)}
+                />
+              );
+            })}
           </div>
         </div>
       </div>
