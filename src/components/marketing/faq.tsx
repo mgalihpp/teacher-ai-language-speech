@@ -8,7 +8,7 @@ const Faq = () => {
   return (
     <section
       id="faq"
-      className="dark:bg-dark relative z-20 overflow-hidden pb-12 pt-20 lg:pb-[90px] lg:pt-[120px]"
+      className="relative z-20 overflow-hidden pb-12 pt-20 lg:pb-[90px] lg:pt-[120px]"
     >
       <div className="container mx-auto">
         <div className="-mx-4 flex flex-wrap">
@@ -23,7 +23,7 @@ const Faq = () => {
               >
                 FAQ
               </div>
-              <h2 className="text-dark mb-4 text-3xl font-bold dark:text-stone-200 sm:text-[40px]/[48px]">
+              <h2 className="mb-4 text-3xl font-bold dark:text-stone-200 sm:text-[40px]/[48px]">
                 Any Questions? Look Here
               </h2>
               <p className="text-body-color text-base dark:text-stone-300">
@@ -106,9 +106,9 @@ const AccordionItem = ({ header, text }: { header: string; text: string }) => {
     setActive(!active);
   };
   return (
-    <div className="dark:bg-dark-2 mb-8 w-full rounded-lg bg-white p-4 shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:bg-stone-900 dark:shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8">
+    <div className="mb-8 w-full rounded-lg bg-white p-4 shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:bg-stone-900 dark:shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8">
       <button
-        className={`faq-btn flex w-full text-left`}
+        className={`flex w-full text-left`}
         onClick={() => handleToggle()}
       >
         <div className="mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg bg-primary/5 text-primary dark:bg-white/5">
@@ -130,7 +130,7 @@ const AccordionItem = ({ header, text }: { header: string; text: string }) => {
         </div>
 
         <div className="w-full">
-          <h4 className="text-dark mt-1 text-lg font-semibold dark:text-white">
+          <h4 className="mt-1 text-lg font-semibold dark:text-white">
             {header}
           </h4>
         </div>
@@ -141,9 +141,7 @@ const AccordionItem = ({ header, text }: { header: string; text: string }) => {
           active ? "block" : "hidden"
         }`}
       >
-        <p className="text-body-color dark:text-dark-6 py-3 text-base leading-relaxed">
-          {text}
-        </p>
+        <p className="py-3 text-base leading-relaxed">{text}</p>
       </div>
     </div>
   );
