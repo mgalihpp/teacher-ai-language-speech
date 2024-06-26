@@ -80,7 +80,7 @@ export default async function Testimonial() {
             {people.testimonials2.map((item, index) => (
               <div className="text-sm leading-6" key={index}>
                 <Card
-                  name={tTestimonial(`${keys[0]}.${index}.name`)}
+                  name={tTestimonial(`${keys[1]}.${index}.name`)}
                   position={tTestimonial(`${keys[1]}.${index}.position`)}
                   text={tTestimonial(`${keys[1]}.${index}.text`)}
                   photoLink={tTestimonial(`${keys[1]}.${index}.photoLink`)}
