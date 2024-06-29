@@ -17,10 +17,15 @@ import { itemPlacement } from "@/constants";
 import Teacher from "./teacher";
 import { degToRad } from "three/src/math/MathUtils.js";
 import MessagesList from "./messages-list";
-import BoardSettings from "./board-settings";
 import CameraManager from "./camera-manager";
 
-const Experience = ({ credits }: { credits: number }) => {
+const Experience = ({
+  credits,
+  children,
+}: {
+  credits: number;
+  children: React.ReactNode;
+}) => {
   const { teacher, classroom } = useAiTeacher();
 
   return (
@@ -51,7 +56,7 @@ const Experience = ({ credits }: { credits: number }) => {
               distanceFactor={1}
             >
               <MessagesList />
-              <BoardSettings />
+              {children}
             </Html>
             <Environment preset="sunset" />
             <ambientLight intensity={0.8} color="pink" />

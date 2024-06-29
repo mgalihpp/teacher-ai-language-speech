@@ -1,4 +1,4 @@
-import { checkIsAnswerWord, isString } from "@/helpers/check-message";
+import { checkIsAnswerWord } from "@/helpers/check-message";
 import SpeechApi from "@/lib/speech";
 import { sendAudio } from "@/lib/utils";
 import { create } from "zustand";
@@ -10,18 +10,18 @@ export interface AiTeacherState {
   teacher: Teacher;
   classroom: Classroom;
   loading: boolean;
-  language: LanguageOptions;
+  fromLanguage: LanguageOptions;
+  toLanguage: LanguageOptions;
   furigana: boolean;
-  // indonesia: boolean;
   speech: Speech;
 
   setMessages: (message: Message) => void;
   setLoading: (state: boolean) => void;
   setTeacher: (teacher: Teacher) => void;
   setClassroom: (classroom: Classroom) => void;
-  setLanguage: (language: LanguageOptions) => void;
   setFurigana: (state: boolean) => void;
-  // setIndonesia: (state: boolean) => void;
+  setFromLanguage: (language: LanguageOptions) => void;
+  setToLanguage: (language: LanguageOptions) => void;
   setSpeech: (speech: Speech) => void;
   playAudioTTS: (message: Message) => Promise<HTMLAudioElement | undefined>;
   stopAudioTTS: (message: Message) => void;
@@ -35,7 +35,8 @@ export const useAiTeacher = create<AiTeacherState>()(
       teacher: "Nanami",
       classroom: "default",
       loading: false,
-      language: "indonesia",
+      fromLanguage: "indonesia", //defautlt
+      toLanguage: "english", // default
       furigana: true,
       indonesia: true,
       speech: "formal",
@@ -57,22 +58,27 @@ export const useAiTeacher = create<AiTeacherState>()(
         set((state) => ({ messages: [...state.messages, message] }));
       },
       setClassroom: (classroom) => set({ classroom }),
-      setLanguage: (lang) => set({ language: lang }),
+      setFromLanguage: (lang) => set({ fromLanguage: lang }),
+      setToLanguage: (lang) => set({ toLanguage: lang }),
       setFurigana: (state) => set({ furigana: state }),
-      // setIndonesia: (state) => set({ indonesia: state }),
       setSpeech: (speech) => set({ speech }),
       playAudioTTS: (message) => {
         return new Promise((resolve, reject) => {
           const currentTeacher = get().teacher;
 
-          const currentLanguage = isString(message.answer.indonesia)
-            ? "indonesia"
-            : "english";
+          const currentLanguage = get().toLanguage;
 
           const englishTTS = new SpeechApi({
             language: "english",
             speech: {
               unreal: true,
+            },
+          });
+
+          const japaneseTTS = new SpeechApi({
+            language: "japanese",
+            speech: {
+              unreal: false,
             },
           });
 
@@ -88,6 +94,23 @@ export const useAiTeacher = create<AiTeacherState>()(
           // language is ref from user input language question
           switch (currentLanguage) {
             case "indonesia": {
+              indonesiaTTS
+                .getAudio({
+                  Text: translatedWord.map((word) => word.word).join(" "),
+                  VoiceId:
+                    currentTeacher === "Nanami"
+                      ? "EXAVITQu4vr4xnSDxMaL"
+                      : "ErXwobaYiN019PkySvjV",
+                })
+                .then((data) => {
+                  sendAudio(resolve, reject, data, message, set);
+                })
+                .catch((error) => {
+                  reject(error);
+                });
+              break;
+            }
+            case "english": {
               englishTTS
                 .getAudio({
                   Text: translatedWord.map((word) => word.word).join(" "),
@@ -101,8 +124,8 @@ export const useAiTeacher = create<AiTeacherState>()(
                 });
               break;
             }
-            case "english": {
-              indonesiaTTS
+            case "japanese": {
+              japaneseTTS
                 .getAudio({
                   Text: translatedWord.map((word) => word.word).join(" "),
                   VoiceId:

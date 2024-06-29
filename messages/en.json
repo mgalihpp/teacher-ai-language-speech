@@ -121,5 +121,31 @@
         "answer": "Midtrans is a secure payment gateway that allows you to make safe and easy transactions when purchasing credits or other services within Guru AI."
       }
     ]
+  },
+  "BuyCredits": {
+    "header": "Buy Guru AI Credits",
+    "description": "Want to improve your language skills? Then, consider buying some credits for Guru AI. With credits, you can unlock our powerful AI services and speed up your language learning journey. Join the thousands of learners who already trust AI Language Teacher."
+  },
+  "ChatSheet": {
+    "title": "Settings",
+    "label1": "From",
+    "label1_description": "Select the language you want type",
+    "label1_placeholder": "Select From Language",
+    "label2": "To",
+    "label2_description": "Select language do you want to translate",
+    "label2_placeholder": "Select To Language",
+    "label3": "Speech",
+    "label3_description": "Select the speech style you want",
+    "label3_placeholder": "Select To Speech",
+    "label4": "Classroom",
+    "label4_description": "Select the classroom you want",
+    "label4_placeholder": "Select To Classroom",
+    "label5": "Teacher",
+    "label5_description": "Select the teacher you want",
+    "label5_placeholder": "Select To Teacher",
+    "label6": "Theme",
+    "label6_description": "Select the theme you want",
+    "label6_placeholder": "Select To Theme",
+    "btn_text": "Save"
   }
 }

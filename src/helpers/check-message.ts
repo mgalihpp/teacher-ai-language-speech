@@ -17,6 +17,8 @@ function checkIsAnswerString(message: Message): string {
     return message.answer.indonesia;
   } else if (isString(message.answer.english)) {
     return message.answer.english;
+  } else if (isString(message.answer.japanese)) {
+    return message.answer.japanese;
   }
 
   return "";
@@ -27,6 +29,8 @@ function checkIsAnswerWord(message: Message): Word[] {
     return message.answer.indonesia;
   } else if (isWordArray(message.answer.english)) {
     return message.answer.english;
+  } else if (isWordArray(message.answer.japanese)) {
+    return message.answer.japanese;
   }
 
   return [];
@@ -37,6 +41,8 @@ function checkIsGrammarString(grammar: grammarWord): string {
     return grammar.indonesia;
   } else if (isString(grammar.english)) {
     return grammar.english;
+  } else if (isString(grammar.japanese)) {
+    return grammar.japanese;
   }
 
   return "";
@@ -47,6 +53,8 @@ function checkIsGrammarWord(grammar: grammarWord): Word[] {
     return grammar.indonesia;
   } else if (isWordArray(grammar.english)) {
     return grammar.english;
+  } else if (isWordArray(grammar.japanese)) {
+    return grammar.japanese;
   }
 
   return [];
@@ -57,6 +65,8 @@ function checkChunk(chunk: ChunksWord): Word[] {
     return chunk.indonesia;
   } else if (isWordArray(chunk.english)) {
     return chunk.english;
+  } else if (isWordArray(chunk.japanese)) {
+    return chunk.japanese;
   }
 
   return [];

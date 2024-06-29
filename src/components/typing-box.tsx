@@ -7,12 +7,13 @@ import React, { memo, useEffect, useState } from "react";
 import { toast } from "sonner";
 import Credits from "./credits";
 import { useSession } from "next-auth/react";
-import { isString } from "@/helpers/check-message";
+import { getQuestion } from "@/lib/utils";
 
 const TypingBox = ({ credits }: { credits: number }) => {
   const { data: session } = useSession();
   const {
-    language,
+    fromLanguage,
+    toLanguage,
     setMessages,
     setLoading: setTeacherLoading,
     playAudioTTS,
@@ -104,7 +105,8 @@ const TypingBox = ({ credits }: { credits: number }) => {
       {
         question,
         speech: "formal",
-        language,
+        fromLanguage,
+        toLanguage,
         credits,
       },
       {
@@ -131,21 +133,20 @@ const TypingBox = ({ credits }: { credits: number }) => {
         },
         onSuccess: (data) => {
           // english, grammarbreakdown, indonesia
-          const { indonesia, english, grammarBreakdown } = JSON.parse(
+          const { indonesia, english, japanese, grammarBreakdown } = JSON.parse(
             data,
           ) as AiResponse;
 
-          const question = isString(indonesia)
-            ? indonesia
-            : (english as string);
+          const uquestion = getQuestion(fromLanguage, toLanguage, question);
 
           const format: Message = {
             id: data.length,
-            question,
+            question: uquestion,
             speech: "formal",
             answer: {
               english,
               indonesia,
+              japanese,
               grammarBreakdown,
             },
           };
@@ -172,10 +173,8 @@ const TypingBox = ({ credits }: { credits: number }) => {
     setQuestion("");
   };
 
-  const toLanguage = language === "indonesia" ? "English" : "Indonesia";
-
   const translatedDescription =
-    language === "indonesia"
+    toLanguage === "indonesia"
       ? "Ketik sebuah kalimat yang ingin diucapkan dalam bahasa Indonesia dan Guru AI akan mengterjemahkannya untuk kamu."
       : "Type a sentence in English and Guru AI will translate it for you.";
 

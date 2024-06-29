@@ -121,5 +121,31 @@
         "answer": "Midtrans adalah gateway pembayaran aman yang memungkinkan Anda melakukan transaksi dengan aman dan mudah saat membeli pulsa atau layanan lain dalam Guru AI."
       }
     ]
+  },
+  "BuyCredits": {
+    "header": "Beli Kredit Guru AI",
+    "description": "Ingin meningkatkan kemampuan bahasa Anda? Kemudian, pertimbangkan untuk membeli sejumlah kredit untuk Guru AI. Dengan kredit, Anda dapat membuka layanan AI kami yang canggih dan mempercepat perjalanan pembelajaran bahasa Anda. Bergabunglah dengan ribuan pelajar yang telah mempercayai AI Language Teacher."
+  },
+  "ChatSheet": {
+    "title": "Pengaturan",
+    "label1": "Dari",
+    "label1_description": "Pilih bahasa yang ingin anda ketik",
+    "label1_placeholder": "Pilih dari bahasa apa",
+    "label2": "Ke",
+    "label2_description": "Pilih bahasa yang ingin Anda terjemahkan",
+    "label2_placeholder": "Pilih ke bahasa apa",
+    "label3": "Gaya bicara",
+    "label3_description": "Pilih gaya bicara yang Anda inginkan",
+    "label3_placeholder": "Pilih gaya bicara",
+    "label4": "Ruang Kelas",
+    "label4_description": "Pilih ruang kelas yang Anda inginkan",
+    "label4_placeholder": "Pilih ruang kelas",
+    "label5": "Guru",
+    "label5_description": "Pilih guru yang Anda inginkan",
+    "label5_placeholder": "Pilih guru",
+    "label6": "Tema",
+    "label6_description": "Pilih tema yang Anda inginkan",
+    "label6_placeholder": "Pilih tema",
+    "btn_text": "Simpan"
   }
 }

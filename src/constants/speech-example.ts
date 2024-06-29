@@ -201,3 +201,89 @@ export const indonesiaFormalSpeechExample: SpeechExample = {
     },
   ],
 };
+
+export const japaneseFormalSpeechExample: SpeechExample = {
+  japanese: [
+    {
+      word: "あなたは",
+      reading: "anata wa",
+    },
+    {
+      word: "インドネシアに",
+      reading: "indonesia ni",
+    },
+    {
+      word: "住んでいますか",
+      reading: "sundeimasu ka",
+    },
+    {
+      word: "?",
+      reading: "?",
+    },
+  ],
+  grammarBreakdown: [
+    {
+      indonesia: "Apakah kamu tinggal di Indonesia?",
+      japanese: [
+        {
+          word: "あなたは",
+          reading: "anata wa",
+        },
+        {
+          word: "インドネシアに",
+          reading: "indonesia ni",
+        },
+        {
+          word: "住んでいますか",
+          reading: "sundeimasu ka",
+        },
+        {
+          word: "?",
+          reading: "?",
+        },
+      ],
+      chunks: [
+        {
+          japanese: [
+            {
+              word: "あなたは",
+              reading: "anata wa",
+            },
+          ],
+          meaning: "Kamu.",
+          grammar: "Kata ganti",
+        },
+        {
+          japanese: [
+            {
+              word: "インドネシアに",
+              reading: "indonesia ni",
+            },
+          ],
+          meaning: "Di Indonesia.",
+          grammar: "Preposisi + Kata Benda",
+        },
+        {
+          japanese: [
+            {
+              word: "住んでいますか",
+              reading: "sundeimasu ka",
+            },
+          ],
+          meaning: "Tinggal?",
+          grammar: "Kata kerja + Kata kerja bantu",
+        },
+        {
+          japanese: [
+            {
+              word: "?",
+              reading: "?",
+            },
+          ],
+          meaning: "Tanda tanya.",
+          grammar: "Tanda baca",
+        },
+      ],
+    },
+  ],
+};

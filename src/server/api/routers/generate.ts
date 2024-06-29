@@ -1,5 +1,9 @@
 import { groq } from "@/lib/groq";
-import { checkUserCredits, getSpeechLanguagePreference } from "@/lib/utils";
+import {
+  checkUserCredits,
+  getQuestion,
+  getSpeechLanguagePreference,
+} from "@/lib/utils";
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import { type User } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
@@ -10,13 +14,16 @@ export const generateRouter = createTRPCRouter({
     .input(
       z.object({
         speech: z.enum(["casual", "formal"]),
-        language: z.enum(["indonesia", "english"]),
+        fromLanguage: z.enum(["indonesia", "english", "japanese"]),
+        toLanguage: z.enum(["indonesia", "english", "japanese"]),
         question: z.string(),
         credits: z.number().optional(),
       }),
     )
     .mutation(async ({ input, ctx }) => {
       let user: User | null;
+
+      const { speech, fromLanguage, toLanguage, question, credits } = input;
 
       if (!ctx.session?.user.id) {
         user = null;
@@ -32,25 +39,13 @@ export const generateRouter = createTRPCRouter({
       await checkUserCredits({
         db: ctx.db,
         user: user,
-        credits: input.credits ?? 0,
+        credits: credits ?? 0,
       });
 
-      const speechExample = getSpeechLanguagePreference(input.language);
+      const { speechExample, versionExample, wordExample } =
+        getSpeechLanguagePreference(fromLanguage, toLanguage);
 
-      const fromLanguage =
-        input.language === "indonesia" ? "Indonesia" : "English";
-      const toLanguage =
-        input.language === "indonesia" ? "English" : "Indonesia";
-
-      const versionExample =
-        input.language === "indonesia"
-          ? (speechExample.grammarBreakdown[0]?.english as string)
-          : (speechExample.grammarBreakdown[0]?.indonesia as string);
-
-      const wordExample =
-        input.language === "indonesia"
-          ? speechExample.english
-          : speechExample.indonesia;
+      const userQuestion = getQuestion(fromLanguage, toLanguage, question);
 
       const chatCompletion = await groq.chat.completions.create({
         messages: [
@@ -93,14 +88,7 @@ export const generateRouter = createTRPCRouter({
           },
           {
             role: "user",
-            content: `How to say ${
-              input.question === ""
-                ? input.language === "indonesia"
-                  ? "Apakah kamu tinggal di Indonesia ?"
-                  : "Do you live in Indonesia ?"
-                : input.question
-            } 
-            In ${toLanguage} in ${input.speech} speech ?`,
+            content: `How to say ${userQuestion} In ${toLanguage} in ${speech} speech ?`,
           },
         ],
         model: "llama3-70b-8192",

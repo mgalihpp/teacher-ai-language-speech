@@ -13,24 +13,28 @@ type Message = {
 type Answer = {
   indonesia?: string | Word[];
   english?: string | Word[];
+  japanese?: string | Word[];
   grammarBreakdown: grammarWord[];
 };
 
 type SpeechExample = {
   english?: Word[];
   indonesia?: Word[];
+  japanese?: Word[];
   grammarBreakdown: grammarWord[];
 };
 
 type grammarWord = {
   indonesia?: string | Word[];
   english?: string | Word[];
+  japanese?: string | Word[];
   chunks: ChunksWord[];
 };
 
 type ChunksWord = {
   indonesia?: Word[];
   english?: Word[];
+  japanese?: Word[];
   meaning: string;
   grammar: string;
 };
@@ -43,12 +47,19 @@ type Word = {
 type AiResponse = {
   indonesia: string | Word[];
   english: string | Word[];
+  japanese: string | Word[];
   grammarBreakdown: grammarWord[];
 };
 
-type LanguageOptions = "english" | "indonesia";
+type LanguageOptions = "english" | "indonesia" | "japanese";
 
 type SpeechOptions = {
   unreal?: boolean;
   elevenLabs?: boolean;
 };
+
+interface LanguagePreference {
+  speechExample: SpeechExample;
+  versionExample: string;
+  wordExample: Word[] | undefined;
+}

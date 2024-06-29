@@ -1,32 +1,150 @@
 import {
   englishFormalSpeechExample,
   indonesiaFormalSpeechExample,
+  japaneseFormalSpeechExample,
 } from "@/constants/speech-example";
 import { type AiTeacherState } from "@/hooks/use-ai-teacher";
 import { type PrismaClient, type User } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { clsx, type ClassValue } from "clsx";
+import { toast } from "sonner";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function getSpeechLanguagePreference(
-  currentLanguage: LanguageOptions,
-): SpeechExample {
-  let speechExample: SpeechExample;
+const speechExamplesMap: Record<string, SpeechExample> = {
+  "indonesia-english": englishFormalSpeechExample,
+  "english-indonesia": indonesiaFormalSpeechExample,
+  "japanese-english": englishFormalSpeechExample,
+  "english-japanese": japaneseFormalSpeechExample,
+  "indonesia-japanese": japaneseFormalSpeechExample,
+  "japanese-indonesia": indonesiaFormalSpeechExample,
+};
 
-  switch (currentLanguage) {
-    case "indonesia":
-      speechExample = englishFormalSpeechExample;
-      break;
-    case "english":
-      speechExample = indonesiaFormalSpeechExample;
-      break;
+export function getSpeechLanguagePreference(
+  fromLanguage: LanguageOptions,
+  toLanguage: LanguageOptions,
+): LanguagePreference {
+  const key = `${fromLanguage}-${toLanguage}`;
+  const speechExample = speechExamplesMap[key];
+
+  if (!speechExample) {
+    throw new Error("Unsupported language combination");
   }
 
-  return speechExample;
+  const versionExample = getVersionExample(
+    fromLanguage,
+    toLanguage,
+    speechExample,
+  );
+
+  const wordExample = getWordExample(fromLanguage, toLanguage, speechExample);
+
+  if (!speechExample) {
+    throw new Error("Unsupported language combination");
+  }
+
+  return { speechExample, versionExample, wordExample };
+}
+
+export function getNewLanguageSettings(
+  fromLanguage: LanguageOptions,
+  toLanguage: LanguageOptions,
+): { newFromLanguage: LanguageOptions; newToLanguage: LanguageOptions } | null {
+  if (fromLanguage === toLanguage) {
+    toast.warning("Please select different languages.");
+    return null;
+  } else {
+    toast.success("Language settings updated successfully.");
+  }
+
+  if (fromLanguage === "english" && toLanguage === "indonesia") {
+    return { newFromLanguage: "english", newToLanguage: "indonesia" };
+  } else if (fromLanguage === "indonesia" && toLanguage === "english") {
+    return { newFromLanguage: "indonesia", newToLanguage: "english" };
+  } else if (fromLanguage === "english" && toLanguage === "japanese") {
+    return { newFromLanguage: "english", newToLanguage: "japanese" };
+  } else if (fromLanguage === "japanese" && toLanguage === "english") {
+    return { newFromLanguage: "japanese", newToLanguage: "english" };
+  } else if (fromLanguage === "indonesia" && toLanguage === "japanese") {
+    return { newFromLanguage: "indonesia", newToLanguage: "japanese" };
+  } else if (fromLanguage === "japanese" && toLanguage === "indonesia") {
+    return { newFromLanguage: "japanese", newToLanguage: "indonesia" };
+  }
+  return null; // return null if no matching language settings are found
+}
+
+function getVersionExample(
+  fromLanguage: LanguageOptions,
+  toLanguage: LanguageOptions,
+  speechExample: SpeechExample,
+): string {
+  if (!speechExample.grammarBreakdown[0]) {
+    return ""; // Handle case where grammarBreakdown is empty or undefined
+  }
+
+  if (fromLanguage === "indonesia" && toLanguage === "english") {
+    return speechExample.grammarBreakdown[0].english as string;
+  } else if (fromLanguage === "english" && toLanguage === "indonesia") {
+    return speechExample.grammarBreakdown[0].indonesia as string;
+  } else if (fromLanguage === "japanese" && toLanguage === "english") {
+    return speechExample.grammarBreakdown[0].english as string;
+  } else if (fromLanguage === "english" && toLanguage === "japanese") {
+    return speechExample.grammarBreakdown[0].japanese as string;
+  } else if (fromLanguage === "indonesia" && toLanguage === "japanese") {
+    return speechExample.grammarBreakdown[0].japanese as string;
+  } else if (fromLanguage === "japanese" && toLanguage === "indonesia") {
+    return speechExample.grammarBreakdown[0].indonesia as string;
+  } else {
+    return ""; // Default case for unsupported language combinations
+  }
+}
+
+function getWordExample(
+  fromLanguage: LanguageOptions,
+  toLanguage: LanguageOptions,
+  speechExample: SpeechExample,
+): Word[] | undefined {
+  if (!speechExample) {
+    return []; // Handle case where is empty or undefined
+  }
+
+  if (fromLanguage === "indonesia" && toLanguage === "english") {
+    return speechExample.english;
+  } else if (fromLanguage === "english" && toLanguage === "indonesia") {
+    return speechExample.indonesia;
+  } else if (fromLanguage === "japanese" && toLanguage === "english") {
+    return speechExample.english;
+  } else if (fromLanguage === "english" && toLanguage === "japanese") {
+    return speechExample.japanese;
+  } else if (fromLanguage === "indonesia" && toLanguage === "japanese") {
+    return speechExample.japanese;
+  } else if (fromLanguage === "japanese" && toLanguage === "indonesia") {
+    return speechExample.indonesia;
+  } else {
+    return []; // Default case for unsupported language combinations
+  }
+}
+
+export function getQuestion(
+  fromLanguage: LanguageOptions,
+  toLanguage: LanguageOptions,
+  inputQuestion: string,
+): string {
+  if (inputQuestion === "") {
+    if (fromLanguage === "english" && toLanguage === "indonesia") {
+      return "Apakah kamu tinggal di Indonesia ?";
+    } else if (fromLanguage === "indonesia" && toLanguage === "english") {
+      return "Do you live in Indonesia ?";
+    } else if (fromLanguage === "japanese" && toLanguage === "english") {
+      return "Do you live in Indonesia ?"; // Example for Japanese to English, adjust as needed
+    } else if (fromLanguage === "english" && toLanguage === "japanese") {
+      return "あなたはインドネシアに住んでいますか？"; // Example for English to Japanese, adjust as needed
+    } // Add more cases as needed
+  }
+  return inputQuestion;
 }
 
 export function sendAudio(
