@@ -147,6 +147,18 @@ export function getQuestion(
   return inputQuestion;
 }
 
+export function getTranslatedDescription(toLanguage: LanguageOptions): string {
+  switch (toLanguage) {
+    case "indonesia":
+      return "Ketik sebuah kalimat yang ingin diucapkan dalam bahasa Indonesia dan Guru AI akan mengterjemahkannya untuk kamu.";
+    case "japanese":
+      return "英語で文を入力し、Guru AIが翻訳します。";
+    case "english":
+    default:
+      return "Type a sentence in English and Guru AI will translate it for you.";
+  }
+}
+
 export function sendAudio(
   resolve: (audioPlayer: HTMLAudioElement) => void,
   reject: (error: unknown) => void,

@@ -93,6 +93,12 @@ export const languagesSupport = [
     description:
       "Learn English with our AI assistant. Perfect for casual conversations, learning, and testing your skills.",
   },
+  {
+    language: "Japan",
+    icon: Icons.japan,
+    description:
+      "Learn Japanese with our AI assistant. Perfect for casual conversations, learning, and testing your skills.",
+  },
 ];
 
 export const upcommingLanguages = [
@@ -101,12 +107,6 @@ export const upcommingLanguages = [
     icon: Icons.russia,
     description:
       "Learn Russian with our AI assistant. Perfect for casual conversations, learning, and testing your skills.",
-  },
-  {
-    language: "Japan",
-    icon: Icons.japan,
-    description:
-      "Learn Japanese with our AI assistant. Perfect for casual conversations, learning, and testing your skills.",
   },
   {
     language: "Germany",

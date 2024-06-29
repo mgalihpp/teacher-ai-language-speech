@@ -7,7 +7,7 @@ import React, { memo, useEffect, useState } from "react";
 import { toast } from "sonner";
 import Credits from "./credits";
 import { useSession } from "next-auth/react";
-import { getQuestion } from "@/lib/utils";
+import { getQuestion, getTranslatedDescription } from "@/lib/utils";
 
 const TypingBox = ({ credits }: { credits: number }) => {
   const { data: session } = useSession();
@@ -173,10 +173,7 @@ const TypingBox = ({ credits }: { credits: number }) => {
     setQuestion("");
   };
 
-  const translatedDescription =
-    toLanguage === "indonesia"
-      ? "Ketik sebuah kalimat yang ingin diucapkan dalam bahasa Indonesia dan Guru AI akan mengterjemahkannya untuk kamu."
-      : "Type a sentence in English and Guru AI will translate it for you.";
+  const translatedDescription = getTranslatedDescription(fromLanguage);
 
   return (
     <div
