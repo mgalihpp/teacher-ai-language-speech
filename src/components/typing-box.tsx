@@ -43,6 +43,8 @@ const TypingBox = ({ credits }: { credits: number }) => {
   }, [loading, setTeacherLoading]);
 
   const checkIsLimit = () => {
+    const creditsCost = Math.ceil(question.length * 0.05);
+
     if (!session?.user.id) {
       const limit = JSON.parse(localStorage.getItem("limit")!) as boolean;
 
@@ -68,27 +70,27 @@ const TypingBox = ({ credits }: { credits: number }) => {
         return false;
       }
 
-      if (userCredits <= 0) {
+      if (userCredits <= creditsCost) {
         toast.error("You don't have enough credits");
         setLoading(false);
-        setCredits(0);
+        setCredits((prev) => prev);
         return false;
       }
 
-      setCredits((prev) => prev - 1);
+      setCredits((prev) => prev - creditsCost);
       setUsedCredits((prev) => prev + 1);
 
       return true;
     }
 
-    if (userCredits <= 0) {
+    if (userCredits <= creditsCost) {
       toast.error("You don't have enough credits");
       setLoading(false);
-      setCredits(0);
+      setCredits((prev) => prev);
       return false;
     }
 
-    setCredits((prev) => prev - 1);
+    setCredits((prev) => prev - creditsCost);
     return true;
   };
 

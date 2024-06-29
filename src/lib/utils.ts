@@ -192,13 +192,15 @@ export async function checkUserCredits({
   db,
   user,
   credits,
+  cost,
 }: {
   db: PrismaClient;
   user: User | null | undefined;
   credits: number;
+  cost: number;
 }) {
   if (!user) {
-    if (credits <= 0) {
+    if (credits < cost) {
       throw new TRPCError({
         code: "FORBIDDEN",
         message: "You don't have enough credits",
@@ -207,7 +209,7 @@ export async function checkUserCredits({
 
     return true;
   } else {
-    if (user.credits <= 0) {
+    if (user.credits < cost) {
       throw new TRPCError({
         code: "FORBIDDEN",
         message: "You don't have enough credits",
@@ -216,10 +218,10 @@ export async function checkUserCredits({
 
     await db.user.update({
       where: {
-        id: user?.id,
+        id: user.id,
       },
       data: {
-        credits: user.credits - 1,
+        credits: user.credits - cost,
       },
     });
 

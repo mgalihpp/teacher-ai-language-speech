@@ -35,11 +35,14 @@ export const generateRouter = createTRPCRouter({
         });
       }
 
+      const creditsCost = Math.ceil(question.length * 0.05);
+
       // checking credits for users / unauthenticated
       await checkUserCredits({
         db: ctx.db,
         user: user,
         credits: credits ?? 0,
+        cost: creditsCost,
       });
 
       const { speechExample, versionExample, wordExample } =
