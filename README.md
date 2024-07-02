@@ -6,7 +6,7 @@ Guru AI Teacher Language Speech provides AI-based language and speech recognitio
 
 ## Demo
 
-Insert gif or link to demo
+[![Watch the video](https://i9.ytimg.com/vi_webp/Dj85hJVpfyw/mq1.webp?sqp=CIjfjbQG-oaymwEmCMACELQB8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGEAgEyh_MA8=&rs=AOn4CLDEZ40o7yf7op1572XPq9mvJKhXfw)](https://youtu.be/Dj85hJVpfyw)
 
 ## Features
 

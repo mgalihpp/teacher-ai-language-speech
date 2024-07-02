@@ -24,7 +24,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({ children }) => {
       >
         <div>
           <ReactPlayer
-            url="https://www.youtube.com/watch?v=l4iyOYKc0vE"
+            url="https://www.youtube.com/watch?v=Dj85hJVpfyw"
             width={"100%"}
           />
           <DialogClose className="absolute right-0 top-0">
