@@ -48,7 +48,7 @@ export default async function Testimonial() {
   const people = messages.Testimonial.people;
 
   return (
-    <section id="testimonial" className="mb-28 py-20">
+    <section id="testimonial" className="py-20">
       <div className="mx-8 max-w-7xl md:mx-10 lg:mx-20 xl:mx-auto">
         <div
           className="translate-x-0 translate-y-0 scale-100 

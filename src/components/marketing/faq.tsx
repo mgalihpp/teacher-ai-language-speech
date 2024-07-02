@@ -15,7 +15,7 @@ const Faq = () => {
   return (
     <section
       id="faq"
-      className="relative z-20 overflow-hidden pb-12 pt-20 lg:pb-[90px] lg:pt-[120px]"
+      className="relative z-20 mb-16 overflow-hidden pb-12 pt-20 lg:pb-[90px] lg:pt-[120px]"
     >
       <div className="container mx-auto">
         <div className="-mx-4 flex flex-wrap">

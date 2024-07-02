@@ -7,7 +7,7 @@ const FooterCTA = async () => {
   const t = await getTranslations("FooterCTA");
 
   return (
-    <section id="get-started" className="mb-28 py-4">
+    <section id="get-started" className="mb-8 py-4">
       <GradientWrapper wrapperclassname="inset-0 top-12 h-[5rem] max-w-xs">
         <div className="relative z-10 mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">

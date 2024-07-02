@@ -54,10 +54,13 @@ export const metadata: Metadata = {
   keywords: [
     "guruai",
     "guruai.my.id",
+    "guruai",
+    "guruaimyid",
     "guru ai",
     "guru ai my id",
     "guru ai website",
     "guru ai website my id",
+    "guruai.my.id",
     "guruai.vercel.app",
     "ai",
     "language",
