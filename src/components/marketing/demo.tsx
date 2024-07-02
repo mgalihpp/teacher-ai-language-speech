@@ -1,7 +1,12 @@
-import React from "react";
-import { VideoPlayer } from "./video-player";
-import { Play } from "lucide-react";
+import React, { Suspense } from "react";
 import { getTranslations } from "next-intl/server";
+import { Skeleton } from "@/components/ui/skeleton";
+import dynamic from "next/dynamic";
+
+const VideoPlayer = dynamic(() => import("./video-player"), {
+  ssr: false,
+  loading: () => <PlayerLoader />,
+});
 
 const Demo = async () => {
   const t = await getTranslations("Demo");
@@ -29,32 +34,19 @@ const Demo = async () => {
           </div>
         </div>
       </div>
-      <div className="mx-auto max-w-3xl px-8 sm:px-6 lg:max-w-5xl lg:px-8">
-        <VideoPlayer>
-          <div className="group relative">
-            <img
-              src="/images/prev1.webp"
-              className="mt-8 rounded-xl"
-              alt="placeholder"
-            />
-
-            <div
-              className="absolute inset-0 z-10 m-auto
-              hidden h-full w-full items-center justify-center transition-all group-hover:flex"
-            >
-              <div className="rounded-full bg-stone-100 p-2">
-                <Play className="size-8 text-stone-900" />
-              </div>
-            </div>
-            <div
-              className="absolute inset-0 rounded-xl bg-black/30
-                  transition-opacity duration-300 group-hover:pointer-events-none group-hover:bg-black/60"
-            />
-          </div>
-        </VideoPlayer>
+      <div className="mx-auto max-w-3xl px-8 sm:px-6 lg:px-8">
+        <div className="h-[24rem] w-full">
+          <Suspense fallback={<PlayerLoader />}>
+            <VideoPlayer />
+          </Suspense>
+        </div>
       </div>
     </section>
   );
 };
+
+function PlayerLoader() {
+  return <Skeleton className="h-[24rem] w-full" />;
+}
 
 export default Demo;
