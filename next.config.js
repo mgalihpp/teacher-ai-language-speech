@@ -9,6 +9,10 @@ const withNextIntl = createNextIntlPlugin("./src/i18n.ts");
 await import("./src/env.js");
 
 /** @type {import("next").NextConfig} */
-const config = {};
+const config = {
+  experimental: {
+    forceSwcTransforms: true,
+  },
+};
 
 export default withNextIntl(config);
