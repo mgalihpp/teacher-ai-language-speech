@@ -14,6 +14,7 @@ type Answer = {
   indonesia?: string | Word[];
   english?: string | Word[];
   japanese?: string | Word[];
+  france?: string | Word[];
   grammarBreakdown: grammarWord[];
 };
 
@@ -21,6 +22,7 @@ type SpeechExample = {
   english?: Word[];
   indonesia?: Word[];
   japanese?: Word[];
+  france?: Word[];
   grammarBreakdown: grammarWord[];
 };
 
@@ -28,6 +30,7 @@ type grammarWord = {
   indonesia?: string | Word[];
   english?: string | Word[];
   japanese?: string | Word[];
+  france?: string | Word[];
   chunks: ChunksWord[];
 };
 
@@ -35,6 +38,7 @@ type ChunksWord = {
   indonesia?: Word[];
   english?: Word[];
   japanese?: Word[];
+  france?: Word[];
   meaning: string;
   grammar: string;
 };
@@ -48,10 +52,11 @@ type AiResponse = {
   indonesia: string | Word[];
   english: string | Word[];
   japanese: string | Word[];
+  france: string | Word[];
   grammarBreakdown: grammarWord[];
 };
 
-type LanguageOptions = "english" | "indonesia" | "japanese";
+type LanguageOptions = "english" | "indonesia" | "japanese" | "france";
 
 type SpeechOptions = {
   unreal?: boolean;

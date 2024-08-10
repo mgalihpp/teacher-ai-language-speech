@@ -75,6 +75,13 @@ export const useAiTeacher = create<AiTeacherState>()(
             },
           });
 
+          const franceTTS = new SpeechApi({
+            language: "france",
+            speech: {
+              unreal: false,
+            },
+          });
+
           const japaneseTTS = new SpeechApi({
             language: "japanese",
             speech: {
@@ -126,6 +133,23 @@ export const useAiTeacher = create<AiTeacherState>()(
             }
             case "japanese": {
               japaneseTTS
+                .getAudio({
+                  Text: translatedWord.map((word) => word.word).join(" "),
+                  VoiceId:
+                    currentTeacher === "Nanami"
+                      ? "EXAVITQu4vr4xnSDxMaL"
+                      : "ErXwobaYiN019PkySvjV",
+                })
+                .then((data) => {
+                  sendAudio(resolve, reject, data, message, set);
+                })
+                .catch((error) => {
+                  reject(error);
+                });
+              break;
+            }
+            case "france": {
+              franceTTS
                 .getAudio({
                   Text: translatedWord.map((word) => word.word).join(" "),
                   VoiceId:

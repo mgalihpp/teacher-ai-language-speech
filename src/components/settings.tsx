@@ -30,6 +30,7 @@ const options = [
   { value: "english", label: "English" },
   { value: "indonesia", label: "Indonesia" },
   { value: "japanese", label: "Japanese" },
+  { value: "france", label: "France" },
 ];
 
 interface SettingsProps {
@@ -85,8 +86,8 @@ const Settings: React.FC<SettingsProps> = ({
   } = useAiTeacher();
 
   const formSchema = z.object({
-    fromLanguage: z.enum(["english", "indonesia", "japanese"]),
-    toLanguage: z.enum(["english", "indonesia", "japanese"]),
+    fromLanguage: z.enum(["english", "indonesia", "japanese", "france"]),
+    toLanguage: z.enum(["english", "indonesia", "japanese", "france"]),
     speech: z.enum(["casual", "formal"]),
     classroom: z.enum(["default", "alternative"]),
     teacher: z.enum(["Nanami", "Naoki"]),

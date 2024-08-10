@@ -135,9 +135,8 @@ const TypingBox = ({ credits }: { credits: number }) => {
         },
         onSuccess: (data) => {
           // english, grammarbreakdown, indonesia
-          const { indonesia, english, japanese, grammarBreakdown } = JSON.parse(
-            data,
-          ) as AiResponse;
+          const { indonesia, english, japanese, france, grammarBreakdown } =
+            JSON.parse(data) as AiResponse;
 
           const uquestion = getQuestion(fromLanguage, toLanguage, question);
 
@@ -149,6 +148,7 @@ const TypingBox = ({ credits }: { credits: number }) => {
               english,
               indonesia,
               japanese,
+              france,
               grammarBreakdown,
             },
           };

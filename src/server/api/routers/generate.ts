@@ -14,8 +14,8 @@ export const generateRouter = createTRPCRouter({
     .input(
       z.object({
         speech: z.enum(["casual", "formal"]),
-        fromLanguage: z.enum(["indonesia", "english", "japanese"]),
-        toLanguage: z.enum(["indonesia", "english", "japanese"]),
+        fromLanguage: z.enum(["indonesia", "english", "japanese", "france"]),
+        toLanguage: z.enum(["indonesia", "english", "japanese", "france"]),
         question: z.string(),
         credits: z.number().optional(),
       }),
@@ -108,7 +108,7 @@ export const generateRouter = createTRPCRouter({
               id: user?.id,
             },
             data: {
-              credits: user?.credits + 1,
+              credits: user?.credits + creditsCost,
             },
           });
         }

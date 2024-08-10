@@ -1,7 +1,16 @@
 import {
-  englishFormalSpeechExample,
-  indonesiaFormalSpeechExample,
-  japaneseFormalSpeechExample,
+  EN_franceFormalSpeechExample,
+  EN_indonesiaFormalSpeechExample,
+  EN_japaneseFormalSpeechExample,
+  FR_englishFormalSpeechExample,
+  FR_indonesiaFormalSpeechExample,
+  FR_japaneseFormalSpeechExample,
+  ID_englishFormalSpeechExample,
+  ID_franceFormalSpeechExample,
+  ID_japaneseFormalSpeechExample,
+  JP_englishFormalSpeechExample,
+  JP_franceFormalSpeechExample,
+  JP_indonesiaFormalSpeechExample,
 } from "@/constants/speech-example";
 import { type AiTeacherState } from "@/hooks/use-ai-teacher";
 import { type PrismaClient, type User } from "@prisma/client";
@@ -15,12 +24,25 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 const speechExamplesMap: Record<string, SpeechExample> = {
-  "indonesia-english": englishFormalSpeechExample,
-  "english-indonesia": indonesiaFormalSpeechExample,
-  "japanese-english": englishFormalSpeechExample,
-  "english-japanese": japaneseFormalSpeechExample,
-  "indonesia-japanese": japaneseFormalSpeechExample,
-  "japanese-indonesia": indonesiaFormalSpeechExample,
+  "indonesia-english": ID_englishFormalSpeechExample,
+  "english-indonesia": EN_indonesiaFormalSpeechExample,
+  "japanese-english": JP_englishFormalSpeechExample,
+  "english-japanese": EN_japaneseFormalSpeechExample,
+  "indonesia-japanese": ID_japaneseFormalSpeechExample,
+  "japanese-indonesia": JP_indonesiaFormalSpeechExample,
+  "indonesia-france": ID_franceFormalSpeechExample,
+  "france-indonesia": FR_indonesiaFormalSpeechExample,
+  "japanese-france": JP_franceFormalSpeechExample,
+  "france-japanese": FR_japaneseFormalSpeechExample,
+  "france-english": FR_englishFormalSpeechExample,
+  "english-france": EN_franceFormalSpeechExample,
+};
+
+const languagePairs = {
+  english: ["indonesia", "japanese", "france"],
+  indonesia: ["english", "japanese", "france"],
+  japanese: ["english", "indonesia", "france"],
+  france: ["english", "indonesia", "japanese"],
 };
 
 export function getSpeechLanguagePreference(
@@ -60,23 +82,13 @@ export function getNewLanguageSettings(
     toast.success("Language settings updated successfully.");
   }
 
-  if (fromLanguage === "english" && toLanguage === "indonesia") {
-    return { newFromLanguage: "english", newToLanguage: "indonesia" };
-  } else if (fromLanguage === "indonesia" && toLanguage === "english") {
-    return { newFromLanguage: "indonesia", newToLanguage: "english" };
-  } else if (fromLanguage === "english" && toLanguage === "japanese") {
-    return { newFromLanguage: "english", newToLanguage: "japanese" };
-  } else if (fromLanguage === "japanese" && toLanguage === "english") {
-    return { newFromLanguage: "japanese", newToLanguage: "english" };
-  } else if (fromLanguage === "indonesia" && toLanguage === "japanese") {
-    return { newFromLanguage: "indonesia", newToLanguage: "japanese" };
-  } else if (fromLanguage === "japanese" && toLanguage === "indonesia") {
-    return { newFromLanguage: "japanese", newToLanguage: "indonesia" };
+  if (languagePairs[fromLanguage]?.includes(toLanguage)) {
+    return { newFromLanguage: fromLanguage, newToLanguage: toLanguage };
   }
   return null; // return null if no matching language settings are found
 }
 
-function getVersionExample(
+export function getVersionExample(
   fromLanguage: LanguageOptions,
   toLanguage: LanguageOptions,
   speechExample: SpeechExample,
@@ -85,24 +97,28 @@ function getVersionExample(
     return ""; // Handle case where grammarBreakdown is empty or undefined
   }
 
-  if (fromLanguage === "indonesia" && toLanguage === "english") {
-    return speechExample.grammarBreakdown[0].english as string;
-  } else if (fromLanguage === "english" && toLanguage === "indonesia") {
-    return speechExample.grammarBreakdown[0].indonesia as string;
-  } else if (fromLanguage === "japanese" && toLanguage === "english") {
-    return speechExample.grammarBreakdown[0].english as string;
-  } else if (fromLanguage === "english" && toLanguage === "japanese") {
-    return speechExample.grammarBreakdown[0].japanese as string;
-  } else if (fromLanguage === "indonesia" && toLanguage === "japanese") {
-    return speechExample.grammarBreakdown[0].japanese as string;
-  } else if (fromLanguage === "japanese" && toLanguage === "indonesia") {
-    return speechExample.grammarBreakdown[0].indonesia as string;
-  } else {
-    return ""; // Default case for unsupported language combinations
+  const languageMap: Record<LanguageOptions, LanguageOptions> = {
+    english: "english",
+    indonesia: "indonesia",
+    japanese: "japanese",
+    france: "france",
+  };
+
+  const fromLangKey = languageMap[fromLanguage];
+  const toLangKey = languageMap[toLanguage];
+
+  if (
+    fromLangKey &&
+    toLangKey &&
+    speechExample.grammarBreakdown[0][toLangKey]
+  ) {
+    return speechExample.grammarBreakdown[0][toLangKey] as string;
   }
+
+  return "";
 }
 
-function getWordExample(
+export function getWordExample(
   fromLanguage: LanguageOptions,
   toLanguage: LanguageOptions,
   speechExample: SpeechExample,
@@ -110,22 +126,41 @@ function getWordExample(
   if (!speechExample) {
     return []; // Handle case where is empty or undefined
   }
+  const translations: Record<
+    LanguageOptions,
+    Record<LanguageOptions, Word[]>
+  > = {
+    english: {
+      indonesia: speechExample.indonesia!,
+      japanese: speechExample.japanese!,
+      france: speechExample.france!,
+      english: speechExample.english!,
+    },
+    indonesia: {
+      english: speechExample.english!,
+      japanese: speechExample.japanese!,
+      france: speechExample.france!,
+      indonesia: speechExample.indonesia!,
+    },
+    japanese: {
+      english: speechExample.english!,
+      indonesia: speechExample.indonesia!,
+      france: speechExample.france!,
+      japanese: speechExample.japanese!,
+    },
+    france: {
+      english: speechExample.english!,
+      indonesia: speechExample.indonesia!,
+      japanese: speechExample.japanese!,
+      france: speechExample.france!,
+    },
+  };
 
-  if (fromLanguage === "indonesia" && toLanguage === "english") {
-    return speechExample.english;
-  } else if (fromLanguage === "english" && toLanguage === "indonesia") {
-    return speechExample.indonesia;
-  } else if (fromLanguage === "japanese" && toLanguage === "english") {
-    return speechExample.english;
-  } else if (fromLanguage === "english" && toLanguage === "japanese") {
-    return speechExample.japanese;
-  } else if (fromLanguage === "indonesia" && toLanguage === "japanese") {
-    return speechExample.japanese;
-  } else if (fromLanguage === "japanese" && toLanguage === "indonesia") {
-    return speechExample.indonesia;
-  } else {
-    return []; // Default case for unsupported language combinations
+  if (translations[fromLanguage]?.[toLanguage]) {
+    return translations[fromLanguage][toLanguage];
   }
+
+  return []; // Default case for unsupported language combinations
 }
 
 export function getQuestion(
