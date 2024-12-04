@@ -14,6 +14,7 @@ Guru AI Teacher Language Speech provides AI-based language and speech recognitio
 - Chat
 - 3D Model
 - Credits System
+- Speech Recognition (Coming Soon)
 
 ## License
 
