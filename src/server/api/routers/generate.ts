@@ -8,6 +8,7 @@ import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import { type User } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
+import { MULTIPLIER_COST_CREDITS } from "@/constants";
 
 export const generateRouter = createTRPCRouter({
   chat: publicProcedure
@@ -35,7 +36,7 @@ export const generateRouter = createTRPCRouter({
         });
       }
 
-      const creditsCost = Math.ceil(question.length * 0.05);
+      const creditsCost = Math.ceil(question.length * MULTIPLIER_COST_CREDITS);
 
       // checking credits for users / unauthenticated
       await checkUserCredits({

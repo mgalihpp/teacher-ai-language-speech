@@ -36,10 +36,10 @@ const MessagesList = () => {
           <h2 className="text-8xl font-bold italic text-white/90">
             M. Galih PP
             <br />
-            Guru Bahasa Inggris
+            Guru Bahasa
           </h2>
           <h2 className="font-mono text-8xl font-bold italic text-red-600/90">
-            English Teacher
+            Language Teacher
           </h2>
         </div>
       )}

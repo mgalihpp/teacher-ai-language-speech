@@ -109,7 +109,7 @@ const Teacher: React.FC<TeacherProps> = ({ teacher, ...props }) => {
           index !== undefined &&
           child.morphTargetInfluences[index] !== undefined
         ) {
-          const morphTargetInfluence = child.morphTargetInfluences[index]!;
+          const morphTargetInfluence = child.morphTargetInfluences[index];
           child.morphTargetInfluences[index] = MathUtils.lerp(
             morphTargetInfluence,
             value,

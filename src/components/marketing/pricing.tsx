@@ -38,7 +38,7 @@ const PricingHeader = ({
   subtitle: string;
 }) => (
   <section className="text-center">
-    <h2 className="text-3xl font-bold">{title}</h2>
+    <h2 className="text-3xl font-bold sm:text-5xl lg:text-6xl">{title}</h2>
     <p className="pt-1 text-lg">{subtitle}</p>
     <br />
   </section>

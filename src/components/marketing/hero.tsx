@@ -13,7 +13,9 @@ const Hero = async () => {
 
       <div className="relative mx-auto flex w-full max-w-screen-xl justify-center px-4 py-32 sm:px-6 lg:h-screen lg:items-center lg:px-8">
         <div className="max-w-3xl text-center text-white">
-          <h1 className="text-3xl font-bold sm:text-6xl">{t("title")}</h1>
+          <h1 className="text-3xl font-bold sm:text-5xl lg:text-6xl">
+            {t("title")}
+          </h1>
           <p className="mx-auto mt-4 max-w-lg text-stone-300 sm:text-lg/relaxed">
             {t("description")}
           </p>

@@ -10,7 +10,7 @@ const Support = async () => {
       <div className="py-36">
         <div className="mx-auto max-w-6xl px-6 text-stone-500">
           <div className="text-center">
-            <h2 className="text-3xl font-semibold text-stone-950 dark:text-white md:text-5xl">
+            <h2 className="text-3xl font-semibold text-stone-950 dark:text-white sm:text-5xl lg:text-6xl">
               {t("header")}
             </h2>
             <p className="mx-auto mt-6 max-w-lg text-lg text-stone-700 dark:text-stone-300">

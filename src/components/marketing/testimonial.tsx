@@ -55,10 +55,10 @@ export default async function Testimonial() {
             transform opacity-100 transition duration-500 ease-in-out"
         >
           <div className="mb-12 space-y-5 text-center md:mb-20">
-            <h1 className="text-3xl font-semibold text-stone-800 dark:text-stone-200 md:text-5xl">
+            <h1 className="text-3xl font-semibold text-stone-800 dark:text-stone-200 sm:text-5xl lg:text-6xl">
               {t("header")}
             </h1>
-            <p className="mx-auto text-xl text-stone-600 dark:text-stone-300 md:w-2/3 md:text-2xl">
+            <p className="mx-auto text-lg text-stone-600 dark:text-stone-300 md:w-2/3 md:text-2xl">
               {t("description")}
             </p>
           </div>

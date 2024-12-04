@@ -8,6 +8,9 @@ import { toast } from "sonner";
 import Credits from "./credits";
 import { useSession } from "next-auth/react";
 import { getQuestion, getTranslatedDescription } from "@/lib/utils";
+import { MULTIPLIER_COST_CREDITS } from "@/constants";
+import { Mic, StopCircle } from "lucide-react";
+import { useSpeechRecognition } from "@/hooks/use-speech-recognition";
 
 const TypingBox = ({ credits }: { credits: number }) => {
   const { data: session } = useSession();
@@ -30,6 +33,12 @@ const TypingBox = ({ credits }: { credits: number }) => {
   // this for unauthenticated user credits
   const [usedCredits, setUsedCredits] = useState(0);
 
+  // voice recognition
+  const { transcript, listening, startListening, stopListening } =
+    useSpeechRecognition();
+
+  const translatedDescription = getTranslatedDescription(fromLanguage);
+
   useEffect(() => {
     setCredits(credits);
   }, [credits]);
@@ -43,7 +52,7 @@ const TypingBox = ({ credits }: { credits: number }) => {
   }, [loading, setTeacherLoading]);
 
   const checkIsLimit = () => {
-    const creditsCost = Math.ceil(question.length * 0.05);
+    const creditsCost = Math.ceil(question.length * MULTIPLIER_COST_CREDITS);
 
     if (!session?.user.id) {
       const limit = JSON.parse(localStorage.getItem("limit")!) as boolean;
@@ -175,8 +184,6 @@ const TypingBox = ({ credits }: { credits: number }) => {
     setQuestion("");
   };
 
-  const translatedDescription = getTranslatedDescription(fromLanguage);
-
   return (
     <div
       className="z-10 flex w-full flex-col space-y-6 rounded-xl 
@@ -188,8 +195,28 @@ const TypingBox = ({ credits }: { credits: number }) => {
           <h2 className="text-xl font-bold text-white max-sm:text-lg">
             How to say in {toLanguage} ?
           </h2>
-
-          <Credits credits={userCredits} />
+          <div className="flex items-center gap-2">
+            {listening ? (
+              <button
+                onClick={stopListening}
+                className="flex items-center gap-1 rounded-full 
+  bg-slate-900/40 p-2 text-xs text-white max-sm:p-1"
+                aria-label="Toggle microphone"
+              >
+                <StopCircle className="h-4 w-4" />
+              </button>
+            ) : (
+              <button
+                onClick={startListening}
+                className="flex items-center gap-1 rounded-full 
+  bg-slate-900/40 p-2 text-xs text-white max-sm:p-1"
+                aria-label="Toggle microphone"
+              >
+                <Mic className="h-4 w-4" />
+              </button>
+            )}
+            <Credits credits={userCredits} />
+          </div>
         </div>
         <p className="font-semibold text-white/70 max-sm:text-xs">
           {translatedDescription}
@@ -230,6 +257,7 @@ const TypingBox = ({ credits }: { credits: number }) => {
               }
             }}
           />
+          <p>{transcript}</p>
           <button
             aria-label="Ask"
             onClick={async () => {

@@ -25,10 +25,10 @@ const Demo = async () => {
             >
               {t("action")}
             </div>
-            <h1 className="text-3xl font-semibold text-stone-800 dark:text-stone-200 md:text-5xl">
+            <h1 className="text-3xl font-semibold text-stone-800 dark:text-stone-200 sm:text-5xl lg:text-6xl">
               {t("header")}
             </h1>
-            <p className="mx-auto text-xl text-stone-600 dark:text-stone-300 md:w-2/3 md:text-2xl">
+            <p className="mx-auto text-stone-600 dark:text-stone-300 sm:text-lg/relaxed md:w-2/3">
               {t("description")}
             </p>
           </div>

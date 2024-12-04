@@ -46,6 +46,8 @@ export const itemPlacement = {
   },
 };
 
+export const MULTIPLIER_COST_CREDITS = 0.05;
+
 export const plans = [
   {
     title: "+50 Credits",
