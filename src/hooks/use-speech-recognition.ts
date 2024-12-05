@@ -2,11 +2,15 @@ import { useRef, useState } from "react";
 import { toast } from "sonner";
 import axios from "axios";
 import { type Transcript } from "assemblyai";
+import { useAiTeacher } from "@/hooks/use-ai-teacher";
+
+const TRANSCRIPT_API_URL = `https://national-kellyann-malas-0a197ff8.koyeb.app/api/speech`;
 
 export const useSpeechRecognition = () => {
   const [isRecording, setIsRecording] = useState(false);
   const [transcript, setTranscript] = useState<string | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const fromLanguage = useAiTeacher().fromLanguage;
 
   const startRecording = async () => {
     try {
@@ -56,19 +60,40 @@ export const useSpeechRecognition = () => {
       return;
     }
 
-    try {
-      const res = await axios.post<Transcript>("/api/speech", audio, {
-        headers: {
-          "Content-Type": "audio/webm",
-        },
-      });
+    const language_code = getLanguageCode(fromLanguage);
 
-      const transcrip = res.data.text;
+    try {
+      const res = await axios.post<{ data: Transcript }>(
+        `${TRANSCRIPT_API_URL}?lang_code=${language_code}`,
+        audio,
+        {
+          headers: {
+            "Content-Type": "audio/webm",
+          },
+        },
+      );
+
+      const transcrip = res.data.data.text;
 
       setTranscript(transcrip!);
     } catch (error) {
       console.error("Error uploading audio:", error);
       toast.error("Failed to upload audio.");
+    }
+  };
+
+  const getLanguageCode = (lang: LanguageOptions) => {
+    switch (lang) {
+      case "english":
+        return "en-us";
+      case "japanese":
+        return "ja";
+      case "indonesia":
+        return "id";
+      case "france":
+        return "fr";
+      default:
+        return "en-us";
     }
   };
 

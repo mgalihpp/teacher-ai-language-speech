@@ -13,6 +13,9 @@ cloudinary.config({
   api_secret: env.CLOUDINARY_API_SECRET, // Click 'View API Keys' above to copy your API secret
 });
 
+/**
+ * @deprecated This function is deprecated and may be removed in future versions.
+ */
 export async function POST(req: NextRequest, res: NextResponse) {
   const body = await req.blob();
   const contentType = req.headers.get("Content-Type");
