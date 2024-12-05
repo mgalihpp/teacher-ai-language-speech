@@ -29,6 +29,9 @@ export const env = createEnv({
     MIDTRANS_SANDBOX_CLIENT_KEY: z.string(),
     MIDTRANS_PRODUCTION_SERVER_KEY: z.string(),
     MIDTRANS_PRODUCTION_CLIENT_KEY: z.string(),
+    ASSEMBLYAI_KEY: z.string(),
+    CLOUDINARY_API_SECRET: z.string(),
+    CLOUDINARY_API_KEY: z.string(),
     // UNREAL_SPEECH_API_KEY: z.string(),
   },
 
@@ -63,6 +66,9 @@ export const env = createEnv({
     MIDTRANS_SANDBOX_CLIENT_KEY: process.env.MIDTRANS_SANDBOX_CLIENT_KEY,
     MIDTRANS_PRODUCTION_SERVER_KEY: process.env.MIDTRANS_PRODUCTION_SERVER_KEY,
     MIDTRANS_PRODUCTION_CLIENT_KEY: process.env.MIDTRANS_PRODUCTION_CLIENT_KEY,
+    ASSEMBLYAI_KEY: process.env.ASSEMBLYAI_KEY,
+    CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET,
+    CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

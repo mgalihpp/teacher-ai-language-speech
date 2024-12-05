@@ -7,10 +7,20 @@ import React, { memo, useEffect, useState } from "react";
 import { toast } from "sonner";
 import Credits from "./credits";
 import { useSession } from "next-auth/react";
-import { getQuestion, getTranslatedDescription } from "@/lib/utils";
+import {
+  CapitalizeLetters,
+  getQuestion,
+  getTranslatedDescription,
+} from "@/lib/utils";
 import { MULTIPLIER_COST_CREDITS } from "@/constants";
-import { Mic, StopCircle } from "lucide-react";
+import { Mic, MicOff } from "lucide-react";
 import { useSpeechRecognition } from "@/hooks/use-speech-recognition";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/tooltip";
 
 const TypingBox = ({ credits }: { credits: number }) => {
   const { data: session } = useSession();
@@ -34,7 +44,7 @@ const TypingBox = ({ credits }: { credits: number }) => {
   const [usedCredits, setUsedCredits] = useState(0);
 
   // voice recognition
-  const { transcript, listening, startListening, stopListening } =
+  const { isRecording, startRecording, stopRecording, transcript } =
     useSpeechRecognition();
 
   const translatedDescription = getTranslatedDescription(fromLanguage);
@@ -42,6 +52,12 @@ const TypingBox = ({ credits }: { credits: number }) => {
   useEffect(() => {
     setCredits(credits);
   }, [credits]);
+
+  useEffect(() => {
+    if (transcript) {
+      setQuestion(transcript);
+    }
+  }, [transcript]);
 
   useEffect(() => {
     setTeacherLoading(loading);
@@ -193,32 +209,55 @@ const TypingBox = ({ credits }: { credits: number }) => {
       <div>
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-bold text-white max-sm:text-lg">
-            How to say in {toLanguage} ?
+            How to say in {CapitalizeLetters(toLanguage)} ?
           </h2>
           <div className="flex items-center gap-2">
-            {listening ? (
-              <button
-                onClick={stopListening}
-                className="flex items-center gap-1 rounded-full 
+            <TooltipProvider delayDuration={100}>
+              {isRecording ? (
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button
+                      onClick={stopRecording}
+                      className="flex items-center gap-1 rounded-full 
+                    bg-slate-900/40 p-2 text-xs text-white max-sm:p-1"
+                      aria-label="Toggle microphone"
+                    >
+                      <Mic className="h-4 w-4" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Stop Recording</p>
+                  </TooltipContent>
+                </Tooltip>
+              ) : (
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button
+                      onClick={startRecording}
+                      className="flex items-center gap-1 rounded-full 
   bg-slate-900/40 p-2 text-xs text-white max-sm:p-1"
-                aria-label="Toggle microphone"
-              >
-                <StopCircle className="h-4 w-4" />
-              </button>
-            ) : (
-              <button
-                onClick={startListening}
-                className="flex items-center gap-1 rounded-full 
-  bg-slate-900/40 p-2 text-xs text-white max-sm:p-1"
-                aria-label="Toggle microphone"
-              >
-                <Mic className="h-4 w-4" />
-              </button>
-            )}
-            <Credits credits={userCredits} />
+                      aria-label="Toggle microphone"
+                    >
+                      <MicOff className="h-4 w-4" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Start Recording</p>
+                  </TooltipContent>
+                </Tooltip>
+              )}
+              <Tooltip>
+                <TooltipTrigger>
+                  <Credits credits={userCredits} />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>You have {userCredits} credits remaining</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
         </div>
-        <p className="font-semibold text-white/70 max-sm:text-xs">
+        <p className="font-semibold text-white/80 max-sm:text-xs">
           {translatedDescription}
         </p>
       </div>
@@ -244,9 +283,9 @@ const TypingBox = ({ credits }: { credits: number }) => {
             aria-label="Ask"
             name="ask"
             id="ask"
-            className="flex-grow rounded-full bg-stone-800/20 
-          p-2 px-4 text-white shadow-inner shadow-stone-900/60 placeholder:text-white/80 
-          focus:outline focus:outline-white/80 max-sm:w-full"
+            className="flex-grow rounded-lg bg-stone-800/20 
+          p-2 px-4 text-white shadow-inner shadow-stone-900/60 ring-white 
+          placeholder:text-white/80 focus-within:ring-2 focus:outline focus:outline-white max-sm:w-full"
             placeholder="Pernahkan kamu ke Indonesia ?"
             value={question}
             autoFocus
@@ -257,14 +296,13 @@ const TypingBox = ({ credits }: { credits: number }) => {
               }
             }}
           />
-          <p>{transcript}</p>
           <button
             aria-label="Ask"
             onClick={async () => {
               await ask();
             }}
             disabled={isPending}
-            className="rounded-full bg-slate-100/20 p-2 px-6 text-white max-sm:w-full"
+            className="rounded-lg bg-slate-100/20 p-2 px-6 text-white disabled:cursor-not-allowed max-sm:w-full"
           >
             Ask
           </button>
