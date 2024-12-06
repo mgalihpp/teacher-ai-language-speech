@@ -13,7 +13,7 @@ import {
   getTranslatedDescription,
 } from "@/lib/utils";
 import { MULTIPLIER_COST_CREDITS } from "@/constants";
-import { Mic, MicOff } from "lucide-react";
+import { Loader, Mic, MicOff } from "lucide-react";
 import { useSpeechRecognition } from "@/hooks/use-speech-recognition";
 import {
   Tooltip,
@@ -44,8 +44,13 @@ const TypingBox = ({ credits }: { credits: number }) => {
   const [usedCredits, setUsedCredits] = useState(0);
 
   // voice recognition
-  const { isRecording, startRecording, stopRecording, transcript } =
-    useSpeechRecognition();
+  const {
+    isRecording,
+    isTranscribing,
+    startRecording,
+    stopRecording,
+    transcript,
+  } = useSpeechRecognition();
 
   const translatedDescription = getTranslatedDescription(fromLanguage);
 
@@ -278,31 +283,46 @@ const TypingBox = ({ credits }: { credits: number }) => {
           <label htmlFor="ask" className="sr-only">
             Ask
           </label>
-          <input
-            type="text"
-            aria-label="Ask"
-            name="ask"
-            id="ask"
-            className="flex-grow rounded-lg bg-stone-800/20 
-          p-2 px-4 text-white shadow-inner shadow-stone-900/60 ring-white 
-          placeholder:text-white/80 focus-within:ring-2 focus:outline focus:outline-white max-sm:w-full"
-            placeholder="Pernahkan kamu ke Indonesia ?"
-            value={question}
-            autoFocus
-            onChange={(e) => setQuestion(e.target.value)}
-            onKeyDown={async (e) => {
-              if (e.key === "Enter") {
-                await ask();
-              }
-            }}
-          />
+          <div className="relative w-full">
+            <input
+              type="text"
+              aria-label="Ask"
+              name="ask"
+              id="ask"
+              className="w-full flex-grow rounded-lg 
+          bg-stone-800/20 p-2 px-4 text-white shadow-inner shadow-stone-900/60 
+          ring-white placeholder:text-white/80 focus-within:ring-2 focus:outline focus:outline-white disabled:cursor-not-allowed disabled:opacity-50 max-sm:w-full"
+              placeholder="Pernahkan kamu ke Indonesia ?"
+              value={question}
+              autoFocus
+              disabled={isTranscribing}
+              onChange={(e) => setQuestion(e.target.value)}
+              onKeyDown={async (e) => {
+                if (e.key === "Enter") {
+                  await ask();
+                }
+              }}
+            />
+
+            {isTranscribing && (
+              <>
+                <div className="absolute inset-0 cursor-not-allowed rounded-lg bg-black/40"></div>
+                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                  <div className="flex items-center gap-2">
+                    <Loader className="h-5 w-5 animate-spin" />
+                    <span className="text-xs">Transcribing</span>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
           <button
             aria-label="Ask"
             onClick={async () => {
               await ask();
             }}
-            disabled={isPending}
-            className="rounded-lg bg-slate-100/20 p-2 px-6 text-white disabled:cursor-not-allowed max-sm:w-full"
+            disabled={isPending || isTranscribing}
+            className="rounded-lg bg-slate-100/20 p-2 px-6 text-white disabled:cursor-not-allowed disabled:opacity-50 max-sm:w-full"
           >
             Ask
           </button>

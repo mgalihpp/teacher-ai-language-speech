@@ -8,6 +8,7 @@ const TRANSCRIPT_API_URL = `https://national-kellyann-malas-0a197ff8.koyeb.app/a
 
 export const useSpeechRecognition = () => {
   const [isRecording, setIsRecording] = useState(false);
+  const [isTranscribing, setIsTranscribing] = useState(false);
   const [transcript, setTranscript] = useState<string | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const fromLanguage = useAiTeacher().fromLanguage;
@@ -60,6 +61,8 @@ export const useSpeechRecognition = () => {
       return;
     }
 
+    setIsTranscribing(true);
+
     const language_code = getLanguageCode(fromLanguage);
 
     try {
@@ -79,6 +82,8 @@ export const useSpeechRecognition = () => {
     } catch (error) {
       console.error("Error uploading audio:", error);
       toast.error("Failed to upload audio.");
+    } finally {
+      setIsTranscribing(false);
     }
   };
 
@@ -99,6 +104,7 @@ export const useSpeechRecognition = () => {
 
   return {
     isRecording,
+    isTranscribing,
     transcript,
     startRecording,
     stopRecording,
