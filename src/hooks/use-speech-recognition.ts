@@ -85,7 +85,7 @@ export const useSpeechRecognition = () => {
   const getLanguageCode = (lang: LanguageOptions) => {
     switch (lang) {
       case "english":
-        return "en-us";
+        return "en_us";
       case "japanese":
         return "ja";
       case "indonesia":
@@ -93,7 +93,7 @@ export const useSpeechRecognition = () => {
       case "france":
         return "fr";
       default:
-        return "en-us";
+        return "en_us";
     }
   };
 
